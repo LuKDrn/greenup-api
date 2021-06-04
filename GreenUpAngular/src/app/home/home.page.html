@@ -1,0 +1,47 @@
+<ion-header [translucent]="true">
+  <app-toolbar></app-toolbar>  
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-button onclick="openMenu">
+        <ion-icon size="large" name="menu-outline"></ion-icon>
+      </ion-button>
+      <ion-title size="large">GreenUp</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <div class="spin" *ngIf="comp?.loading">
+    <ion-spinner [duration]="1" name="crescent"></ion-spinner>
+ </div>
+  <div id="container" class="firstContainer">
+    
+    <div id="main-content">
+      <app-menu></app-menu>
+    </div>
+    <app-card *ngFor="let mission of comp?.missions" [title]="mission.title" [subtitle]="mission.subtitle" [content]="mission.content!"></app-card>
+    <!-- <ion-card>
+      <ion-card-header>
+        <ion-card-title>Mission 2</ion-card-title>
+        <ion-card-subtitle>Collecte alimentaire</ion-card-subtitle>
+      </ion-card-header>
+    
+      <ion-card-content>
+        Keep close to Nature's heart... and break clear away, once in awhile,
+        and climb a mountain or spend a week in the woods. Wash your spirit clean.
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Mission 3</ion-card-title>
+        <ion-card-subtitle>Sensibilisation à l'environnement</ion-card-subtitle>
+      </ion-card-header>
+    
+      <ion-card-content>
+        Keep close to Nature's heart... and break clear away, once in awhile,
+        and climb a mountain or spend a week in the woods. Wash your spirit clean.
+      </ion-card-content>
+    </ion-card> -->
+  </div>
+</ion-content>
