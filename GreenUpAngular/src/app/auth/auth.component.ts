@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   templateUrl: './auth.component.html',
 })
 export class AuthComponent implements OnInit {
-  invalidLogin: boolean;
+  invalidLogin!: boolean;
 
   constructor(private router: Router, private http: HttpClient) { }
 
