@@ -12,15 +12,15 @@ using System.Text;
 
 namespace GreenUp.Web.Mvc.Controllers.Authentications
 {
+    [Route("api/auth")]
     [ApiController]
-    [Route("[controller]")]
     public class AuthController : GreenUpControllerBase
     {
         public AuthController(GreenUpContext context, IConfiguration config) : base(context, config)
         {}
 
-        [HttpPost]
-        public IActionResult Login([FromBody] User user)
+        [HttpPost, Route("login")]
+        public IActionResult Login([FromBody]User user)
         {
             if (user == null)
             {

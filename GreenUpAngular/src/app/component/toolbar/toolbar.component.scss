@@ -2,14 +2,14 @@
 //     outline: 1px red solid;
 // }
 
-ion-toolbar {
+app-toolbar {
     --background: rgb(54, 109, 28);
 
-    ion-title {
+    app-title {
         --color: white;
     }
 
-    ion-button {
+    login-btn {
         --background: black;
         color: white;
     }

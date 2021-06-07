@@ -44,6 +44,10 @@ export class HomePage extends MenuComponent implements OnInit {
     void this.router.navigate(['/auth']);
   }
 
+  public logOut(){
+    localStorage.removeItem("jwt");
+  }
+
   public openMenu(): void {
     this.openFirst();
   }
