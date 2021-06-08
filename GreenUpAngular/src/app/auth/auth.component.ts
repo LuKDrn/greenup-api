@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { SharedService } from '../shared.service';
 
 @Component({
   selector: 'app-auth',
@@ -10,7 +11,7 @@ import { Router } from '@angular/router';
 export class AuthComponent implements OnInit {
   invalidLogin!: boolean;
 
-  constructor(private router: Router, private http: HttpClient) { }
+  constructor(private router: Router, private http: HttpClient,private service:SharedService) { }
 
   ngOnInit() { }
 

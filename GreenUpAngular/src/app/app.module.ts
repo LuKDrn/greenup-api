@@ -25,10 +25,7 @@ export function tokenGetter() {
   entryComponents: [],
   imports: [
     BrowserModule, 
-    RouterModule.forRoot([
-      { path: '', component: AppComponent },
-      { path: 'auth', component: AuthComponent },
-    ]),
+    IonicModule.forRoot(),
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,

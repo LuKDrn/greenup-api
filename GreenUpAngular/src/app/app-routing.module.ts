@@ -12,7 +12,7 @@ const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full'
   },
-  { path : '',component: AuthComponent}
+  { path : 'auth',component: AuthComponent},
 ];
 
 @NgModule({
