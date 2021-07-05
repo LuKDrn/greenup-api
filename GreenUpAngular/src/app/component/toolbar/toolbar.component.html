@@ -1,7 +1,9 @@
 <mat-toolbar class="toolbar">
-  <span>{{ title }}</span>
+  <a href="/">
+    <span>{{ title }}</span>
+  </a>
   <span class="example-spacer"></span>
-  <button mat-fab class="btn" aria-label="Example icon-button with share icon" (click)="login()">
+  <button (click)="login()" mat-mini-fab class="btn" color="primary" aria-label="Example icon button with a account icon">
     <mat-icon>
       account_circle
     </mat-icon>

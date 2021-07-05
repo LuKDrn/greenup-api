@@ -4,9 +4,13 @@
 
 .toolbar {
     background-color: rgb(54, 109, 28);
+    padding-top: 2%;
+    display: block;
+    height: 80px;
 }
 
-.title {
+a {
+    text-decoration: none;
     color: white;
 }
 

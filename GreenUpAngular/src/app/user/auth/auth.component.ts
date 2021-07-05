@@ -1,8 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { SharedService } from '../shared.service';
+import { SharedService } from '../../shared.service';
 
 @Component({
   selector: 'app-auth',
@@ -10,17 +10,32 @@ import { SharedService } from '../shared.service';
   styleUrls: ['./auth.component.css']
 })
 export class AuthComponent implements OnInit {
-  invalidLogin!: boolean;
+  public invalidLogin!: boolean;
+  public form: FormGroup;
 
   constructor(
     private router: Router, 
     private http: HttpClient,
-    private service: SharedService
-  ) { }
+    private service: SharedService,
+    private fb: FormBuilder
+  ) { 
+    this.form = this.fb.group({
+      email: new FormControl('', [Validators.required, Validators.email, Validators.email]),
+      password: new FormControl('', [Validators.required, Validators.required])
+    });
+  }
 
-  ngOnInit() { }
+  ngOnInit(): void { }
 
-  login(form: NgForm) {
+  public getErrorMessage() {
+    if (this.form.hasError('required')) {
+      return 'You must enter a value';
+    }
+
+    return this.form.hasError('email') ? 'Les champs ne sont pas valides' : '';
+  }
+
+  public login(form: NgForm): void {
     const credentials = JSON.stringify(form.value);
 
     this.http.post("https://localhost:5001/auth/login", credentials, {
@@ -35,6 +50,10 @@ export class AuthComponent implements OnInit {
     }, err => {
       this.invalidLogin = true;
     });
+  }
+
+  public signUp(): void {
+    this.router.navigate(['/signUp']); 
   }
 
 }

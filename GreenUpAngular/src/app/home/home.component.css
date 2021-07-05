@@ -5,6 +5,11 @@
     height: 100vh;
 }
 
+.card {
+    width: 25%;
+    height: 300px;
+}
+
 /* ion-spinner {
     width: 100px !important;
     height: 100px !important;
