@@ -1,21 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { MenuController } from '@ionic/angular';
-import { MenuComponent } from '../menu/menu.component';
+
 @Component({
   selector: 'app-home',
-  templateUrl: 'home.page.html',
-  styleUrls: ['home.page.scss']
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.css']
 })
-export class HomePage extends MenuComponent implements OnInit {
+export class HomeComponent implements OnInit {
   public comp!: HomeComp;
 
   constructor(
-    public menu: MenuController,
     public router: Router
-  ) {
-    super(menu);
-  }
+  ) {}
 
   ngOnInit() {
     this.comp = {
@@ -38,18 +34,11 @@ export class HomePage extends MenuComponent implements OnInit {
         }
       ]
     };
-  }
-
-  public login(): void {
-    void this.router.navigate(['/auth']);
+    console.log(this.comp);
   }
 
   public logOut(){
     localStorage.removeItem("jwt");
-  }
-
-  public openMenu(): void {
-    this.openFirst();
   }
 }
 

@@ -2,15 +2,16 @@
 //     outline: 1px red solid;
 // }
 
-ion-toolbar {
-    --background: rgb(54, 109, 28);
+.toolbar {
+    background-color: rgb(54, 109, 28);
+}
 
-    ion-title {
-        --color: white;
-    }
+.title {
+    color: white;
+}
 
-    ion-button {
-        --background: black;
-        color: white;
-    }
+.btn {
+    background-color: black;
+    color: white;
+    float: right;
 }

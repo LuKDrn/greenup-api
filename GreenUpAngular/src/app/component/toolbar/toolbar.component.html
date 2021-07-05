@@ -1,6 +1,9 @@
-<ion-toolbar>
-  <ion-title>GreenUp</ion-title>
-  <!-- <div class="loginBtn"> -->
-    <ion-button [routerLink]="['/auth']" routerLinkActive="router-link-active"  slot="end">Login</ion-button>
-  <!-- </div> -->
-</ion-toolbar>
+<mat-toolbar class="toolbar">
+  <span>{{ title }}</span>
+  <span class="example-spacer"></span>
+  <button mat-fab class="btn" aria-label="Example icon-button with share icon" (click)="login()">
+    <mat-icon>
+      account_circle
+    </mat-icon>
+  </button>
+</mat-toolbar>

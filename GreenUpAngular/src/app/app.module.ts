@@ -1,17 +1,21 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import {HttpClientModule} from '@angular/common/http';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms'
-import { RouteReuseStrategy, RouterModule } from '@angular/router';
-
-import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
+import { FormsModule } from '@angular/forms'
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { MenuComponentModule } from './menu/menu.module';
-import {SharedService} from './shared.service';
+import { SharedService } from './shared.service';
 import { AuthComponent } from './auth/auth.component';
 import { JwtModule } from '@auth0/angular-jwt';
+import { ComponentModule } from './component/component.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatIconModule } from '@angular/material/icon';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatCardModule } from '@angular/material/card';
+import { HomeModule } from './home/home.module';
+import { HomeComponent } from './home/home.component';
+import { AuthModule } from './auth/auth.module';
 
 export function tokenGetter() {
   return localStorage.getItem("jwt");
@@ -20,12 +24,10 @@ export function tokenGetter() {
 @NgModule({
   declarations: [
     AppComponent, 
-    AuthComponent
   ],
   entryComponents: [],
   imports: [
     BrowserModule, 
-    IonicModule.forRoot(),
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,
@@ -34,11 +36,17 @@ export function tokenGetter() {
       }
     }),
     AppRoutingModule, 
-    MenuComponentModule, 
     HttpClientModule, 
-    FormsModule
+    FormsModule,
+    ComponentModule,
+    BrowserAnimationsModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatCardModule,
+    HomeModule,
+    AuthModule
   ],
-  providers: [SharedService, { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  providers: [SharedService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -1,0 +1,12 @@
+<h1>Test</h1>
+<div>
+  <!-- <div class="spin" *ngIf="comp?.loading">
+    <ion-spinner [duration]="1" name="crescent"></ion-spinner>
+ </div> -->
+  <div id="container" class="firstContainer">
+    
+    <div id="main-content">
+    </div>
+    <app-card *ngFor="let mission of comp?.missions" [title]="mission.title" [subtitle]="mission.subtitle" [content]="mission.content!"></app-card>
+  </div>
+</div>

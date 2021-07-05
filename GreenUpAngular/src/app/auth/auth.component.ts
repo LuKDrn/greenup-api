@@ -7,11 +7,16 @@ import { SharedService } from '../shared.service';
 @Component({
   selector: 'app-auth',
   templateUrl: './auth.component.html',
+  styleUrls: ['./auth.component.css']
 })
 export class AuthComponent implements OnInit {
   invalidLogin!: boolean;
 
-  constructor(private router: Router, private http: HttpClient,private service:SharedService) { }
+  constructor(
+    private router: Router, 
+    private http: HttpClient,
+    private service: SharedService
+  ) { }
 
   ngOnInit() { }
 

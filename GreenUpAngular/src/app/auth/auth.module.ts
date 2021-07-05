@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ComponentModule } from '../component/component.module';
-import { HomeComponent } from './home.component';
+import { AuthComponent } from './auth.component';
 
 
 @NgModule({
@@ -12,8 +12,8 @@ import { HomeComponent } from './home.component';
     ComponentModule,
   ],
   declarations: [
-    HomeComponent,
+    AuthComponent,
   ],
-  exports: [HomeComponent]
+  exports: [AuthComponent]
 })
-export class HomeModule {}
+export class AuthModule {}
