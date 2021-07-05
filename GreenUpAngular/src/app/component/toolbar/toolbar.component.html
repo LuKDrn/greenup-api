@@ -1,11 +1,24 @@
 <mat-toolbar class="toolbar">
-  <a href="/">
-    <span>{{ title }}</span>
+  <a class="navigate accueil" href="/">
+    <span>Accueil</span>
+  </a>
+  <a class="navigate mission" href="/">
+    <span>Missions</span>
+  </a>
+  <a class="navigate produit" href="/">
+    <span>Produits bio</span>
+  </a>
+  <a class="navigate challenge" href="/">
+    <span>Challenge</span>
+  </a>
+  <a class="navigate association" href="/">
+    <span>Associations</span>
+  </a>
+  <a class="navigate contact" href="/">
+    <span>Contact</span>
   </a>
   <span class="example-spacer"></span>
-  <button (click)="login()" mat-mini-fab class="btn" color="primary" aria-label="Example icon button with a account icon">
-    <mat-icon>
-      account_circle
-    </mat-icon>
+  <button (click)="login()" mat-button class="btn" color="primary" aria-label="bouton se connecter">
+    <span>Se connecter</span>
   </button>
 </mat-toolbar>

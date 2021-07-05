@@ -1,0 +1,150 @@
+.spin{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.card {
+    width: 25%;
+    height: 300px;
+}
+
+
+
+.headerBloc {
+    // position: absolute;
+    width: 1538px;
+    height: 886px;
+    left: 112px;
+    top: -198px;
+    background: url(../../assets/home.png);
+    background-repeat: no-repeat;
+    z-index: 0;
+    .phone {
+        position: absolute;
+        width: 297px;
+        height: 453px;
+        left: 45px;
+        top: 150px;
+        background: url(../../assets/phonepng.png);
+    }
+
+    .title1 {
+        position: absolute;
+        width: 190.35px;
+        height: 52.87px;
+        left: 366px;
+        top: 301px;
+
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 45.3213px;
+        line-height: 53px;
+
+        color: #4EAAA7;
+    }
+
+    .title2 {
+        position: absolute;
+        width: 437px;
+        height: 73px;
+        left: 366px;
+        top: 365px;
+
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 28px;
+        line-height: 33px;
+        text-transform: uppercase;
+
+        /* Neutre/Color 4 */
+
+        color: #969C9B;
+    }
+
+    .title3 {
+        position: absolute;
+        width: 296.85px;
+        height: 43.81px;
+        left: 366px;
+        top: 449px;
+
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 18.8839px;
+        line-height: 22px;
+
+        /* Neutre/Color 4 */
+
+        color: #969C9B;
+    }
+
+    .missionBtn {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        padding: 7.55355px 37.7677px;
+
+        position: absolute;
+        width: 305.16px;
+        height: 50.61px;
+        left: 355px;
+        top: 504px;
+
+        background: #4EAAA7;
+        border-radius: 23.416px;
+
+        span {
+            position: static;
+            width: 229.63px;
+            height: 35.5px;
+            left: 37.77px;
+            top: 7.55px;
+    
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 30.2142px;
+            line-height: 35px;
+            color: #FFFFFF;
+            flex: none;
+            order: 0;
+            flex-grow: 0;
+            margin: 0px 7.55355px;
+        }
+    }
+
+    .banner {
+        position: absolute;
+        width: 1440px;
+        height: 82px;
+        left: 0px;
+        top: 687px;
+        background: #4EAAA7;
+
+        span {
+            position: absolute;
+            width: 905px;
+            height: 29px;
+            left: 268px;
+            top: 714px;
+
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 25px;
+            line-height: 29px;
+            text-align: center;
+
+            /* Blanc */
+
+            color: #FFFFFF;
+        }
+    }
+}
+

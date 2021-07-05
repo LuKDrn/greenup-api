@@ -54,6 +54,7 @@ export function tokenGetter() {
     MatFormFieldModule,
     ReactiveFormsModule,
     MatInputModule,
+    MatButtonModule
   ],
   providers: [SharedService],
   bootstrap: [AppComponent],
