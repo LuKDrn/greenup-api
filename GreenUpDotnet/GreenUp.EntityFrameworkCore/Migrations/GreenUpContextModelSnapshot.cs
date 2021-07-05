@@ -19,40 +19,78 @@ namespace GreenUp.EntityFrameworkCore.Migrations
                 .HasAnnotation("ProductVersion", "5.0.6")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("AssociationLocation", b =>
+                {
+                    b.Property<int>("AdressesId")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("AssociationsId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("AdressesId", "AssociationsId");
+
+                    b.HasIndex("AssociationsId");
+
+                    b.ToTable("AssociationLocation");
+                });
+
+            modelBuilder.Entity("CompanyLocation", b =>
+                {
+                    b.Property<int>("AdressesId")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("CompaniesId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("AdressesId", "CompaniesId");
+
+                    b.HasIndex("CompaniesId");
+
+                    b.ToTable("CompanyLocation");
+                });
+
             modelBuilder.Entity("GreenUp.Core.Business.Associations.Models.Association", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("RoleId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Siren")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
 
                     b.ToTable("Associations");
                 });
 
             modelBuilder.Entity("GreenUp.Core.Business.Companies.Models.Company", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("RoleId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Siren")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
 
                     b.ToTable("Companies");
                 });
@@ -64,8 +102,8 @@ namespace GreenUp.EntityFrameworkCore.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CompanyId")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("CompanyId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -74,8 +112,8 @@ namespace GreenUp.EntityFrameworkCore.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<int?>("UserId")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("UserId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Value")
                         .HasColumnType("int");
@@ -100,38 +138,14 @@ namespace GreenUp.EntityFrameworkCore.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("AssociationId")
-                        .HasColumnType("int");
-
                     b.Property<string>("City")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("CompanyId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("MissionId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("UserId")
-                        .HasColumnType("int");
 
                     b.Property<int>("ZipCode")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AssociationId");
-
-                    b.HasIndex("CompanyId");
-
-                    b.HasIndex("MissionId")
-                        .IsUnique()
-                        .HasFilter("[MissionId] IS NOT NULL");
-
-                    b.HasIndex("UserId")
-                        .IsUnique()
-                        .HasFilter("[UserId] IS NOT NULL");
 
                     b.ToTable("Locations");
                 });
@@ -143,8 +157,8 @@ namespace GreenUp.EntityFrameworkCore.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("AssociationId")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("AssociationId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Availability")
                         .HasColumnType("int");
@@ -158,12 +172,17 @@ namespace GreenUp.EntityFrameworkCore.Migrations
                     b.Property<bool>("IsInGroup")
                         .HasColumnType("bit");
 
+                    b.Property<int?>("PlaceId")
+                        .HasColumnType("int");
+
                     b.Property<int>("RewardValue")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("AssociationId");
+
+                    b.HasIndex("PlaceId");
 
                     b.ToTable("Missions");
                 });
@@ -175,8 +194,8 @@ namespace GreenUp.EntityFrameworkCore.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("Value")
-                        .HasColumnType("int");
+                    b.Property<string>("Value")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -185,18 +204,15 @@ namespace GreenUp.EntityFrameworkCore.Migrations
 
             modelBuilder.Entity("GreenUp.Core.Business.Users.Models.User", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int?>("AdressId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("BirthDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("ConfirmPassword")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -215,6 +231,9 @@ namespace GreenUp.EntityFrameworkCore.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
+                    b.Property<string>("Photo")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("Points")
                         .HasColumnType("int");
 
@@ -222,6 +241,8 @@ namespace GreenUp.EntityFrameworkCore.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AdressId");
 
                     b.HasIndex("RoleId");
 
@@ -233,14 +254,62 @@ namespace GreenUp.EntityFrameworkCore.Migrations
                     b.Property<int>("MissionsId")
                         .HasColumnType("int");
 
-                    b.Property<int>("UsersId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("UsersId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("MissionsId", "UsersId");
 
                     b.HasIndex("UsersId");
 
                     b.ToTable("MissionUser");
+                });
+
+            modelBuilder.Entity("AssociationLocation", b =>
+                {
+                    b.HasOne("GreenUp.Core.Business.Locations.Models.Location", null)
+                        .WithMany()
+                        .HasForeignKey("AdressesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("GreenUp.Core.Business.Associations.Models.Association", null)
+                        .WithMany()
+                        .HasForeignKey("AssociationsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("CompanyLocation", b =>
+                {
+                    b.HasOne("GreenUp.Core.Business.Locations.Models.Location", null)
+                        .WithMany()
+                        .HasForeignKey("AdressesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("GreenUp.Core.Business.Companies.Models.Company", null)
+                        .WithMany()
+                        .HasForeignKey("CompaniesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("GreenUp.Core.Business.Associations.Models.Association", b =>
+                {
+                    b.HasOne("GreenUp.Core.Business.Users.Models.Role", "Role")
+                        .WithMany("Assocations")
+                        .HasForeignKey("RoleId");
+
+                    b.Navigation("Role");
+                });
+
+            modelBuilder.Entity("GreenUp.Core.Business.Companies.Models.Company", b =>
+                {
+                    b.HasOne("GreenUp.Core.Business.Users.Models.Role", "Role")
+                        .WithMany("Companies")
+                        .HasForeignKey("RoleId");
+
+                    b.Navigation("Role");
                 });
 
             modelBuilder.Entity("GreenUp.Core.Business.Companies.Models.Reward", b =>
@@ -258,47 +327,32 @@ namespace GreenUp.EntityFrameworkCore.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("GreenUp.Core.Business.Locations.Models.Location", b =>
-                {
-                    b.HasOne("GreenUp.Core.Business.Associations.Models.Association", "Association")
-                        .WithMany("Adresses")
-                        .HasForeignKey("AssociationId");
-
-                    b.HasOne("GreenUp.Core.Business.Companies.Models.Company", "Company")
-                        .WithMany("Adresses")
-                        .HasForeignKey("CompanyId");
-
-                    b.HasOne("GreenUp.Core.Business.Missions.Models.Mission", "Mission")
-                        .WithOne("Place")
-                        .HasForeignKey("GreenUp.Core.Business.Locations.Models.Location", "MissionId");
-
-                    b.HasOne("GreenUp.Core.Business.Users.Models.User", "User")
-                        .WithOne("Adress")
-                        .HasForeignKey("GreenUp.Core.Business.Locations.Models.Location", "UserId");
-
-                    b.Navigation("Association");
-
-                    b.Navigation("Company");
-
-                    b.Navigation("Mission");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("GreenUp.Core.Business.Missions.Models.Mission", b =>
                 {
                     b.HasOne("GreenUp.Core.Business.Associations.Models.Association", "Association")
                         .WithMany("Missions")
                         .HasForeignKey("AssociationId");
 
+                    b.HasOne("GreenUp.Core.Business.Locations.Models.Location", "Place")
+                        .WithMany("Missions")
+                        .HasForeignKey("PlaceId");
+
                     b.Navigation("Association");
+
+                    b.Navigation("Place");
                 });
 
             modelBuilder.Entity("GreenUp.Core.Business.Users.Models.User", b =>
                 {
+                    b.HasOne("GreenUp.Core.Business.Locations.Models.Location", "Adress")
+                        .WithMany("Users")
+                        .HasForeignKey("AdressId");
+
                     b.HasOne("GreenUp.Core.Business.Users.Models.Role", "Role")
-                        .WithMany()
+                        .WithMany("Users")
                         .HasForeignKey("RoleId");
+
+                    b.Navigation("Adress");
 
                     b.Navigation("Role");
                 });
@@ -320,26 +374,28 @@ namespace GreenUp.EntityFrameworkCore.Migrations
 
             modelBuilder.Entity("GreenUp.Core.Business.Associations.Models.Association", b =>
                 {
-                    b.Navigation("Adresses");
-
                     b.Navigation("Missions");
                 });
 
             modelBuilder.Entity("GreenUp.Core.Business.Companies.Models.Company", b =>
                 {
-                    b.Navigation("Adresses");
-
                     b.Navigation("Rewards");
                 });
 
-            modelBuilder.Entity("GreenUp.Core.Business.Missions.Models.Mission", b =>
+            modelBuilder.Entity("GreenUp.Core.Business.Locations.Models.Location", b =>
                 {
-                    b.Navigation("Place");
+                    b.Navigation("Missions");
+
+                    b.Navigation("Users");
                 });
 
-            modelBuilder.Entity("GreenUp.Core.Business.Users.Models.User", b =>
+            modelBuilder.Entity("GreenUp.Core.Business.Users.Models.Role", b =>
                 {
-                    b.Navigation("Adress");
+                    b.Navigation("Assocations");
+
+                    b.Navigation("Companies");
+
+                    b.Navigation("Users");
                 });
 #pragma warning restore 612, 618
         }

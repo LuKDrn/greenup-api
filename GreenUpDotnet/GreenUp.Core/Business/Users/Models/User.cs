@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace GreenUp.Core.Business.Users.Models
 {
-    public class User : Entity
+    public class User : Entity<Guid>
     {
         [Required]
         [EmailAddress]
@@ -21,16 +21,13 @@ namespace GreenUp.Core.Business.Users.Models
         public string Password { get; set; }
 
         [Required]
-        [StringLength(255, ErrorMessage = "Must be between 5 and 255 characters", MinimumLength = 5)]
-        [DataType(DataType.Password)]
-        [Compare("Password")]
-        public string ConfirmPassword { get; set; }
-        [Required]
         public string FirstName { get; set; }
         [Required]
         public string LastName { get; set; }
         [Required]
         public DateTime BirthDate { get; set; }
+        [Url]
+        public string Photo { get; set; }
         public int Points { get; set; }
         public Role Role { get; set; }
         public Location Adress { get; set; }
