@@ -19,6 +19,6 @@ namespace GreenUp.Web.Mvc.Models.Auth
         public int Points { get; set; }
         public string Role { get; set; }
         public Location Adress { get; set; }
-        public ICollection<Mission> Missions { get; set; } = new List<Mission>();
+        public ICollection<Mission> Missions = new List<Mission>();
     }
 }
