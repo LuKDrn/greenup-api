@@ -1,379 +1,763 @@
-.spin{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-}
-
 .card {
     width: 25%;
     height: 300px;
 }
+.container {
+    width: 100% !important;
 
-
-
-.headerBloc {
-    // position: absolute;
-    width: 100%;
-    height: 900px;
-    // left: 112px;
-    top: -198px;
-    background: url(../../assets/home.png);
-    background-repeat: no-repeat;
-    z-index: 0;
-    .phone {
-        position: absolute;
-        width: 297px;
-        height: 453px;
-        left: 45px;
-        top: 150px;
-        background: url(../../assets/phonepng.png);
-    }
-
-    .title1 {
-        position: absolute;
-        width: 190.35px;
-        height: 52.87px;
-        left: 366px;
-        top: 301px;
-
-        font-family: 'Roboto', sans-serif;;
-        font-style: normal;
-        font-weight: 500;
-        font-size: 45.3213px;
-        line-height: 53px;
-
-        color: #4EAAA7;
-    }
-
-    .title2 {
-        position: absolute;
-        width: 437px;
-        height: 73px;
-        left: 366px;
-        top: 365px;
-
-        font-family: 'Roboto', sans-serif;;
-        font-style: normal;
-        font-weight: normal;
-        font-size: 28px;
-        line-height: 33px;
-        text-transform: uppercase;
-
-        /* Neutre/Color 4 */
-
-        color: #969C9B;
-    }
-
-    .title3 {
-        position: absolute;
-        width: 296.85px;
-        height: 43.81px;
-        left: 366px;
-        top: 449px;
-
-        font-family: 'Roboto', sans-serif;;
-        font-style: normal;
-        font-weight: normal;
-        font-size: 18.8839px;
-        line-height: 22px;
-
-        /* Neutre/Color 4 */
-
-        color: #969C9B;
-    }
-
-    .missionBtn {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        padding: 7.55355px 37.7677px;
-
-        position: absolute;
-        width: 305.16px;
-        height: 50.61px;
-        left: 355px;
-        top: 504px;
-
-        background: #4EAAA7;
-        border-radius: 23.416px;
-
-        .missionBtnText {
-            position: static;
-            width: 229.63px;
-            height: 35.5px;
-            left: 37.77px;
-            top: 7.55px;
+    .headerBloc {
+        // position: absolute;
+        width: 100%;
+        height: 900px;
+        // left: 112px;
+        top: -198px;
+        background: url(../../assets/home.png);
+        background-repeat: no-repeat;
+        z-index: 0;
+    
+        .banner {
+            position: absolute;
+            width: 100%;
+            height: 80px;
+            left: 0px;
+            top: 95%;
+            background-color: #4EAAA7;
+        
+            .textBanner {
+                position: absolute;
+                width: 100%;
+                height: 29px;
+                left: 268px;
+                top: 30%;
+                font-family: 'Roboto', sans-serif;;
+                font-style: normal;
+                font-weight: 500;
+                font-size: 25px;
+                line-height: 29px;
+                text-align: center;
+                color: #FFFFFF;
+            }
+        }
+    
+        .phone {
+            position: absolute;
+            width: 297px;
+            height: 453px;
+            left: 45px;
+            top: 150px;
+            background: url(../../assets/phonepng.png);
+        }
+    
+        .title1 {
+            position: absolute;
+            width: 190.35px;
+            height: 52.87px;
+            left: 366px;
+            top: 301px;
+    
+            font-family: 'Roboto', sans-serif;;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 45.3213px;
+            line-height: 53px;
+    
+            color: #4EAAA7;
+        }
+    
+        .title2 {
+            position: absolute;
+            width: 437px;
+            height: 73px;
+            left: 366px;
+            top: 365px;
     
             font-family: 'Roboto', sans-serif;;
             font-style: normal;
             font-weight: normal;
-            font-size: 30.2142px;
-            line-height: 35px;
-            color: #FFFFFF;
-            flex: none;
-            order: 0;
-            flex-grow: 0;
-            margin: 0px 7.55355px;
+            font-size: 28px;
+            line-height: 33px;
+            text-transform: uppercase;
+    
+            /* Neutre/Color 4 */
+    
+            color: #969C9B;
+        }
+    
+        .title3 {
+            position: absolute;
+            width: 296.85px;
+            height: 43.81px;
+            left: 366px;
+            top: 449px;
+    
+            font-family: 'Roboto', sans-serif;;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 18.8839px;
+            line-height: 22px;
+    
+            /* Neutre/Color 4 */
+    
+            color: #969C9B;
+        }
+    
+        .missionBtn {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            padding: 7.55355px 37.7677px;
+    
+            position: absolute;
+            width: 305.16px;
+            height: 50.61px;
+            left: 355px;
+            top: 504px;
+    
+            background: #4EAAA7;
+            border-radius: 23.416px;
+    
+            .missionBtnText {
+                position: static;
+                width: 229.63px;
+                height: 35.5px;
+                left: 37.77px;
+                top: 7.55px;
+        
+                font-family: 'Roboto', sans-serif;;
+                font-style: normal;
+                font-weight: normal;
+                font-size: 30.2142px;
+                line-height: 35px;
+                color: #FFFFFF;
+                flex: none;
+                order: 0;
+                flex-grow: 0;
+                margin: 0px 7.55355px;
+            }
         }
     }
-
-    .banner {
-        position: absolute;
+    
+    .middleBloc {
+        // position: absolute;
         width: 100%;
-        height: 80px;
-        left: 0px;
-        top: 687px;
-        background-color: #4EAAA7;
+        height: 900px;
+        // left: 112px;
+        z-index: 0;
 
-        .textBanner {
+        .banner2 {
             position: absolute;
             width: 100%;
+            height: 80px;
+            left: 0px;
+            bottom: 0;
+            background-color: #4EAAA7;
+        
+            .textBanner2 {
+                position: absolute;
+                width: 100%;
+                height: 29px;
+                left: 268px;
+                top: 30%;
+                font-family: 'Roboto', sans-serif;;
+                font-style: normal;
+                font-weight: 500;
+                font-size: 25px;
+                line-height: 29px;
+                text-align: center;
+                color: #FFFFFF;
+            }
+        }
+        
+        .bgFeuille {
+            position: absolute;
+            width: 283px;
+            height: 483px;
+            left: 216.68px;
+            top: 1329px;
+            background-image: url(./../../assets/bgFeuille.png);
+            background: #4EAAA7;
+            border: 4px solid #4EAAA7;
+            transform: rotate(83.28deg);
+        }
+        
+        .imgMap {
+            position: absolute;
+            width: 357.25px;
+            height: 357.25px;
+            left: 319.87px;
+            top: 822.66px;
+            background: url(./../../assets/mapImg.png);
+        }
+    
+        .rewardsBox {
+            position: absolute;
+            width: 374px;
+            height: 349px;
+            left: 318.26px;
+            top: 1159.77px;
+            background-color: rgba(229, 229, 229, 0.25);
+            border-radius: 4.04206px;
+    
+            .rewardsText {
+                position: absolute;
+                width: 219.89px;
+                height: 28.29px;
+                // left: 385.36px;
+                left: 20%;
+                // top: 1233.7px;
+                top: 25%;
+    
+                font-family: 'Roboto';
+                font-style: normal;
+                font-weight: 500;
+                font-size: 24px;
+                line-height: 28px;
+                text-align: center;
+                text-transform: uppercase;
+                color: #636968;
+            }
+    
+            .iconCheck {
+                position: absolute;
+                left: 45%;
+                right: 8.33%;
+                top: 40%;
+                bottom: 8.33%;
+                color: #4EAAA7;
+            }
+    
+            .rewardsText2 {
+                position: absolute;
+                width: 194.48px;
+                height: 46.31px;
+                // left: 407.99px;
+                left: 25%;
+                // top: 1345.81px;
+                top: 55%;
+                font-family: 'Roboto';
+                font-style: normal;
+                font-weight: normal;
+                font-size: 19.8452px;
+                line-height: 23px;
+                text-align: center;
+                color: #636968;
+            }
+    
+            .rewardsBtn {
+                position: absolute;
+                width: 265.26px;
+                height: 40.35px;
+                // left: 372.42px;
+                // top: 1413.83px;
+    
+                background: #4EAAA7;
+                border-radius: 3.30753px;
+                left: 15%;
+                top: 80%;
+    
+                .iconFeuille {
+                    position: absolute;
+                    // left: 16.68%;
+                    left: 6%;
+                    right: 16.67%;
+                    // top: 16.67%;
+                    top: 32%;
+                    bottom: 16.67%;
+                    color: #FFFFFF;
+                }
+    
+                .rewardsBtnText {
+                    position: absolute;
+                    width: 191.18px;
+                    height: 19.18px;
+                    // left: 424.68px;
+                    // top: 1424.42px;
+                    left: 15%;
+                    top: 30%;
+                    
+                    font-family: 'Roboto';
+                    font-style: normal;
+                    font-weight: 500;
+                    font-size: 16.5376px;
+                    line-height: 19px;
+                    text-align: center;
+                    text-transform: uppercase;
+                    color: #FFFFFF;
+                }
+            }
+        }
+    
+        .imgCible {
+            position: absolute;
+            width: 378.34px;
+            height: 332.26px;
+            left: 743.8px;
+            top: 817px;
+    
+            background: url(./../../assets/imgCible.png);
+        }
+    
+        .missionBox {
+            position: absolute;
+            width: 374px;
+            height: 349px;
+            left: 747.52px;
+            top: 1159.77px;
+    
+            background: rgba(229, 229, 229, 0.25);
+            border-radius: 4.04206px;
+    
+            .missionText {
+                position: absolute;
+                width: 175.3px;
+                height: 31.09px;
+                // left: 846.96px;
+                left: 27%;
+                // top: 1228.96px;
+                top: 25%;
+    
+                font-family: 'Roboto';
+                font-style: normal;
+                font-weight: 500;
+                font-size: 24px;
+                line-height: 28px;
+                text-transform: uppercase;
+                color: #636968;
+            }
+    
+            .iconLocation {
+                position: absolute;
+                left: 45%;
+                right: 8.33%;
+                top: 40%;
+                bottom: 8.33%;
+                color: #4EAAA7;
+            }
+    
+            .missionText2 {
+                position: absolute;
+                width: 284.45px;
+                height: 46.31px;
+                // left: 792.8px;
+                // top: 1345.55px;
+                left: 10%;
+                top: 55%;
+                
+                font-family: 'Roboto';
+                font-style: normal;
+                font-weight: normal;
+                font-size: 19.8452px;
+                line-height: 23px;
+                text-align: center;
+                color: #636968;
+            }
+    
+            .missionBtn2 {
+                position: absolute;
+                width: 265.26px;
+                height: 40.35px;
+                // left: 801.69px;
+                left: 15%;
+                // top: 1415.81px;
+                top: 80%;
+    
+                background: #4EAAA7;
+                border-radius: 3.30753px;
+    
+                .iconValise {
+                    position: absolute;
+                    // left: 8.33%;
+                    left: 12%;
+                    right: 8.33%;
+                    // top: 8.33%;
+                    top: 32%;
+                    bottom: 12.5%;
+                    color: #FFFFFF;
+                }
+    
+                .missionBtn2Text {
+                    position: absolute;
+                    width: 150.82px;
+                    height: 19.18px;
+                    // left: 873.79px;
+                    left: 25%;
+                    // top: 1426.4px;
+                    top: 30%;
+    
+                    font-family: 'Roboto';
+                    font-style: normal;
+                    font-weight: 500;
+                    font-size: 16.5376px;
+                    line-height: 19px;
+                    text-transform: uppercase;
+                    color: #FFFFFF;
+                }
+            }
+        }
+    
+        .gpsIcon {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            left: 199px;
+            top: 1595px;
+            color: #4EAAA7;
+        }
+    
+        .textMiddleBloc {
+            position: absolute;
+            width: 963px;
             height: 29px;
-            left: 268px;
-            top: 30%;
-            font-family: 'Roboto', sans-serif;;
+            left: 279px;
+            top: 1606px;
+    
+            font-family: Roboto;
             font-style: normal;
             font-weight: 500;
             font-size: 25px;
             line-height: 29px;
             text-align: center;
-            color: #FFFFFF;
-        }
-    }
-}
-
-.middleBloc {
-    .bgFeuille {
-        position: absolute;
-        width: 283px;
-        height: 483px;
-        left: 216.68px;
-        top: 1329px;
-        background-image: url(./../../assets/bgFeuille.png);
-        background: #4EAAA7;
-        border: 4px solid #4EAAA7;
-        transform: rotate(83.28deg);
-    }
     
-    .imgMap {
-        position: absolute;
-        width: 357.25px;
-        height: 357.25px;
-        left: 319.87px;
-        top: 822.66px;
-        background: url(./../../assets/mapImg.png);
-    }
-
-    .rewardsBox {
-        position: absolute;
-        width: 374px;
-        height: 349px;
-        left: 318.26px;
-        top: 1159.77px;
-        background-color: rgba(229, 229, 229, 0.25);
-        border-radius: 4.04206px;
-
-        .rewardsText {
+            color: #4EAAA7;
+        }
+    
+        .textMiddleBloc2 {
             position: absolute;
-            width: 219.89px;
-            height: 28.29px;
-            // left: 385.36px;
-            left: 20%;
-            // top: 1233.7px;
-            top: 25%;
-
+            width: 479px;
+            height: 35px;
+            left: 481px;
+            top: 1723px;
+    
             font-family: 'Roboto';
             font-style: normal;
             font-weight: 500;
-            font-size: 24px;
-            line-height: 28px;
+            font-size: 30px;
+            line-height: 35px;
             text-align: center;
             text-transform: uppercase;
             color: #636968;
         }
-
-        .iconCheck {
+    
+        .ellipse {
             position: absolute;
-            left: 45%;
-            right: 8.33%;
-            top: 40%;
-            bottom: 8.33%;
-            color: #4EAAA7;
-        }
-
-        .rewardsText2 {
-            position: absolute;
-            width: 194.48px;
-            height: 46.31px;
-            // left: 407.99px;
-            left: 25%;
-            // top: 1345.81px;
-            top: 55%;
-            font-family: 'Roboto';
-            font-style: normal;
-            font-weight: normal;
-            font-size: 19.8452px;
-            line-height: 23px;
-            text-align: center;
-            color: #636968;
-        }
-
-        .rewardsBtn {
-            position: absolute;
-            width: 265.26px;
-            height: 40.35px;
-            // left: 372.42px;
-            // top: 1413.83px;
-
-            background: #4EAAA7;
-            border-radius: 3.30753px;
-            left: 15%;
-            top: 80%;
-
-            .iconFeuille {
-                position: absolute;
-                // left: 16.68%;
-                left: 6%;
-                right: 16.67%;
-                // top: 16.67%;
-                top: 32%;
-                bottom: 16.67%;
-                color: #FFFFFF;
+            width: 54.98px;
+            height: 54.98px;
+            top: 1827px;
+            background-image: url(./../../assets/ellipse.png);
+    
+            &.el1 {
+                left: 366.01px;
+                span {
+                    position: absolute;
+                    width: 19.93px;
+                    height: 40.55px;
+                    // left: 1046.57px;
+                    left: 33%;
+                    // top: 1835.25px;
+                    top: 15%;
+                    font-family: 'Roboto';
+                    font-style: normal;
+                    font-weight: normal;
+                    font-size: 34.3607px;
+                    line-height: 40px;
+                    text-align: center;
+                    color: #FFFFFF;
+                }
             }
-
-            .rewardsBtnText {
-                position: absolute;
-                width: 191.18px;
-                height: 19.18px;
-                // left: 424.68px;
-                // top: 1424.42px;
-                left: 15%;
-                top: 30%;
-                
-                font-family: 'Roboto';
-                font-style: normal;
-                font-weight: 500;
-                font-size: 16.5376px;
-                line-height: 19px;
-                text-align: center;
-                text-transform: uppercase;
-                color: #FFFFFF;
+            &.el2 {
+                left: 708.7px;
+                span {
+                    position: absolute;
+                    width: 19.93px;
+                    height: 40.55px;
+                    // left: 1046.57px;
+                    left: 33%;
+                    // top: 1835.25px;
+                    top: 15%;
+                    font-family: 'Roboto';
+                    font-style: normal;
+                    font-weight: normal;
+                    font-size: 34.3607px;
+                    line-height: 40px;
+                    text-align: center;
+                    color: #FFFFFF;
+                }
+            }
+            &.el3 {
+                left: 1028.7px;
+                span {
+                    position: absolute;
+                    width: 19.93px;
+                    height: 40.55px;
+                    // left: 1046.57px;
+                    left: 33%;
+                    // top: 1835.25px;
+                    top: 15%;
+                    font-family: 'Roboto';
+                    font-style: normal;
+                    font-weight: normal;
+                    font-size: 34.3607px;
+                    line-height: 40px;
+                    text-align: center;
+                    color: #FFFFFF;
+                }
+    
             }
         }
-    }
-
-    .imgCible {
-        position: absolute;
-        width: 378.34px;
-        height: 332.26px;
-        left: 743.8px;
-        top: 817px;
-
-        background: url(./../../assets/imgCible.png);
-    }
-
-    .missionBox {
-        position: absolute;
-        width: 374px;
-        height: 349px;
-        left: 747.52px;
-        top: 1159.77px;
-
-        background: rgba(229, 229, 229, 0.25);
-        border-radius: 4.04206px;
-
-        .missionText {
+        .ellipseText1 {
             position: absolute;
-            width: 175.3px;
-            height: 31.09px;
-            // left: 846.96px;
-            left: 27%;
-            // top: 1228.96px;
-            top: 25%;
-
-            font-family: 'Roboto';
-            font-style: normal;
-            font-weight: 500;
-            font-size: 24px;
-            line-height: 28px;
-            text-transform: uppercase;
-            color: #636968;
-        }
-
-        .iconLocation {
-            position: absolute;
-            left: 45%;
-            right: 8.33%;
-            top: 40%;
-            bottom: 8.33%;
-            color: #4EAAA7;
-        }
-
-        .missionText2 {
-            position: absolute;
-            width: 284.45px;
-            height: 46.31px;
-            // left: 792.8px;
-            // top: 1345.55px;
-            left: 10%;
-            top: 55%;
+            width: 301px;
+            height: 48.11px;
+            left: 243px;
+            top: 1906.03px;
             
             font-family: 'Roboto';
             font-style: normal;
             font-weight: normal;
-            font-size: 19.8452px;
-            line-height: 23px;
+            font-size: 20.6164px;
+            line-height: 24px;
             text-align: center;
+            
+            /* Neutre/Color 6 */
+            
             color: #636968;
         }
-
-        .missionBtn2 {
+    
+        .ellipseText2 {
             position: absolute;
-            width: 265.26px;
-            height: 40.35px;
-            // left: 801.69px;
-            left: 15%;
-            // top: 1415.81px;
-            top: 80%;
+            width: 280.38px;
+            height: 48.11px;
+            left: 596px;
+            top: 1907.03px;
+            
+            font-family: 'Roboto';
+            font-style: normal;
+            font-weight: normal;
+            font-size: 20.6164px;
+            line-height: 24px;
+            text-align: center;
+            
+            /* Neutre/Color 6 */
+            
+            color: #636968;
+            
+        }
+    
+        .ellipseText3 {
+            position: absolute;
+            width: 280.38px;
+            height: 48.11px;
+            left: 916px;
+            top: 1906.03px;
+            
+            font-family: 'Roboto';
+            font-style: normal;
+            font-weight: normal;
+            font-size: 20.6164px;
+            line-height: 24px;
+            text-align: center;
+            
+            /* Neutre/Color 6 */
+            
+            color: #636968;
+        }
+    }
+    
+    hr {
+        align: center;
+        position: absolute;
+        width: 47px;
+        height: 3px;
+        left: 163.5px;
+        top: 10%;
+        background-color: #4EAAA7;
+        border: none;
+    
+    }
+    
+    .footerBloc {
+        hr {
+            position: absolute;
+            width: 58.1px;
+            height: 3px;
+            left: 120px;
+            top: 2210px;
 
-            background: #4EAAA7;
-            border-radius: 3.30753px;
+            background-color: #4EAAA7;
+            border: none;        
+        }
 
-            .iconValise {
+        h1 {
+            position: absolute;
+            width: 372px;
+            height: 35px;
+            left: 120px;
+            top: 2231px;
+            
+            font-family: 'Roboto';
+            font-style: normal;
+            font-weight: 500;
+            font-size: 30px;
+            line-height: 35px;
+            text-transform: uppercase;
+            
+            color: #323232;            
+        }
+        .bloc1 {
+            .card1 {
                 position: absolute;
-                // left: 8.33%;
-                left: 12%;
-                right: 8.33%;
-                // top: 8.33%;
-                top: 32%;
-                bottom: 12.5%;
-                color: #FFFFFF;
+                top: 2349px;
+                width: 412px;
+                height: 347px;
+                left: 114px;
+                background: #FFFFFF;
+                border-radius: 9px;
             }
 
-            .missionBtn2Text {
+            .card2 {
                 position: absolute;
-                width: 150.82px;
-                height: 19.18px;
-                // left: 873.79px;
-                left: 25%;
-                // top: 1426.4px;
-                top: 30%;
+                width: 412px;
+                height: 347px;
+                left: 640px;
+                top: 2349px;
+                
+                background: #FFFFFF;
+                border-radius: 9px;
+            }
+
+            .card3 {
+                position: absolute;
+                width: 412px;
+                height: 347px;
+                left: 1166px;
+                top: 2349px;
+                
+                background: #FFFFFF;
+                border-radius: 9px;
+            }
+        }
+        .bloc2 {
+            .imgDoss {
+                position: absolute;
+                width: 590px;
+                height: 590px;
+                left: 62px;
+                top: 2788px;
+    
+                background: url(./../../assets/imgDoss.png);
+            }
+    
+            hr {
+                position: absolute;
+                width: 58.1px;
+                height: 3px;
+                left: 720px;
+                top: 2886px;
+                background-color: #4EAAA7;
+                border: none;       
+            }
+
+            h2 {
+                position: absolute;
+                width: 510px;
+                height: 35px;
+                left: 720px;
+                top: 2907px;
 
                 font-family: 'Roboto';
                 font-style: normal;
                 font-weight: 500;
-                font-size: 16.5376px;
-                line-height: 19px;
+                font-size: 30px;
+                line-height: 35px;
                 text-transform: uppercase;
-                color: #FFFFFF;
+
+                color: #323232;
+            }
+
+            .blocText {
+                .txt {
+                    position: absolute;
+                    width: 603px;
+                    height: 254px;
+                    left: 720px;
+                    top: 2983px;
+                    
+                    font-family: 'Roboto';
+                    font-style: normal;
+                    font-weight: normal;
+                    font-size: 20px;
+                    line-height: 23px;
+                    text-align: justify;
+                    
+                    /* Neutre/Color 7 */
+                    
+                    color: #323434;
+                }
+
+                .rejoindreBtn {
+                    position: absolute;
+                    width: 328.13px;
+                    height: 49.91px;
+                    left: 720px;
+                    top: 3187px;
+
+                    background: #4EAAA7;
+                    border-radius: 4.09139px;
+
+                    .iconMail {
+                        position: absolute;
+                        // left: 8.33%;
+                        left: 12%;
+                        right: 8.33%;
+                        // top: 8.33%;
+                        top: 32%;
+                        bottom: 12.5%;
+                        color: #FFFFFF;
+
+
+                        // position: absolute;
+                        // left: 8.33%;
+                        // right: 8.33%;
+                        // top: 16.67%;
+                        // bottom: 16.67%;
+
+                        // /* Blanc */
+
+                        // background: #FFFFFF;
+                    }
+
+                    .rejoindreBtnText {
+                        position: absolute;
+                        width: 168px;
+                        height: 24px;
+                        left: 25%;
+                        // top: 1426.4px;
+                        top: 30%;
+                        
+                        font-family: Roboto;
+                        font-style: normal;
+                        font-weight: 500;
+                        font-size: 20.457px;
+                        line-height: 24px;
+                        /* identical to box height */
+                        
+                        text-transform: uppercase;
+                        
+                        /* Blanc */
+                        
+                        color: #FFFFFF;
+                    }
+                }
+            }
+            .partenaire {
+                height: 200px;
+                width: 100px;
+                left: 30%;
             }
         }
+        
     }
 }
 
-.footerBloc {
-
-}
 

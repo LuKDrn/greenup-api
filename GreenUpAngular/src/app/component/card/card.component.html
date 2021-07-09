@@ -1,37 +1,20 @@
-<!-- <mat-card class="example-card">
-  <mat-card-header>
-    <div mat-card-avatar class="example-header-image"></div>
-    <mat-card-title>{{ title }}</mat-card-title>
-    <mat-card-subtitle>{{ subtitle }}</mat-card-subtitle>
-  </mat-card-header>
-  <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
-  <mat-card-content>
-    <p>
-      {{ content }}
-    </p>
-  </mat-card-content>
-  <mat-card-actions>
-    <button mat-button>LIKE</button>
-    <button mat-button>SHARE</button>
-  </mat-card-actions>
-</mat-card> -->
-
 <mat-card class="card">
-    <mat-card-header>
-      <div class="img"></div>
-      <div class="title">{{ missionCard?.title }}</div>
-      <div class="location">{{ missionCard?.location }}</div>
-      <div class="point">{{ missionCard?.point }}</div>
-    </mat-card-header>
-    <mat-card-content>
-      <div class="titleDesc">{{ missionCard?.titleDesc }}</div>
-      <div class="desc">{{ missionCard?.desc }}</div>
-      <div class="date"> {{ missionCard?.date }}</div>
+    <div class="header">
+      <img class="img" *ngIf="image" [src]="image" alt="image card" />
+      <span class="title">{{ title }}</span>
+      <span class="location">{{ location }}</span>
+      <span class="point">{{ point }}</span>
+    </div>
+    <div class="content">
+      <img class="iconValise" src="./../../../assets/icon/valiseIcon.png" alt="valise icon" />
+      <span class="titleDesc">{{ titleDesc }}</span>
+      <span class="desc">{{ desc }}</span>
+      <span class="date"> {{ date }}</span>
       <div>
-        <button class="look" type="button" (click)="lookMission($event) ; $event.preventDefault()">
-          <mat-icon></mat-icon>
-          <span>Voir</span>
+        <button mat-button class="look" type="button">
+          <img class="iconLook" src="./../../assets/icon/lookIcon.png" alt="valise icon" />
+          <span class="lookText">Voir</span>
         </button>
       </div>
-    </mat-card-content>
+    </div>
 </mat-card>

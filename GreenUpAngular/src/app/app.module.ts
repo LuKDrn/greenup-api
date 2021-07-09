@@ -18,6 +18,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 import { SignUpComponent } from './user/sign-up/sign-up.component';
+import { MatCarouselModule } from 'ng-mat-carousel';
+
 
 
 
@@ -54,7 +56,8 @@ export function tokenGetter() {
     MatFormFieldModule,
     ReactiveFormsModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    MatCarouselModule.forRoot(),
   ],
   providers: [SharedService],
   bootstrap: [AppComponent],

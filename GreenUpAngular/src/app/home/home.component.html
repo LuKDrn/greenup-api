@@ -1,20 +1,24 @@
-<div class="headerBloc">
-  <div class="phone"></div>
-  <div>
-    <span class="title1">Green UP</span>
-    <span class="title2">La bonne action qui vous récompense</span>
-    <span class="title3">La Start Up qui revalorise vos actions, tout en soignant la planète,</span>
-    <button mat-button class="missionBtn">
-      <span class="missionBtnText">Voir les missions</span>
-    </button>
+<div class="container">
+  <div class="headerBloc">
+    <div class="phone"></div>
+    <div>
+      <span class="title1">Green UP</span>
+      <span class="title2">La bonne action qui vous récompense</span>
+      <span class="title3">La Start Up qui revalorise vos actions, tout en soignant la planète,</span>
+      <button mat-button class="missionBtn">
+        <span class="missionBtnText">Voir les missions</span>
+      </button>
+    </div>
+    <div class="banner">
+      <span class="textBanner">Protégeons notre maison, engageons-nous dans les petites actions quotidiennes</span>
+    </div>
   </div>
-  <div class="banner">
-    <span class="textBanner">Protégeons notre maison, engageons-nous dans les petites actions quotidiennes</span>
-  </div>
+  
   <div class="middleBloc">
     <div>
       <div class="imgMap"></div>
       <div class="rewardsBox">
+        <hr>
         <span class="rewardsText">Les récompenses</span>
         <img class="iconCheck" src="./../../assets/icon/checkIcon.png" alt="check icon" />
         <span class="rewardsText2">Finissez la mission et soyez récompenser</span>
@@ -25,6 +29,7 @@
       </div>
       <div class="imgCible"></div>
       <div class="missionBox">
+        <hr>
         <span class="missionText">Les missions</span>
         <img class="iconLocation" src="./../../assets/icon/locationIcon.png" alt="location icon" />
         <span class="missionText2">Choississez une mission proche de chez vous</span>
@@ -34,9 +39,118 @@
         </button>
       </div>
     </div>
+    <div class="step">
+      <img class="gpsIcon" src="./../../assets/icon/gpsIcon.png" alt="gps icon" />
+      <span class="textMiddleBloc">Notre objectif est d’engager un maximum de personne dans une démarche écologique</span>
+      <span class="textMiddleBloc2">les choix de vos récompenses</span>
+      <div>
+        <div class="ellipse el1">
+          <span class="numberText">1</span>
+        </div>
+        <span class="ellipseText1">Obtenez votre récompense sous forme de points</span>
+      </div>
+      <div>
+        <div class="ellipse el2">
+          <span class="numberText">2</span>
+        </div>
+        <div>
+          <span class="ellipseText2">Choississez de planter un arbre pour votre planète</span>
+        </div>
+      </div>
+      <div>
+        <div class="ellipse el3">
+          <span class="numberText">3</span>
+        </div>
+        <div>
+          <span class="ellipseText3">Reverser vos points à des associations</span>
+        </div>
+      </div>
+    </div>
+    <div class="banner2">
+      <span class="textBanner2">Protégeons notre maison, engageons-nous dans les petites actions quotidiennes</span>
+    </div>
+    <div style="bottom:0 ;background-color: aqua; height:100px;"></div>
   </div>
-  <div class="footerBloc">
 
+  <div class="footerBloc">
+    <hr>
+    <h1>Les nouvelles missions</h1>
+    <div class="bloc1">
+      <div class="card1">
+        <app-card 
+          [image]="comp.missions[0].image"
+          [title]="comp.missions[0].title"
+          [location]="comp.missions[0].location"
+          [point]="comp.missions[0].point"
+          [titleDesc]="comp.missions[0].titleDesc" 
+          [desc]="comp.missions[0].desc"
+          [date]="comp.missions[0].date">
+        </app-card>
+      </div>
+      <div class="card2">
+        <app-card 
+          [image]="comp.missions[1].image"
+          [title]="comp.missions[1].title"
+          [location]="comp.missions[1].location"
+          [point]="comp.missions[1].point"
+          [titleDesc]="comp.missions[1].titleDesc" 
+          [desc]="comp.missions[1].desc"
+          [date]="comp.missions[1].date">
+        </app-card>
+      </div>
+      <div class="card3">
+        <app-card 
+          [image]="comp.missions[2].image"
+          [title]="comp.missions[2].title"
+          [location]="comp.missions[2].location"
+          [point]="comp.missions[2].point"
+          [titleDesc]="comp.missions[2].titleDesc" 
+          [desc]="comp.missions[2].desc"
+          [date]="comp.missions[2].date">
+        </app-card>      
+      </div>
+    </div>
+    <div class="bloc2">
+      <div class="imgDoss"></div>
+      <hr>
+      <h2>les associations et entreprises</h2>
+      <div class="blocText">
+        <span class="txt">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sem dolor, dapibus et tortor quis, sollicitudin fermentum enim. Praesent molestie posuere dui, gravida lobortis sem molestie vitae. Curabitur elementum vitae elit quis blandit. Proin vel facilisis felis. Pellentesque metus ipsum, dignissim a porttitor et, elementum ac ipsum. Integer lacinia sed nunc eget lacinia.</span>
+        <button mat-button class="rejoindreBtn">
+          <img class="iconMail" src="./../../assets/icon/mailIcon.png" alt="mail icon" />
+          <span class="rejoindreBtnText">Voir les missions</span>
+        </button>
+      </div>
+      <div class="partenaire">
+        <mat-carousel
+            timings="100ms ease-in"
+            [autoplay]="true"
+            [interval]="1000"
+            color="accent"
+            maxWidth="auto"
+            [slides]="3"
+            [loop]="true"
+            [hideArrows]="false"
+            [hideIndicators]="false"
+            [useKeyboard]="true"
+            [useMouseWheel]="false"
+            orientation="ltr">
+          <mat-carousel-slide
+            #matCarouselSlide
+            *ngFor="let slide of slides; let i = index"
+            [image]="slide.image"
+            overlayColor="#00000040"
+            [hideOverlay]="false">
+            <span>Test</span>
+          </mat-carousel-slide>
+          <mat-carousel-slide>
+            <span>Test2</span>
+          </mat-carousel-slide>
+          <mat-carousel-slide>
+            <span>Test3</span>
+          </mat-carousel-slide>
+        </mat-carousel>
+      </div>
+    </div>
   </div>
 </div>
-

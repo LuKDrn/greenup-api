@@ -10,18 +10,16 @@
     background: #FCFCFC;
     border-radius: 5px;
 
-    mat-card-header {
+    .header {
         .img {
             position: absolute;
-            width: 123px;
             left: 7.28%;
             right: 62.86%;
             top: 16.72%;
             bottom: 56.48%;
 
-            // background: url(.jpg), #C4C4C4;
+            background: #C4C4C4;
             border-radius: 5.33799px;
-            height: 93px;
         }
 
         .title {
@@ -30,14 +28,137 @@
             right: 21.09%;
             top: 17.58%;
             bottom: 74.34%;
-            font-family: Roboto;
+
+            font-family: 'Roboto';
             font-style: normal;
             font-weight: 500;
             font-size: 24.0209px;
             line-height: 28px;
             text-align: justify;
+
             color: #4EAAA7;
         }
 
+        .location {
+            position: absolute;
+            left: 44.9%;
+            right: 18.2%;
+            top: 25.65%;
+            bottom: 67.15%;
+            
+            font-family: 'Roboto';
+            font-style: normal;
+            font-weight: normal;
+            font-size: 20px;
+            line-height: 23px;
+            text-align: justify;
+            color: #4A4F4E;
+        }
+
+        .point {
+            position: absolute;
+            left: 44.9%;
+            right: 34.95%;
+            top: 32.85%;
+            bottom: 60.52%;
+
+            font-family: 'Roboto';
+            font-style: normal;
+            font-weight: normal;
+            font-size: 20px;
+            line-height: 23px;
+            text-align: justify;
+
+            color: #C4C4C4;
+        }
+
+    }
+
+    .content {
+        .iconValise {
+            position: absolute;
+            left: 7.28%;
+            right: 85.44%;
+            top: 48.41%;
+            bottom: 42.94%;
+        }
+        .titleDesc {
+            position: absolute;
+            left: 16.99%;
+            right: 8.01%;
+            top: 49.57%;
+            bottom: 44.09%;
+
+            font-family: 'Roboto';
+            font-style: normal;
+            font-weight: normal;
+            font-size: 21.352px;
+            line-height: 25px;
+            text-align: justify;
+            color: #323434;
+        }
+        .desc {
+            position: absolute;
+            left: 7.28%;
+            right: 7.52%;
+            top: 59.94%;
+            bottom: 25.65%;
+            
+            font-family: 'Roboto';
+            font-style: normal;
+            font-weight: 300;
+            font-size: 21.352px;
+            line-height: 25px;
+            color: #323434;
+        }
+        .date {
+            position: absolute;
+            left: 7.28%;
+            right: 65.05%;
+            top: 80.4%;
+            bottom: 12.39%;
+            
+            font-family: 'Roboto';
+            font-style: normal;
+            font-weight: normal;
+            font-size: 21.352px;
+            line-height: 25px;
+            color: #323434;
+        }
+
+        .look {
+            position: absolute;
+            height: 40px;
+            width: 107px;
+            left: 66.02%;
+            right: 8.01%;
+            top: 80.4%;
+            bottom: 8.07%;
+
+            background: #73BFBC;
+            border-radius: 3.30753px;
+            .iconLook {
+                position: absolute;
+                left: 10%;
+                right: 26.47%;
+                top: 30%;
+            }
+
+            .lookText {
+                position: absolute;
+                left: 50%;
+                right: 14.62%;
+                top: 30%;
+
+                font-family: 'Roboto';
+                font-style: normal;
+                font-weight: 500;
+                font-size: 16.5376px;
+                line-height: 19px;
+                text-transform: uppercase;
+
+                color: #FFFFFF;
+            }
+        }
     }
 }
