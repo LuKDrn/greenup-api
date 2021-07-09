@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace GreenUp.Web.Mvc.Models.Auth
+namespace GreenUp.Web.Mvc.Models.Users
 {
-    public class LoginViewModel
+    public class LoginUserViewModel
     {
         [Required]
         [EmailAddress]

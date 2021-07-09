@@ -1,5 +1,6 @@
 ﻿using GreenUp.Core.Business.Associations.Models;
 using GreenUp.Core.Business.Companies.Models;
+using GreenUp.Core.Business.Images.Models;
 using GreenUp.Core.Business.Locations.Models;
 using GreenUp.Core.Business.Missions.Models;
 using GreenUp.Core.Business.Users.Models;
@@ -19,6 +20,7 @@ namespace GreenUp.EntityFrameworkCore.Data
         public DbSet<Mission> Missions { get; set; }
         public DbSet<Reward> Rewards { get; set; }
         public DbSet<Role> Roles { get; set; }
+        public DbSet<Image> Images { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
         }

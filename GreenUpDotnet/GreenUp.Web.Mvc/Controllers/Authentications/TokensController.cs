@@ -11,12 +11,12 @@ using System.Threading.Tasks;
 
 namespace GreenUp.Web.Mvc.Controllers.Authentications
 {
-        [Route("api/[controller]")]
-        [ApiController]
-    public class TokenController : GreenUpControllerBase
+    [Route("api/[controller]")]
+    [ApiController]
+    public class TokensController : GreenUpControllerBase
     {
         private readonly ITokenService _tokenService;
-        public TokenController(GreenUpContext context, IConfiguration config, ITokenService tokenService) : base(context, config)
+        public TokensController(GreenUpContext context, IConfiguration config, ITokenService tokenService) : base(context, config)
         {
             _tokenService = tokenService;
         }
@@ -45,6 +45,7 @@ namespace GreenUp.Web.Mvc.Controllers.Authentications
                 refreshToken = newRefreshToken
             });
         }
+
         [HttpPost, Authorize]
         [Route("revoke")]
         public async Task<IActionResult> Revoke()
