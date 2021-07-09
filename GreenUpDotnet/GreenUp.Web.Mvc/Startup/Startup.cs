@@ -1,5 +1,6 @@
 using GreenUp.EntityFrameworkCore.Data;
 using GreenUp.EntityFrameworkCore.Data.Seed;
+using GreenUp.Web.Mvc.Classes;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -44,6 +45,7 @@ namespace GreenUp.Web.Mvc
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey@345"))
                 };
             });
+            services.AddTransient<ITokenService, TokenServices>();
 
             services.AddCors(options =>
             {
@@ -59,7 +61,7 @@ namespace GreenUp.Web.Mvc
 
             //Ajout du contexte default de BDD au Projet
             services.AddDbContext<GreenUpContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("Default")));
+                options.UseSqlServer(Configuration.GetConnectionString("Localhost")));
 
             services.AddControllers().AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             services.AddSwaggerGen(c =>
