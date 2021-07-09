@@ -6,6 +6,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { FooterComponent } from './footer/footer.component';
+import { MatButtonModule } from '@angular/material/button';
+
 
 
 @NgModule({
@@ -13,7 +15,8 @@ import { FooterComponent } from './footer/footer.component';
       CommonModule,
       MatToolbarModule,
       MatIconModule,
-      MatCardModule
+      MatCardModule,
+      MatButtonModule
     ],
     declarations: [
         ToolbarComponent,
