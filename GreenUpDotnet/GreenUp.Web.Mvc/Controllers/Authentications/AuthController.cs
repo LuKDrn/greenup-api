@@ -1,7 +1,9 @@
 ﻿using GreenUp.Core.Business.Users.Models;
 using GreenUp.EntityFrameworkCore.Data;
 using GreenUp.Web.Core.Controllers;
+using GreenUp.Web.Mvc.Classes;
 using GreenUp.Web.Mvc.Models.Auth;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -19,27 +21,33 @@ namespace GreenUp.Web.Mvc.Controllers.Authentications
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AuthController : GreenUpControllerBase
+    public class AuthController : GreenUpControllerBase 
     {
-        public AuthController(GreenUpContext context, IConfiguration config) : base(context, config)
-        {}
+        private readonly ITokenService _tokenService;
+        public AuthController(GreenUpContext context, IConfiguration config, ITokenService tokenService) : base(context, config)
+        {
+            _tokenService = tokenService;
+        }
 
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<ActionResult<UserViewModel>> Account(Guid id)
         {
-            User user = await GetUser(id, true).FirstOrDefaultAsync();
+            User user = await GetUser(id, false)
+                .FirstOrDefaultAsync();
             if (user != null)
             {
                 UserViewModel model = new UserViewModel()
                 {
                     Id = id,
+                    Password = user.Password,
                     Mail = user.Mail,
                     FirstName = user.FirstName,
                     LastName = user.LastName,
                     BirthDate = user.BirthDate,
                     Photo = user.Photo,
                     Points = user.Points,
-                    Role = user.Role,
+                    Role = user.Role.Value,
                     Adress = user.Adress,
                     Missions = user.Missions
                 };
@@ -47,7 +55,7 @@ namespace GreenUp.Web.Mvc.Controllers.Authentications
             }
             else
             {
-                return Ok("Aucun utilisateur trouvé");
+                return Ok(new { Error = "Aucun utilisateur trouvé" });
             }
         }
 
@@ -64,15 +72,23 @@ namespace GreenUp.Web.Mvc.Controllers.Authentications
                     {
                         var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey@345"));
                         var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
-                        var tokeOptions = new JwtSecurityToken(
-                            issuer: "https://localhost:5001",
-                            audience: "https://localhost:5001",
-                            claims: new List<Claim>(),
-                            expires: DateTime.Now.AddMinutes(5),
-                            signingCredentials: signinCredentials
-                        );
-                        var tokenString = new JwtSecurityTokenHandler().WriteToken(tokeOptions);
-                        return Ok(new { Token = tokenString });
+
+                        var claims = new List<Claim>
+                        {
+                            new Claim(ClaimTypes.Name, user.Mail),
+                            new Claim(ClaimTypes.Role, "User")
+                        };
+                        var accessToken = _tokenService.GenerateAccessToken(claims);
+                        var refreshToken = _tokenService.GenerateRefreshToken();
+                        user.RefreshToken = refreshToken;
+                        user.RefreshTokenExpiryTime = DateTime.Now.AddDays(7);
+
+                        await _context.SaveChangesAsync();
+                        return Ok(new
+                        {
+                            Token = accessToken,
+                            RefreshToken = refreshToken
+                        });
                     }
                     else
                     {
@@ -91,7 +107,7 @@ namespace GreenUp.Web.Mvc.Controllers.Authentications
         }
 
         [HttpPost, Route("Register")]
-        public async Task<string> Register([FromBody]RegisterViewModel model)
+        public async Task<ActionResult<User>> Register([FromBody]RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -106,9 +122,9 @@ namespace GreenUp.Web.Mvc.Controllers.Authentications
                 };
                 _context.Users.Add(user);
                 await _context.SaveChangesAsync();
-                return JsonConvert.SerializeObject(user);
+                return user;
             }
-            throw new Exception("Model not valid");
+          return Ok(new { Error = "Model not valid" });
         }
 
         [HttpPut, Route("EditProfile")]
@@ -158,6 +174,7 @@ namespace GreenUp.Web.Mvc.Controllers.Authentications
                 }
                 _context.Users.Remove(user);
                 await _context.SaveChangesAsync();
+                return Ok(new { Success = $"Votre compte à été supprimé" });
             }
             return Ok(new { Error = "Aucun utilisateur trouvé" });
         } 

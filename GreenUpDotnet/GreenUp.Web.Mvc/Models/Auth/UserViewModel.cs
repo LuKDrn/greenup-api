@@ -11,12 +11,13 @@ namespace GreenUp.Web.Mvc.Models.Auth
     {
         public Guid Id { get; set; }
         public string Mail { get; set; }
+        public string Password { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public DateTime BirthDate { get; set; }
         public string Photo { get; set; }
         public int Points { get; set; }
-        public Role Role { get; set; }
+        public string Role { get; set; }
         public Location Adress { get; set; }
         public ICollection<Mission> Missions { get; set; } = new List<Mission>();
     }

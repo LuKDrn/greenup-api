@@ -1,6 +1,7 @@
 ﻿using Abp.AspNetCore.Mvc.Controllers;
 using GreenUp.Core.Business.Users.Models;
 using GreenUp.EntityFrameworkCore.Data;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -18,6 +19,7 @@ namespace GreenUp.Web.Core.Controllers
             _config = config;
         }
 
+        [HttpGet]
         public IQueryable<User> GetUser(Guid id, bool allInclude)
         {
             if (allInclude)
