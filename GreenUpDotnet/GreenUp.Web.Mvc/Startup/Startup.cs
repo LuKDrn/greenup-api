@@ -66,7 +66,8 @@ namespace GreenUp.Web.Mvc
 
             //Ajout du contexte default de BDD au Projet
             services.AddDbContext<GreenUpContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("Default")));
+                // options.UseSqlServer(Configuration.GetConnectionString("Default")));
+                options.UseSqlServer(Configuration.GetConnectionString("Default1")));
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

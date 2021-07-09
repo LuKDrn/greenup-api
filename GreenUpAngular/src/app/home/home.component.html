@@ -1,12 +1,41 @@
-<h1>Test</h1>
-<div>
-  <!-- <div class="spin" *ngIf="comp?.loading">
-    <ion-spinner [duration]="1" name="crescent"></ion-spinner>
- </div> -->
-  <div id="container" class="firstContainer">
-    
-    <div id="main-content">
+<div class="headerBloc">
+  <div class="phone"></div>
+  <div>
+    <span class="title1">Green UP</span>
+    <span class="title2">La bonne action qui vous récompense</span>
+    <span class="title3">La Start Up qui revalorise vos actions, tout en soignant la planète,</span>
+    <button mat-button class="missionBtn">
+      <span class="missionBtnText">Voir les missions</span>
+    </button>
+  </div>
+  <div class="banner">
+    <span class="textBanner">Protégeons notre maison, engageons-nous dans les petites actions quotidiennes</span>
+  </div>
+  <div class="middleBloc">
+    <div>
+      <div class="imgMap"></div>
+      <div class="rewardsBox">
+        <span class="rewardsText">Les récompenses</span>
+        <img class="iconCheck" src="./../../assets/icon/checkIcon.png" alt="check icon" />
+        <span class="rewardsText2">Finissez la mission et soyez récompenser</span>
+        <button mat-button class="rewardsBtn">
+          <img class="iconFeuille" src="./../../assets/icon/feuilleIcon.png" alt="feuille icon" />
+          <span class="rewardsBtnText">Voir les récompenses</span>
+        </button>
+      </div>
+      <div class="imgCible"></div>
+      <div class="missionBox">
+        <span class="missionText">Les missions</span>
+        <img class="iconLocation" src="./../../assets/icon/locationIcon.png" alt="location icon" />
+        <span class="missionText2">Choississez une mission proche de chez vous</span>
+        <button mat-button class="missionBtn2">
+          <img class="iconValise" src="./../../assets/icon/valiseIcon.png" alt="valise icon" />
+          <span class="missionBtn2Text">Voir les missions</span>
+        </button>
+      </div>
     </div>
-    <app-card *ngFor="let mission of comp?.missions" [title]="mission.title" [subtitle]="mission.subtitle" [content]="mission.content!"></app-card>
+  </div>
+  <div class="footerBloc">
+
   </div>
 </div>

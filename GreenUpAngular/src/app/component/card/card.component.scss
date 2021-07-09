@@ -1,3 +1,43 @@
-ion-card {
-    --background:rgb(255, 255, 255);
+.card {
+    position: absolute;
+    height: 347px;
+    width: 412px;   
+    left: 0%;
+    right: 0%;
+    top: 0%;
+    bottom: 0%;
+
+    background: #FCFCFC;
+    border-radius: 5px;
+
+    mat-card-header {
+        .img {
+            position: absolute;
+            width: 123px;
+            left: 7.28%;
+            right: 62.86%;
+            top: 16.72%;
+            bottom: 56.48%;
+
+            // background: url(.jpg), #C4C4C4;
+            border-radius: 5.33799px;
+            height: 93px;
+        }
+
+        .title {
+            position: absolute;
+            left: 44.9%;
+            right: 21.09%;
+            top: 17.58%;
+            bottom: 74.34%;
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 24.0209px;
+            line-height: 28px;
+            text-align: justify;
+            color: #4EAAA7;
+        }
+
+    }
 }
