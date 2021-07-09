@@ -4,9 +4,9 @@ using Microsoft.Extensions.Configuration;
 
 namespace GreenUp.Web.Mvc.Controllers.Companies
 {
-    public class CompanyController : GreenUpControllerBase
+    public class CompaniesController : GreenUpControllerBase
     {
-        public CompanyController(GreenUpContext _context, IConfiguration _config) : base(_context, _config)
+        public CompaniesController(GreenUpContext _context, IConfiguration _config) : base(_context, _config)
         {
 
         }

@@ -2,42 +2,36 @@
 using GreenUp.EntityFrameworkCore.Data;
 using GreenUp.Web.Core.Controllers;
 using GreenUp.Web.Mvc.Classes;
-using GreenUp.Web.Mvc.Models.Auth;
+using GreenUp.Web.Mvc.Models.Users;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GreenUp.Web.Mvc.Controllers.Authentications
+namespace GreenUp.Web.Mvc.Controllers.Users
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class AuthController : GreenUpControllerBase 
+    public class UsersController : GreenUpControllerBase
     {
         private readonly ITokenService _tokenService;
-        public AuthController(GreenUpContext context, IConfiguration config, ITokenService tokenService) : base(context, config)
+        public UsersController(GreenUpContext context, IConfiguration config, ITokenService tokenService) : base(context, config)
         {
             _tokenService = tokenService;
         }
-
         [HttpGet("{id}")]
         [Authorize]
-        public async Task<ActionResult<UserViewModel>> Account(Guid id)
+        public async Task<ActionResult<OneUserViewModel>> Profile(Guid id)
         {
-            User user = await GetUser(id, false)
-                .FirstOrDefaultAsync();
+            User user = await GetUser(id, false).Include(x => x.Photo).FirstOrDefaultAsync();
             if (user != null)
             {
-                UserViewModel model = new UserViewModel()
+                OneUserViewModel model = new OneUserViewModel()
                 {
                     Id = id,
                     Password = user.Password,
@@ -60,7 +54,7 @@ namespace GreenUp.Web.Mvc.Controllers.Authentications
         }
 
         [HttpPost, Route("Login")]
-        public async Task<IActionResult> Login([FromBody]LoginViewModel model)
+        public async Task<IActionResult> Login([FromBody] LoginUserViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -106,11 +100,12 @@ namespace GreenUp.Web.Mvc.Controllers.Authentications
             }
         }
 
-        [HttpPost, Route("Register")]
-        public async Task<ActionResult<User>> Register([FromBody]RegisterViewModel model)
+        [HttpPost, Route("SignUp")]
+        public async Task<ActionResult<User>> SignUp([FromBody] SignUpUserViewModel model)
         {
             if (ModelState.IsValid)
             {
+                var role = await _context.Roles.Include(r => r.Users).Where(r => r.Value == "User").FirstOrDefaultAsync();
                 User user = new User()
                 {
                     Mail = model.Mail,
@@ -118,24 +113,24 @@ namespace GreenUp.Web.Mvc.Controllers.Authentications
                     FirstName = model.FirstName,
                     LastName = model.LastName,
                     BirthDate = model.BirthDate,
-                    Role = await _context.Roles.Where(r => r.Value == "User").FirstOrDefaultAsync()
+                    Role = role
                 };
-                _context.Users.Add(user);
+                role.Users.Add(user);
                 await _context.SaveChangesAsync();
                 return user;
             }
-          return Ok(new { Error = "Model not valid" });
+            return Ok(new { Error = "Model not valid" });
         }
 
         [HttpPut, Route("EditProfile")]
-        public async Task<ActionResult<User>> EditProfile(UserViewModel model)
+        public async Task<ActionResult<User>> EditProfile(OneUserViewModel model)
         {
             var user = await GetUser(model.Id, false).FirstOrDefaultAsync();
             if (user != null)
             {
                 user.FirstName = model.FirstName;
                 user.LastName = model.LastName;
-                user.Photo = model.Photo;
+                user.Photo = await UploadImage(model.NewPhoto);
                 user.BirthDate = model.BirthDate;
 
                 return user;
@@ -147,10 +142,10 @@ namespace GreenUp.Web.Mvc.Controllers.Authentications
         }
 
         [HttpPut, Route("EditMail")]
-        public async Task<string> EditMail(UserViewModel model)
+        public async Task<string> EditMail(OneUserViewModel model)
         {
             var user = await GetUser(model.Id, false).FirstOrDefaultAsync();
-            if(user != null)
+            if (user != null)
             {
                 user.Mail = model.Mail;
 
@@ -166,7 +161,7 @@ namespace GreenUp.Web.Mvc.Controllers.Authentications
         public async Task<IActionResult> Delete(Guid id)
         {
             var user = await GetUser(id, true).FirstOrDefaultAsync();
-            if(user!= null)
+            if (user != null)
             {
                 foreach (var mission in user.Missions)
                 {
@@ -177,6 +172,6 @@ namespace GreenUp.Web.Mvc.Controllers.Authentications
                 return Ok(new { Success = $"Votre compte à été supprimé" });
             }
             return Ok(new { Error = "Aucun utilisateur trouvé" });
-        } 
+        }
     }
 }

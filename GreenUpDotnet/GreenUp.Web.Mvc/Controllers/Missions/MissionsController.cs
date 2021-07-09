@@ -1,4 +1,5 @@
-﻿using GreenUp.Core.Business.Locations.Models;
+﻿using GreenUp.Core.Business.Associations.Models;
+using GreenUp.Core.Business.Locations.Models;
 using GreenUp.Core.Business.Missions.Models;
 using GreenUp.EntityFrameworkCore.Data;
 using GreenUp.Web.Core.Controllers;
@@ -13,9 +14,9 @@ namespace GreenUp.Web.Mvc.Controllers.Missions
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class MissionController : GreenUpControllerBase
+    public class MissionsController : GreenUpControllerBase
     {
-        public MissionController(GreenUpContext _context, IConfiguration _config) : base(_context, _config)
+        public MissionsController(GreenUpContext _context, IConfiguration _config) : base(_context, _config)
         {
 
         }
@@ -32,18 +33,7 @@ namespace GreenUp.Web.Mvc.Controllers.Missions
         {
             if (ModelState.IsValid)
             {
-                Location place = new Location();
-                if (model.Place != null)
-                {
-                    place.Adress = model.Place.Adress;
-                    place.City = model.Place.City;
-                    place.ZipCode = model.Place.ZipCode;
-                    await _context.Locations.AddAsync(place);
-                }
-                else
-                {
-                    place = await _context.Locations.Include(x => x.Missions).FirstOrDefaultAsync();
-                }
+                Association association = await _context.Associations.Include(a => a.Missions).FirstOrDefaultAsync(a => a.Id == model.AssociationId);
                 Mission mission = new Mission()
                 {
                     Titre = model.Titre,
@@ -51,11 +41,16 @@ namespace GreenUp.Web.Mvc.Controllers.Missions
                     Date = model.Date,
                     RewardValue = model.RewardValue,
                     Available = true,
-                    Availability = model.Availability,
+                    Places = model.Places,
                     IsInGroup = model.IsInGroup,
-                    Place = place,
+                    Location = new Location()
+                    {
+                        Adress = model.Adress,
+                        City = model.City,
+                        ZipCode = (int)model.ZipCode,
+                    },
                 };
-                place.Missions.Add(mission);
+                association.Missions.Add(mission);
                 await _context.SaveChangesAsync();
                 return mission;
             }
