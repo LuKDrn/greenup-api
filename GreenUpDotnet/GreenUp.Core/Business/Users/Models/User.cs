@@ -32,5 +32,7 @@ namespace GreenUp.Core.Business.Users.Models
         public Role Role { get; set; }
         public Location Adress { get; set; }
         public ICollection<Mission> Missions { get; set; }
+        public string RefreshToken { get; set; }
+        public DateTime RefreshTokenExpiryTime { get; set; }
     }
 }
