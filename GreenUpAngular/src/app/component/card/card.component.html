@@ -1,20 +1,20 @@
-<mat-card class="card">
+<div class="card">
     <div class="header">
-      <img class="img" *ngIf="image" [src]="image" alt="image card" />
-      <span class="title">{{ title }}</span>
-      <span class="location">{{ location }}</span>
-      <span class="point">{{ point }}</span>
+      <img class="img" *ngIf="mission?.image" src="{{mission?.image}}" alt="image card" />
+      <span class="title">{{ mission?.title }}</span>
+      <span class="location">{{ mission?.location }}</span>
+      <span class="point">{{ mission?.point }}</span>
     </div>
     <div class="content">
-      <img class="iconValise" src="./../../../assets/icon/valiseIcon.png" alt="valise icon" />
-      <span class="titleDesc">{{ titleDesc }}</span>
-      <span class="desc">{{ desc }}</span>
-      <span class="date"> {{ date }}</span>
+      <img class="iconValise" src="./../../../assets/icon/valiseIconBlack.png" alt="valise icon" />
+      <span class="titleDesc">{{ mission?.titleDesc }}</span>
+      <span class="desc">{{ mission?.desc }}</span>
+      <span class="date"> {{ mission?.date }}</span>
       <div>
         <button mat-button class="look" type="button">
-          <img class="iconLook" src="./../../assets/icon/lookIcon.png" alt="valise icon" />
+          <img class="iconLook" src="./../../../assets/icon/lookIcon.png" alt="valise icon" />
           <span class="lookText">Voir</span>
         </button>
       </div>
     </div>
-</mat-card>
+  </div>

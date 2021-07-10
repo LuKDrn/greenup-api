@@ -412,7 +412,7 @@
             left: 279px;
             top: 1606px;
     
-            font-family: Roboto;
+            font-family: 'Roboto';
             font-style: normal;
             font-weight: 500;
             font-size: 25px;
@@ -605,13 +605,17 @@
             color: #323232;            
         }
         .bloc1 {
+            position: absolute;
+            top: 2349px;
+            background: #FFFFFF;
+
             .card1 {
                 position: absolute;
-                top: 2349px;
+                // top: 2349px;
                 width: 412px;
                 height: 347px;
                 left: 114px;
-                background: #FFFFFF;
+                // margin-left: 114px;
                 border-radius: 9px;
             }
 
@@ -620,7 +624,6 @@
                 width: 412px;
                 height: 347px;
                 left: 640px;
-                top: 2349px;
                 
                 background: #FFFFFF;
                 border-radius: 9px;
@@ -631,9 +634,6 @@
                 width: 412px;
                 height: 347px;
                 left: 1166px;
-                top: 2349px;
-                
-                background: #FFFFFF;
                 border-radius: 9px;
             }
         }
@@ -751,9 +751,17 @@
                 }
             }
             .partenaire {
+                position: absolute;
                 height: 200px;
-                width: 100px;
-                left: 30%;
+                // width: 1800px;
+                left: 15%;
+                right: 15%;
+                top: 3449px;
+
+                .carousel {
+                    background: #FFFFFF;
+
+                }
             }
         }
         

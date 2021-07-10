@@ -19,7 +19,8 @@ a {
     position: absolute;
     width: 125px;
     height: 31px;
-    left: 1278px;
+    // left: 1278px;
+    right: 5%;
     top: 20px;
 
     background: #FFD56D;
@@ -94,7 +95,7 @@ a {
 
     &.contact {
         width: 63px;
-        left: 1183px;
+        right: 13%;
     }
 
 }

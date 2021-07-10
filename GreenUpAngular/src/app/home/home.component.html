@@ -15,7 +15,7 @@
   </div>
   
   <div class="middleBloc">
-    <div>
+    <div class="bloc1">
       <div class="imgMap"></div>
       <div class="rewardsBox">
         <hr>
@@ -27,6 +27,8 @@
           <span class="rewardsBtnText">Voir les récompenses</span>
         </button>
       </div>
+    </div>
+    <div class="bloc2">
       <div class="imgCible"></div>
       <div class="missionBox">
         <hr>
@@ -75,38 +77,16 @@
   <div class="footerBloc">
     <hr>
     <h1>Les nouvelles missions</h1>
-    <div class="bloc1">
+    <div class="bloc1" *ngIf="missions">
       <div class="card1">
-        <app-card 
-          [image]="comp.missions[0].image"
-          [title]="comp.missions[0].title"
-          [location]="comp.missions[0].location"
-          [point]="comp.missions[0].point"
-          [titleDesc]="comp.missions[0].titleDesc" 
-          [desc]="comp.missions[0].desc"
-          [date]="comp.missions[0].date">
-        </app-card>
+        <app-card [mission]="missions[0]"></app-card>
       </div>
       <div class="card2">
-        <app-card 
-          [image]="comp.missions[1].image"
-          [title]="comp.missions[1].title"
-          [location]="comp.missions[1].location"
-          [point]="comp.missions[1].point"
-          [titleDesc]="comp.missions[1].titleDesc" 
-          [desc]="comp.missions[1].desc"
-          [date]="comp.missions[1].date">
+        <app-card [mission]="missions[1]">
         </app-card>
       </div>
       <div class="card3">
-        <app-card 
-          [image]="comp.missions[2].image"
-          [title]="comp.missions[2].title"
-          [location]="comp.missions[2].location"
-          [point]="comp.missions[2].point"
-          [titleDesc]="comp.missions[2].titleDesc" 
-          [desc]="comp.missions[2].desc"
-          [date]="comp.missions[2].date">
+        <app-card [mission]="missions[2]">
         </app-card>      
       </div>
     </div>
@@ -123,32 +103,28 @@
       </div>
       <div class="partenaire">
         <mat-carousel
-            timings="100ms ease-in"
-            [autoplay]="true"
-            [interval]="1000"
-            color="accent"
-            maxWidth="auto"
-            [slides]="3"
-            [loop]="true"
-            [hideArrows]="false"
-            [hideIndicators]="false"
-            [useKeyboard]="true"
-            [useMouseWheel]="false"
-            orientation="ltr">
+          class="carousel"
+          timings="250ms ease-in"
+          [autoplay]="true"
+          [interval]="2000"
+          color="warn"
+          maxWidth="auto"
+          [proportion]="25"
+          [slides]="3"
+          [loop]="true"
+          [hideArrows]="false"
+          [hideIndicators]="true"
+          [useKeyboard]="true"
+          [useMouseWheel]="false"
+          orientation="ltr"
+        >
           <mat-carousel-slide
             #matCarouselSlide
             *ngFor="let slide of slides; let i = index"
             [image]="slide.image"
-            overlayColor="#00000040"
-            [hideOverlay]="false">
-            <span>Test</span>
-          </mat-carousel-slide>
-          <mat-carousel-slide>
-            <span>Test2</span>
-          </mat-carousel-slide>
-          <mat-carousel-slide>
-            <span>Test3</span>
-          </mat-carousel-slide>
+            overlayColor="#FFFFFF"
+            [hideOverlay]="false"
+          ></mat-carousel-slide>
         </mat-carousel>
       </div>
     </div>

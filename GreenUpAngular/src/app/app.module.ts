@@ -1,4 +1,6 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
 import { BrowserModule } from '@angular/platform-browser';
 import {HttpClientModule} from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
@@ -18,8 +20,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 import { SignUpComponent } from './user/sign-up/sign-up.component';
-import { MatCarouselModule } from 'ng-mat-carousel';
-
+import { MatCarouselModule } from '@ngmodule/material-carousel';
 
 
 
@@ -45,6 +46,8 @@ export function tokenGetter() {
         disallowedRoutes: []
       }
     }),
+    MatCarouselModule,
+    CommonModule,
     AppRoutingModule, 
     HttpClientModule, 
     FormsModule,
@@ -57,7 +60,6 @@ export function tokenGetter() {
     ReactiveFormsModule,
     MatInputModule,
     MatButtonModule,
-    MatCarouselModule.forRoot(),
   ],
   providers: [SharedService],
   bootstrap: [AppComponent],
