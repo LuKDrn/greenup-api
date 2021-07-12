@@ -1,101 +1,14 @@
-.toolbar {
-    background: #FFFFFF;
-    padding-top: 2%;
-    display: block;
-    height: 80px;
-}
-
 a {
     text-decoration: none;
 }
-
 .btn {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    padding: 5px 10px;
-
-    position: absolute;
-    width: 125px;
-    height: 31px;
-    // left: 1278px;
-    right: 5%;
-    top: 20px;
-
-    background: #FFD56D;
-    border-radius: 8px;
-
-    span {
-        position: static;
-        width: 105px;
-        height: 21px;
-        left: 10px;
-        top: 5px;
-
-        font-family: Roboto;
-        font-style: normal;
-        font-weight: normal;
-        font-size: 18px;
-        line-height: 21px;
-        /* identical to box height */
-
-
-        /* Blanc */
-
-        color: #FFFFFF;
-
-
-        /* Inside Auto Layout */
-
-        flex: none;
-        order: 0;
-        flex-grow: 0;
-        margin: 0px 10px;
-    }
+    background-color: #4EAAA7;
 }
 
 .navigate {
-    position: absolute;
-    height: 21px;
-    top: 25px;
-
-    font-family: 'Roboto';
     font-style: normal;
     font-weight: 300;
     font-size: 18px;
     line-height: 21px;
-
     color: #4EAAA7;
-
-    &.accueil {
-        left: 80px;
-        width: 58px;
-    }
-
-    &.mission {
-        width: 72px;
-        left: 179px;
-    }
-
-    &.produit {
-        width: 95px;
-        left: 288px;
-    }
-
-    &.challenge {
-        width: 78px;
-        left: 428px;
-    }
-
-    &.association {
-        width: 102px;
-        left: 574px;
-    }
-
-    &.contact {
-        width: 63px;
-        right: 13%;
-    }
-
 }

@@ -1,9 +1,7 @@
 .footer {
-    position: absolute;
-    left: 0%;
-    right: 0%;
-    // top: 93.75%;
-    bottom: 0%;
+    position: relative;
+    display: flex;
+    height: 100px;
     background-color: #4EAAA7;
 
     .logo {
