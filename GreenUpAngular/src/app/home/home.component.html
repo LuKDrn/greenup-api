@@ -17,7 +17,7 @@
   <div class="col-xl-8 col-md-12 middleBloc w-100">
     <div class="row justify-content-center mb-5">
       <div class="row flex-column align-items-center col-4 mx-4">
-        <img src="../../assets/mapImg.png" height="400" />
+        <img src="../../assets/mapImg.png" height="500" />
         <div class="bg-light row flex-column align-items-center justify-content-center text-center py-5 shadow">
           <div class="col-2 rounded" style="height: 3px;background-color:#4EAAA7;"></div>
           <h2 class="title">LES RECOMPENSES</h2>
@@ -29,14 +29,14 @@
             <button mat-button class="greenUpBtn w-100">
               <div class="d-flex justify-content-center align-items-center">
                 <img height="15" class="m-2" src="./../../assets/icon/feuilleIcon.png" alt="feuille icon" />
-                <h5 class="text-white">VOIR LES RECOMPENSES</h5>
+                <h5 class="text-white" style="margin-top: 15px">VOIR LES RECOMPENSES</h5>
               </div>
             </button>
           </div>
         </div>
       </div>
       <div class="row flex-column align-items-center col-4 mx-4">
-        <img src="../../assets/imgCible.png" height="400" />
+        <img src="../../assets/imgCible.png" height="500" />
         <div class="bg-light row flex-column align-items-center justify-content-center text-center py-5 shadow">
           <div class="col-2 rounded" style="height: 3px;background-color:#4EAAA7;"></div>
           <h2 class="title">LES MISSIONS</h2>
@@ -48,7 +48,7 @@
             <button mat-button class="greenUpBtn w-100">
               <div class="d-flex justify-content-center align-items-center">
                 <img height="15" class="m-2" src="./../../assets/icon/valiseIcon.png" alt="feuille icon" />
-                <h5 class="text-white">VOIR LES MISSIONS</h5>
+                <h5 class="text-white" style="margin-top: 15px;">VOIR LES MISSIONS</h5>
               </div>
             </button>
           </div>
@@ -64,54 +64,59 @@
       <h2 class="my-5" style="color: #636968;">LES CHOIX DE VOS RECOMPENSES</h2>
       <div class="d-flex justify-content-around col-8">
         <div class="row flex-column align-items-center col-3">
-            <img src="../../assets/ellipse.png" height="30" class="col-3">
-            <h1 style="position: relative; top:-30%;margin-bottom: -8%;" class="text-white">1</h1>
-          <h5>Obtenez votre récompense sous forme de points</h5>
+            <img src="../../assets/ellipse.png" height="50" class="col-3">
+            <h1 style="position: relative; top:-40%;margin-bottom: -8%;" class="text-white">1</h1>
+          <h5 style="font-weight: 400; font-size: 20px">Obtenez votre récompense sous forme de points</h5>
         </div>
         <div class="row flex-column align-items-center col-3">
-          <img src="../../assets/ellipse.png" height="30" class="col-3">
-          <h1 style="position: relative; top:-30%;margin-bottom: -8%;" class="text-white">2</h1>
-          <h5>Choissisez de planter un arbre pour la planète</h5>
+          <img src="../../assets/ellipse.png" height="50" class="col-3">
+          <h1 style="position: relative; top:-40%;margin-bottom: -8%;" class="text-white">2</h1>
+          <h5 style="font-weight: 400; font-size: 20px">Choissisez de planter un arbre pour la planète</h5>
         </div>
         <div class="row flex-column align-items-center col-3">
-          <img src="../../assets/ellipse.png" height="30" class="col-3">
-          <h1 style="position: relative; top:-30%;margin-bottom: -8%;" class="text-white">3</h1>
-          <h5>Reverser vos points à des associations</h5>
+          <img src="../../assets/ellipse.png" height="50" class="col-3">
+          <h1 style="position: relative; top:-40%;margin-bottom: -8%;" class="text-white">3</h1>
+          <h5 style="font-weight: 400; font-size: 20px">Reverser vos points à des associations</h5>
         </div>
       </div>
     </div>
-    <div class="d-flex justify-content-center w-100 banner text-white text-center">
+    <div style="margin-top: 20px;" class="d-flex justify-content-center w-100 banner text-white text-center">
       <h3 class="fw-bold">Protégeons notre maison, engageons-nous dans les petites actions quotidiennes</h3>
     </div>
-    <!-- <div class="footerBloc">
-    <hr>
-    <h1>Les nouvelles missions</h1>
-    <div class="bloc1" *ngIf="missions">
-      <div class="card1">
+  <div style="margin-left: 10%; margin-top: 5%;" class="row col-10">
+    <hr style="background-color: #4EAAA7;border: none;width: 58px;height: 3px;">
+    <h1 style="font-size: 30px; font-weight: 500;">Les nouvelles missions</h1>
+    <div class="d-flex justify-content-around col-8" style="margin-bottom: 5%; margin-top: 5%;" *ngIf="missions">
+      <div class="row flex-column align-items-center col-3">
         <app-card [mission]="missions[0]"></app-card>
       </div>
-      <div class="card2">
+      <div class="row flex-column align-items-center col-3" style="margin-left: 20%;">
         <app-card [mission]="missions[1]">
         </app-card>
       </div>
-      <div class="card3">
+      <div class="row flex-column align-items-center col-3" style="margin-left: 20%;">
         <app-card [mission]="missions[2]">
         </app-card>      
       </div>
     </div>
-    <div class="bloc2">
-      <div class="imgDoss"></div>
-      <hr>
-      <h2>les associations et entreprises</h2>
-      <div class="blocText">
-        <span class="txt">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sem dolor, dapibus et tortor quis, sollicitudin fermentum enim. Praesent molestie posuere dui, gravida lobortis sem molestie vitae. Curabitur elementum vitae elit quis blandit. Proin vel facilisis felis. Pellentesque metus ipsum, dignissim a porttitor et, elementum ac ipsum. Integer lacinia sed nunc eget lacinia.</span>
-        <button mat-button class="rejoindreBtn">
-          <img class="iconMail" src="./../../assets/icon/mailIcon.png" alt="mail icon" />
-          <span class="rejoindreBtnText">Voir les missions</span>
-        </button>
+    <div class="d-flex justify-content-around col-13">
+      <img class="row flex-column align-items-center col-4" alt="imgDoss" src="./../../assets/imgDoss.png" width="590px" height="590px" />
+      <div class="row flex-column col-4">
+        <hr style="background-color: #4EAAA7;border: none;width: 58px;height: 3px;">
+        <h2 class="my-5" style="color: #636968; font-size: 30px; font-weight: 500;">les associations et entreprises</h2>
+        <div>
+          <span class="my-5" style="margin-bottom: 10px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sem dolor, dapibus et tortor quis, sollicitudin fermentum enim. Praesent molestie posuere dui, gravida lobortis sem molestie vitae. Curabitur elementum vitae elit quis blandit. Proin vel facilisis felis. Pellentesque metus ipsum, dignissim a porttitor et, elementum ac ipsum. Integer lacinia sed nunc eget lacinia.</span>
+          <!-- <button mat-button class="greenUpBtn w-50" style="margin-top: 10px;">
+            <div class="d-flex justify-content-center align-items-center">
+              <img class="iconMail" src="./../../assets/icon/mailIcon.png" alt="mail icon" />
+              <h5 class="text-white" style="margin-top: 15px; margin-left: 5px; font-size: 20px; font-weight: 500;">NOUS REJOINDRE</h5>
+            </div>
+          </button> -->
+        </div>
       </div>
+      
       <div class="partenaire">
-        <mat-carousel
+        <!-- <mat-carousel
           class="carousel"
           timings="250ms ease-in"
           [autoplay]="true"
@@ -134,8 +139,13 @@
             overlayColor="#FFFFFF"
             [hideOverlay]="false"
           ></mat-carousel-slide>
-        </mat-carousel>
+        </mat-carousel> -->
       </div>
     </div>
-  </div> -->
+    <div style="margin-top: 20px; height:80px;" class="d-flex banner text-white text-center">
+      <h3 class="fw-bold" style="margin-left: 40%;">Designed by GreenUp
+        <img style="margin-left: 5px;" alt="logo" src="./../../assets/feuilleFooter.png"/>
+      </h3>
+    </div>
   </div>
+</div>

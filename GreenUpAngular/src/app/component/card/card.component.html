@@ -1,19 +1,27 @@
 <div class="card">
-    <div class="header">
-      <img class="img" *ngIf="mission?.image" src="{{mission?.image}}" alt="image card" />
-      <span class="title">{{ mission?.title }}</span>
-      <span class="location">{{ mission?.location }}</span>
-      <span class="point">{{ mission?.point }}</span>
+    <div class="header row">
+      <img class="col-5" *ngIf="mission?.image" src="{{mission?.image}}" alt="image card"  style="margin: 5px"/>
+      <div class="col-5" style="margin-top: 20px;">
+        <span class="title row">{{ mission?.title }}</span>
+        <span class="location row">{{ mission?.location }}</span>
+        <span class="point row">{{ mission?.point }}</span>
+      </div>
     </div>
     <div class="content">
-      <img class="iconValise" src="./../../../assets/icon/valiseIconBlack.png" alt="valise icon" />
-      <span class="titleDesc">{{ mission?.titleDesc }}</span>
-      <span class="desc">{{ mission?.desc }}</span>
-      <span class="date"> {{ mission?.date }}</span>
+      <div class="">
+        <img src="./../../../assets/icon/valiseIconBlack.png" alt="valise icon" style="margin: 10px"/>
+        <span class="titleDesc">{{ mission?.titleDesc }}</span>
+      </div>
+      <span class="row" style="margin-left: 10px;font-family: 'Roboto';font-style: normal;font-weight: 300;font-size: 21.352px;line-height: 25px;color: #323434;">
+        {{ mission?.desc }}
+      </span>
+      <span class="row" style="margin-left: 10px; font-family: 'Roboto';font-style: normal;font-weight: normal;font-size: 21.352px;line-height: 25px;color: #323434;"> 
+        {{ mission?.date }}
+      </span>
       <div>
-        <button mat-button class="look" type="button">
+        <button mat-button class="row" type="button" style="margin-left: 60%;height: 40px;width: 107px;background: #73BFBC;border-radius: 3.30753px;">
           <img class="iconLook" src="./../../../assets/icon/lookIcon.png" alt="valise icon" />
-          <span class="lookText">Voir</span>
+        <span style="margin-left: 10px;font-family: 'Roboto';font-style: normal;font-weight: 500;font-size: 16.5376px;line-height: 19px;text-transform: uppercase;color: #FFFFFF;">Voir</span>
         </button>
       </div>
     </div>
