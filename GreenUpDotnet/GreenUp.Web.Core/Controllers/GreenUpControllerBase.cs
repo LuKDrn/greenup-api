@@ -1,14 +1,19 @@
 ﻿using Abp.AspNetCore.Mvc.Controllers;
+using GreenUp.Core.Business.Images.Models;
 using GreenUp.Core.Business.Users.Models;
 using GreenUp.EntityFrameworkCore.Data;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
+using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace GreenUp.Web.Core.Controllers
 {
+
     public class GreenUpControllerBase : AbpController
     {
         protected readonly GreenUpContext _context;
@@ -36,7 +41,7 @@ namespace GreenUp.Web.Core.Controllers
                 .Where(u => u.Id == id);
         }
 
-        [ApiExplorerSettings(IgnoreApi = true)]
+        [HttpPost]
         public async Task<Image> UploadImage(IFormFile image)
         {
             Image img = new Image()

@@ -1,23 +1,25 @@
-﻿using GreenUp.Core.Business.Associations.Models;
-using GreenUp.Core.Business.Locations.Models;
+﻿using GreenUp.Core.Business.Locations.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace GreenUp.Web.Mvc.Models.Missions
 {
     public class CreateOrUpdateMissionViewModel
     {
         public int? Id { get; set; }
-        public Association Association { get; set; }
+        public Guid AssociationId { get; set; }
+        [Required]
         public string Titre { get; set; }
+        [Required]
         public string Description { get; set; }
-        public Location Place { get; set; }
+        public int? LocationId { get; set; }
+        public string Adress { get; set; }
+        public string City { get; set; }
+        public int? ZipCode { get; set; }
         public DateTime Date { get; set; }
         public int RewardValue { get; set; }
         public bool IsInGroup { get; set; }
-        public int Availability { get; set; }
+        public int Places { get; set; }
         public bool Available { get; set; }
     }
 }

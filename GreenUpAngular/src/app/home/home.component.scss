@@ -1,0 +1,214 @@
+.title {
+        color: #969C9B;
+}
+    .greenUpBtn {
+        background-color: #4EAAA7;
+    }
+.headerBloc {
+    height: 100vh;
+        background: url(../../assets/home.png) no-repeat center;
+        background-size: cover;
+        z-index: 0;
+        display: flex;  
+    
+    }
+    .banner {
+        background-color: #4EAAA7;
+    }
+
+    .middleBloc {
+        height: 100vh;
+        z-index: 0;     
+    }
+    .footerBloc {
+        hr {
+            position: absolute;
+            width: 58.1px;
+            height: 3px;
+            left: 120px;
+            top: 2210px;
+
+            background-color: #4EAAA7;
+            border: none;        
+        }
+
+        h1 {
+            position: absolute;
+            width: 372px;
+            height: 35px;
+            left: 120px;
+            top: 2231px;
+            
+            font-family: 'Roboto';
+            font-style: normal;
+            font-weight: 500;
+            font-size: 30px;
+            line-height: 35px;
+            text-transform: uppercase;
+            
+            color: #323232;            
+        }
+        .bloc1 {
+            position: absolute;
+            top: 2349px;
+            background: #FFFFFF;
+
+            .card1 {
+                position: absolute;
+                // top: 2349px;
+                width: 412px;
+                height: 347px;
+                left: 114px;
+                // margin-left: 114px;
+                border-radius: 9px;
+            }
+
+            .card2 {
+                position: absolute;
+                width: 412px;
+                height: 347px;
+                left: 640px;
+                
+                background: #FFFFFF;
+                border-radius: 9px;
+            }
+
+            .card3 {
+                position: absolute;
+                width: 412px;
+                height: 347px;
+                left: 1166px;
+                border-radius: 9px;
+            }
+        }
+        .bloc2 {
+            .imgDoss {
+                position: absolute;
+                width: 590px;
+                height: 590px;
+                left: 62px;
+                top: 2788px;
+    
+                background: url(./../../assets/imgDoss.png);
+            }
+    
+            hr {
+                position: absolute;
+                width: 58.1px;
+                height: 3px;
+                left: 720px;
+                top: 2886px;
+                background-color: #4EAAA7;
+                border: none;       
+            }
+
+            h2 {
+                position: absolute;
+                width: 510px;
+                height: 35px;
+                left: 720px;
+                top: 2907px;
+
+                font-family: 'Roboto';
+                font-style: normal;
+                font-weight: 500;
+                font-size: 30px;
+                line-height: 35px;
+                text-transform: uppercase;
+
+                color: #323232;
+            }
+
+            .blocText {
+                .txt {
+                    position: absolute;
+                    width: 603px;
+                    height: 254px;
+                    left: 720px;
+                    top: 2983px;
+                    
+                    font-family: 'Roboto';
+                    font-style: normal;
+                    font-weight: normal;
+                    font-size: 20px;
+                    line-height: 23px;
+                    text-align: justify;
+                    
+                    /* Neutre/Color 7 */
+                    
+                    color: #323434;
+                }
+
+                .rejoindreBtn {
+                    position: absolute;
+                    width: 328.13px;
+                    height: 49.91px;
+                    left: 720px;
+                    top: 3187px;
+
+                    background: #4EAAA7;
+                    border-radius: 4.09139px;
+
+                    .iconMail {
+                        position: absolute;
+                        // left: 8.33%;
+                        left: 12%;
+                        right: 8.33%;
+                        // top: 8.33%;
+                        top: 32%;
+                        bottom: 12.5%;
+                        color: #FFFFFF;
+
+
+                        // position: absolute;
+                        // left: 8.33%;
+                        // right: 8.33%;
+                        // top: 16.67%;
+                        // bottom: 16.67%;
+
+                        // /* Blanc */
+
+                        // background: #FFFFFF;
+                    }
+
+                    .rejoindreBtnText {
+                        position: absolute;
+                        width: 168px;
+                        height: 24px;
+                        left: 25%;
+                        // top: 1426.4px;
+                        top: 30%;
+                        
+                        font-family: Roboto;
+                        font-style: normal;
+                        font-weight: 500;
+                        font-size: 20.457px;
+                        line-height: 24px;
+                        /* identical to box height */
+                        
+                        text-transform: uppercase;
+                        
+                        /* Blanc */
+                        
+                        color: #FFFFFF;
+                    }
+                }
+            }
+            .partenaire {
+                position: absolute;
+                height: 200px;
+                // width: 1800px;
+                left: 15%;
+                right: 15%;
+                top: 3449px;
+
+                .carousel {
+                    background: #FFFFFF;
+
+                }
+            }
+        }
+        
+    }
+
+

@@ -1,4 +1,5 @@
 ﻿using Abp.Domain.Entities;
+using GreenUp.Core.Business.Images.Models;
 using GreenUp.Core.Business.Users.Models;
 using System;
 using System.ComponentModel.DataAnnotations;

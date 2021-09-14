@@ -1,4 +1,5 @@
 ﻿using Abp.Domain.Entities;
+using GreenUp.Core.Business.Images.Models;
 using GreenUp.Core.Business.Locations.Models;
 using GreenUp.Core.Business.Missions.Models;
 using GreenUp.Core.Business.Users.Models;
@@ -13,10 +14,11 @@ namespace GreenUp.Core.Business.Associations.Models
     {
         [Required]
         public string Name { get; set; }
+        [Required]
+        public string Password { get; set; }
         public int Siren { get; set; }
         [ForeignKey("RoleId")]
         public Role Role { get; set; }
-        public int RoleId { get; set; }
         [ForeignKey("LogoId")]
         public Image Logo { get; set; }
         public int LogoId { get; set; }

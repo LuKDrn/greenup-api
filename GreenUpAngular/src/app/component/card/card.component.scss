@@ -1,3 +1,103 @@
-ion-card {
-    --background:rgb(255, 255, 255);
+.card {
+    height: 347px;
+    width: 412px;
+    margin-left: 10%;
+
+    background: #FCFCFC;
+    border-radius: 5px;
+
+    .header {
+        .img {
+            background: #C4C4C4;
+            border-radius: 5.33799px;
+        }
+
+        .title {
+            font-family: 'Roboto';
+            font-style: normal;
+            font-weight: 500;
+            font-size: 24.0209px;
+            line-height: 28px;
+            text-align: justify;
+
+            color: #4EAAA7;
+        }
+
+        .location {
+            
+            font-family: 'Roboto';
+            font-style: normal;
+            font-weight: normal;
+            font-size: 20px;
+            line-height: 23px;
+            text-align: justify;
+            color: #4A4F4E;
+        }
+
+        .point {
+            font-family: 'Roboto';
+            font-style: normal;
+            font-weight: normal;
+            font-size: 20px;
+            line-height: 23px;
+            text-align: justify;
+
+            color: #C4C4C4;
+        }
+
+    }
+
+    .content {
+        .iconValise {
+        }
+        .titleDesc {
+
+            font-family: 'Roboto';
+            font-style: normal;
+            font-weight: normal;
+            font-size: 21.352px;
+            line-height: 25px;
+            text-align: justify;
+            color: #323434;
+        }
+        .desc {
+            font-family: 'Roboto';
+            font-style: normal;
+            font-weight: 300;
+            font-size: 21.352px;
+            line-height: 25px;
+            color: #323434;
+        }
+        .date {
+            
+            font-family: 'Roboto';
+            font-style: normal;
+            font-weight: normal;
+            font-size: 21.352px;
+            line-height: 25px;
+            color: #323434;
+        }
+
+        .look {
+            height: 40px;
+            width: 107px;
+
+            background: #73BFBC;
+            border-radius: 3.30753px;
+            .iconLook {
+            }
+
+            .lookText {
+
+                font-family: 'Roboto';
+                font-style: normal;
+                font-weight: 500;
+                font-size: 16.5376px;
+                line-height: 19px;
+                text-transform: uppercase;
+
+                color: #FFFFFF;
+            }
+        }
+    }
 }

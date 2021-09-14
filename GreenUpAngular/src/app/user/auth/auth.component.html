@@ -1,0 +1,26 @@
+<div class="content-form">
+  <form class="form form-signin" [formGroup]="form" #loginForm="ngForm">
+    <div class="container-fluid">
+      <h2 class="form-signin-heading">
+        <img src="./../../../assets/social-media/ account-icon.png" alt="account-icon" class="icon-account"/>
+        <br/>
+        <span>Connexion</span>
+      </h2>
+      <div *ngIf="invalidLogin" class="alert alert-danger">Invalid username or password.</div>
+      <br />
+      <mat-form-field appearance="outline" color="primary">
+        <mat-label for="username">Email</mat-label>
+        <input matInput email placeholder="pat@example.com" id="username" name="username" class="form-control" placeholder="User Name" formControlName="email" required autofocus>
+      </mat-form-field>
+      <br />
+      <mat-form-field appearance="outline" color="primary">
+        <mat-label for="password">Mot de passe</mat-label>
+        <input matInput type="password" id="password" name="password" class="form-control" placeholder="Password" formControlName="password" required>
+      </mat-form-field>
+      <br />
+      <button mat-raised-button type="submit">Connexion</button>
+      <br/>
+      <button mat-raised-button class="signupBtn" type="button" (click)="signUp() ; $event.preventDefault()">Inscription</button>
+    </div>
+  </form>
+</div>

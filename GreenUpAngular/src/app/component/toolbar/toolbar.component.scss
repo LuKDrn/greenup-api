@@ -1,16 +1,14 @@
-// * {
-//     outline: 1px red solid;
-// }
+a {
+    text-decoration: none;
+}
+.btn {
+    background-color: #4EAAA7;
+}
 
-ion-toolbar {
-    --background: rgb(54, 109, 28);
-
-    ion-title {
-        --color: white;
-    }
-
-    ion-button {
-        --background: black;
-        color: white;
-    }
+.navigate {
+    font-style: normal;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 21px;
+    color: #4EAAA7;
 }
