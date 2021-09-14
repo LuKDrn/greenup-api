@@ -12,6 +12,7 @@ import { SharedService } from '../../shared.service';
 export class AuthComponent implements OnInit {
   public invalidLogin!: boolean;
   public form: FormGroup;
+  public hide = true;
 
   constructor(
     private router: Router, 

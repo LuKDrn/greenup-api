@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -9,26 +10,26 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 export class SignUpComponent implements OnInit {
   public form: FormGroup;
   public invalidLogin!: boolean;
-
-
+  public hide = true;
 
   constructor(
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private userService: UserService
   ) {
 
     this.form = this.fb.group({
-      email: new FormControl('', [Validators.required, Validators.email, Validators.email]),
-      password: new FormControl('', [Validators.required, Validators.required]),
-      firstName: new FormControl('', []),
-      lastName: new FormControl('', []),
+      Mail: new FormControl('', [Validators.required, Validators.email, Validators.email]),
+      Password: new FormControl('', [Validators.required, Validators.required]),
+      FirstName: new FormControl('', []),
+      LastName: new FormControl('', []),
       address: new FormControl('', []),
-      birthDate: new FormControl('', []),
-      point: new FormControl(0, [])
+      BirthDate: new FormControl('', []),
+      point: new FormControl(0, []),
+      // PhotoId: new FormControl(0, [])
     });
    }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   public getErrorMessage() {
     if (this.form.hasError('required')) {
@@ -39,7 +40,10 @@ export class SignUpComponent implements OnInit {
   }
 
   public signUp(): void {
-    console.log(`s'inscrire`, this.form);
+    console.log(`s'inscrire`, this.form.value);
+    this.userService.signUp(this.form.value);
   }
+
+
 
 }
