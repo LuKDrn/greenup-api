@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace GreenUp.Web.Mvc.Controllers.Missions
@@ -20,10 +21,10 @@ namespace GreenUp.Web.Mvc.Controllers.Missions
 
         }
 
-        [HttpGet, Route("GetAll")]
-        public async Task<ICollection<Mission>> GetAll()
+        [HttpGet]
+        public async Task<ICollection<Mission>> Missions()
         {
-            ICollection<Mission> model = await _context.Missions.ToListAsync();
+            ICollection<Mission> model = await _context.Missions.Include(m => m.Association).Include(m => m.Location).ToListAsync();
             return model;
         }
 

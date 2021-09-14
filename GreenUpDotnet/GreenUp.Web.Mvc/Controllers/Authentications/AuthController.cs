@@ -21,7 +21,7 @@ namespace GreenUp.Web.Mvc.Controllers.Authentications
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AuthController : GreenUpControllerBase 
+    public class UsersController : GreenUpControllerBase
     {
         private readonly ITokenService _tokenService;
         public AuthController(GreenUpContext context, IConfiguration config, ITokenService tokenService) : base(context, config)

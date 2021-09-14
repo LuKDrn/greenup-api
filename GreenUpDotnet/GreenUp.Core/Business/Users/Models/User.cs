@@ -4,9 +4,7 @@ using GreenUp.Core.Business.Missions.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GreenUp.Core.Business.Users.Models
 {
@@ -26,11 +24,16 @@ namespace GreenUp.Core.Business.Users.Models
         public string LastName { get; set; }
         [Required]
         public DateTime BirthDate { get; set; }
-        [Url]
-        public string Photo { get; set; }
+        [ForeignKey("PhotoId")]
+        public Image Photo { get; set; }
+        public int PhotoId { get; set; }
         public int Points { get; set; }
+        [ForeignKey("RoleId")]
         public Role Role { get; set; }
+        public int RoleId { get; set; }
+        [ForeignKey("AdressId")]
         public Location Adress { get; set; }
+        public int AdressId { get; set; }
         public ICollection<Mission> Missions { get; set; }
         public string RefreshToken { get; set; }
         public DateTime RefreshTokenExpiryTime { get; set; }

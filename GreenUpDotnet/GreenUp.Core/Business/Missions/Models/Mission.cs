@@ -4,6 +4,7 @@ using GreenUp.Core.Business.Locations.Models;
 using GreenUp.Core.Business.Users.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GreenUp.Core.Business.Missions.Models
 {
@@ -11,9 +12,14 @@ namespace GreenUp.Core.Business.Missions.Models
     {
         public string Titre { get; set; }
         public string Description { get; set; }
-        public Location Place { get; set; }
+        [ForeignKey("LocationId")]
+        public Location Location { get; set; }
+        public int LocationId { get; set; }
         public DateTime Date { get; set; }
+        [ForeignKey("AssociationId")]
         public Association Association { get; set; }
+        public Image Thumbnail { get; set; }
+        public int ThumbnailId { get; set; }
         public int RewardValue { get; set; }
         public bool IsInGroup { get; set; }
         public int Availability { get; set; }

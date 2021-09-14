@@ -19,7 +19,7 @@ namespace GreenUp.Web.Core.Controllers
             _config = config;
         }
 
-        [HttpGet]
+        [ApiExplorerSettings(IgnoreApi = true)]
         public IQueryable<User> GetUser(Guid id, bool allInclude)
         {
             if (allInclude)
@@ -34,6 +34,26 @@ namespace GreenUp.Web.Core.Controllers
             }
             return _context.Users
                 .Where(u => u.Id == id);
+        }
+
+        [ApiExplorerSettings(IgnoreApi = true)]
+        public async Task<Image> UploadImage(IFormFile image)
+        {
+            Image img = new Image()
+            {
+                ImageTitle = image.FileName
+            };
+
+            MemoryStream ms = new MemoryStream();
+            image.CopyTo(ms);
+            img.ImageData = ms.ToArray();
+
+            ms.Close();
+            ms.Dispose();
+
+            await _context.Images.AddAsync(img);
+            await _context.SaveChangesAsync();
+            return img;
         }
     }
 }

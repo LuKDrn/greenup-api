@@ -5,6 +5,7 @@ using GreenUp.Core.Business.Users.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GreenUp.Core.Business.Associations.Models
 {
@@ -13,8 +14,17 @@ namespace GreenUp.Core.Business.Associations.Models
         [Required]
         public string Name { get; set; }
         public int Siren { get; set; }
+        [ForeignKey("RoleId")]
         public Role Role { get; set; }
-        public ICollection<Location> Adresses { get; set; } = new List<Location>();
+        public int RoleId { get; set; }
+        [ForeignKey("LogoId")]
+        public Image Logo { get; set; }
+        public int LogoId { get; set; }
+        public string RefreshToken { get; set; }
+        public DateTime RefreshTokenExpiryTime { get; set; }
+        [ForeignKey("AdressId")]
+        public Location Adress { get; set; }
+        public int AdressId { get; set; }
         public ICollection<Mission> Missions { get; set; } = new List<Mission>();
     }
 }
