@@ -9,16 +9,22 @@
     </button>
     <div class="navbar-collapse collapse" id="navbarToggler">
       <div class="navbar-nav">
-        <a class="navigate m-2 " href="/"><span>Missions</span></a>
-        <a class="navigate m-2 " href="/"><span>Produits </span></a>
-        <a class="navigate m-2 " href="/"><span>Challenges</span></a>
-        <a class="navigate m-2" href="/"><span>Associations</span></a>
+        <a class="navigate m-2 " (click)="missions()"><span>Missions</span></a>
+        <a class="navigate m-2 " (click)="produits()"><span>Produits </span></a>
+        <a class="navigate m-2 " (click)="challenges()"><span>Challenges</span></a>
+        <a class="navigate m-2" (click)="associations()"><span>Associations</span></a>
       </div>
       <div class="d-flex align-items-center" style="position: absolute; right: 5%">
         <a class="navigate m-3" href="/"><span>Contact</span></a>
-        <button (click)="login()" mat-button class="btn m-3 w-auto" color="primary" aria-label="bouton se connecter">
+        <!-- <button (click)="login()" mat-button class="btn m-3 w-auto" color="primary" aria-label="bouton se connecter">
           <h6 class="text-white">Se connecter</h6>
-        </button>
+        </button> -->
+        <button mat-button [matMenuTriggerFor]="beforeMenu" class="btn m-3 w-auto" aria-label="bouton se connecter">Se connecter</button>
+        <mat-menu #beforeMenu="matMenu" xPosition="before">
+          <button mat-menu-item (click)="login()">Espace utilisateur</button>
+          <button mat-menu-item>Espace association</button>
+          <button mat-menu-item>Espace entreprise</button>
+        </mat-menu>
       </div>
     </div>
   </div>

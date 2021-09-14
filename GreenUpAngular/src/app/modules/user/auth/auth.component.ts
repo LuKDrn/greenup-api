@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { SharedService } from '../../shared.service';
+import { SharedService } from '../../../shared.service';
 
 @Component({
   selector: 'app-auth',

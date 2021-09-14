@@ -23,4 +23,20 @@ export class ToolbarComponent implements OnInit {
     this.router.navigate(['/auth']);
   }
 
+  public missions(): void {
+    this.router.navigate(['/missions']);
+  }
+
+  public produits(): void {
+    this.router.navigate(['/produits']);
+  }
+
+  public challenges(): void {
+    this.router.navigate(['/challenges']);
+  }
+
+  public associations(): void {
+    this.router.navigate(['/associations']);
+  }
+
 }

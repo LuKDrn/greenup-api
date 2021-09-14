@@ -9,10 +9,6 @@ import { SharedService } from './shared.service';
 import { JwtModule } from '@auth0/angular-jwt';
 import { ComponentModule } from './component/component.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HomeComponent } from './home/home.component';
-import { AuthComponent } from './user/auth/auth.component';
-import { SignUpComponent } from './user/sign-up/sign-up.component';
-import { UserService } from './user/user.service';
 
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -23,6 +19,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCarouselModule } from '@ngmodule/material-carousel';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { ModulesModule } from './modules/modules.module';
 
 
 export function tokenGetter() {
@@ -31,10 +28,7 @@ export function tokenGetter() {
 
 @NgModule({
   declarations: [
-    AppComponent, 
-    HomeComponent,
-    AuthComponent,
-    SignUpComponent
+    AppComponent,
   ],
   entryComponents: [],
   imports: [
@@ -62,8 +56,9 @@ export function tokenGetter() {
     MatButtonModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    ModulesModule,
   ],
-  providers: [SharedService, UserService],
+  providers: [SharedService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

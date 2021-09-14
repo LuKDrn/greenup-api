@@ -11,15 +11,15 @@ export class UserService {
 
   }
 
-  public signUp(form: any): void { //Observable<any> {
+  public signUp(form: any): Observable<any> {
     console.log('form', JSON.stringify(form));
-    // return this.http
-    //     .post<any>('https://greenup-api.herokuapp.com/SignUp', JSON.stringify(form))
-    //     .pipe(
-    //         tap((response: any) => {
-    //             return response;
-    //         }),
-    //         // catchError(any)
-    //     );
+    return this.http
+        .post<any>('https://greenup-api.herokuapp.com/SignUp', JSON.stringify(form))
+        .pipe(
+            tap((response: any) => {
+                return response;
+            }),
+            // catchError(any)
+        );
   }
 }
