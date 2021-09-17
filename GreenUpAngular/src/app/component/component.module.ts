@@ -7,6 +7,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { FooterComponent } from './footer/footer.component';
 import { MatButtonModule } from '@angular/material/button';
+import { MatMenuModule } from '@angular/material/menu';
+
 
 
 
@@ -16,7 +18,8 @@ import { MatButtonModule } from '@angular/material/button';
       MatToolbarModule,
       MatIconModule,
       MatCardModule,
-      MatButtonModule
+      MatButtonModule,
+      MatMenuModule
     ],
     declarations: [
         ToolbarComponent,

@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { MissionComp } from 'src/app/home/home.component';
+import { MissionComp } from 'src/app/modules/home/home.component';
 @Component({
   selector: 'app-card',
   templateUrl: './card.component.html',

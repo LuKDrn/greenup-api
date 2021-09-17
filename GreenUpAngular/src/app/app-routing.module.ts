@@ -1,8 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthComponent } from './user/auth/auth.component';
-import { HomeComponent } from './home/home.component';
-import { SignUpComponent } from './user/sign-up/sign-up.component';
+import { AuthComponent } from './modules/user/auth/auth.component';
+import { HomeComponent } from './modules/home/home.component';
+import { SignUpComponent } from './modules/user/sign-up/sign-up.component';
+import { MissionsComponent } from './modules/mission/missions/missions.component';
+import { ProduitsComponent } from './modules/produit/produits/produits.component';
+import { ChallengesComponent } from './modules/challenges/challenges.component';
+import { AssociationsComponent } from './modules/association/associations/associations.component';
+import { AssociationIdComponent } from './modules/association/association-id/association-id.component';
+import { MissionIdComponent } from './modules/mission/mission-id/mission-id.component';
+import { ProduitIdComponent } from './modules/produit/produit-id/produit-id.component';
 
 const routes: Routes = [
   {
@@ -21,6 +28,34 @@ const routes: Routes = [
   {
     path: 'signUp',
     component: SignUpComponent
+  },
+  {
+    path: 'missions',
+    component: MissionsComponent
+  },
+  {
+    path: 'mission/:id',
+    component: MissionIdComponent
+  },
+  {
+    path: 'produits',
+    component: ProduitsComponent
+  },
+  {
+    path: 'produit/:id',
+    component: ProduitIdComponent
+  },
+  {
+    path: 'challenges',
+    component: ChallengesComponent
+  },
+  {
+    path: 'associations',
+    component: AssociationsComponent
+  },
+  {
+    path: 'association/:id',
+    component: AssociationIdComponent
   }
 ];
 

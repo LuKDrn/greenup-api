@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../user.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-sign-up',
@@ -41,9 +42,13 @@ export class SignUpComponent implements OnInit {
 
   public signUp(): void {
     console.log(`s'inscrire`, this.form.value);
-    this.userService.signUp(this.form.value);
+    this.userService.signUp(this.form.value).subscribe(
+      (res: any) => {
+        console.log('res');
+      },
+      (error: any) => {
+        console.log('error', error);
+      }
+    );
   }
-
-
-
 }
