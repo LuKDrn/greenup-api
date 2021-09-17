@@ -9,32 +9,18 @@ namespace GreenUp.EntityFrameworkCore.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Images",
+                name: "Adresses",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    ImageTitle = table.Column<string>(type: "text", nullable: false),
-                    ImageData = table.Column<byte[]>(type: "bytea", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Images", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Locations",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Adress = table.Column<string>(type: "text", nullable: false),
+                    Place = table.Column<string>(type: "text", nullable: false),
                     City = table.Column<string>(type: "text", nullable: false),
                     ZipCode = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Locations", x => x.Id);
+                    table.PrimaryKey("PK_Adresses", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -59,26 +45,20 @@ namespace GreenUp.EntityFrameworkCore.Migrations
                     Password = table.Column<string>(type: "text", nullable: false),
                     Siren = table.Column<int>(type: "integer", nullable: false),
                     RoleId = table.Column<int>(type: "integer", nullable: true),
-                    LogoId = table.Column<int>(type: "integer", nullable: true),
+                    Logo = table.Column<string>(type: "text", nullable: true),
                     RefreshToken = table.Column<string>(type: "text", nullable: true),
                     RefreshTokenExpiryTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
-                    AdressId = table.Column<int>(type: "integer", nullable: true)
+                    AdressId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Associations", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Associations_Images_LogoId",
-                        column: x => x.LogoId,
-                        principalTable: "Images",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Associations_Locations_AdressId",
+                        name: "FK_Associations_Adresses_AdressId",
                         column: x => x.AdressId,
-                        principalTable: "Locations",
+                        principalTable: "Adresses",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Associations_Roles_RoleId",
                         column: x => x.RoleId,
@@ -96,26 +76,20 @@ namespace GreenUp.EntityFrameworkCore.Migrations
                     Password = table.Column<string>(type: "text", nullable: false),
                     Siren = table.Column<int>(type: "integer", nullable: false),
                     RoleId = table.Column<int>(type: "integer", nullable: true),
-                    LogoId = table.Column<int>(type: "integer", nullable: true),
+                    Logo = table.Column<string>(type: "text", nullable: true),
                     RefreshToken = table.Column<string>(type: "text", nullable: true),
                     RefreshTokenExpiryTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
-                    AdressId = table.Column<int>(type: "integer", nullable: true)
+                    AdressId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Companies", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Companies_Images_LogoId",
-                        column: x => x.LogoId,
-                        principalTable: "Images",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Companies_Locations_AdressId",
+                        name: "FK_Companies_Adresses_AdressId",
                         column: x => x.AdressId,
-                        principalTable: "Locations",
+                        principalTable: "Adresses",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Companies_Roles_RoleId",
                         column: x => x.RoleId,
@@ -129,39 +103,37 @@ namespace GreenUp.EntityFrameworkCore.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    CreationTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     Mail = table.Column<string>(type: "text", nullable: false),
                     Password = table.Column<string>(type: "text", nullable: false),
                     FirstName = table.Column<string>(type: "text", nullable: false),
                     LastName = table.Column<string>(type: "text", nullable: false),
                     BirthDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
-                    PhotoId = table.Column<int>(type: "integer", nullable: true),
+                    Photo = table.Column<string>(type: "text", nullable: false),
                     Points = table.Column<int>(type: "integer", nullable: false),
-                    RoleId = table.Column<int>(type: "integer", nullable: true),
-                    AdressId = table.Column<int>(type: "integer", nullable: true),
+                    RoleId = table.Column<int>(type: "integer", nullable: false),
+                    AdressId = table.Column<int>(type: "integer", nullable: false),
                     RefreshToken = table.Column<string>(type: "text", nullable: true),
-                    RefreshTokenExpiryTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
+                    RefreshTokenExpiryTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    IsActive = table.Column<bool>(type: "boolean", nullable: false),
+                    IsEmailConfirmed = table.Column<bool>(type: "boolean", nullable: false),
+                    IsPhoneNumberConfirmed = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Users_Images_PhotoId",
-                        column: x => x.PhotoId,
-                        principalTable: "Images",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Users_Locations_AdressId",
+                        name: "FK_Users_Adresses_AdressId",
                         column: x => x.AdressId,
-                        principalTable: "Locations",
+                        principalTable: "Adresses",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Users_Roles_RoleId",
                         column: x => x.RoleId,
                         principalTable: "Roles",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -172,36 +144,29 @@ namespace GreenUp.EntityFrameworkCore.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Titre = table.Column<string>(type: "text", nullable: true),
                     Description = table.Column<string>(type: "text", nullable: true),
-                    LocationId = table.Column<int>(type: "integer", nullable: true),
+                    LocationId = table.Column<int>(type: "integer", nullable: false),
                     Date = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
-                    AssociationId = table.Column<Guid>(type: "uuid", nullable: true),
-                    ThumbnailId = table.Column<int>(type: "integer", nullable: true),
+                    AssociationId = table.Column<Guid>(type: "uuid", nullable: false),
                     RewardValue = table.Column<int>(type: "integer", nullable: false),
                     IsInGroup = table.Column<bool>(type: "boolean", nullable: false),
-                    Places = table.Column<int>(type: "integer", nullable: true),
+                    NumberPlaces = table.Column<int>(type: "integer", nullable: true),
                     Available = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Missions", x => x.Id);
                     table.ForeignKey(
+                        name: "FK_Missions_Adresses_LocationId",
+                        column: x => x.LocationId,
+                        principalTable: "Adresses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
                         name: "FK_Missions_Associations_AssociationId",
                         column: x => x.AssociationId,
                         principalTable: "Associations",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Missions_Images_ThumbnailId",
-                        column: x => x.ThumbnailId,
-                        principalTable: "Images",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Missions_Locations_LocationId",
-                        column: x => x.LocationId,
-                        principalTable: "Locations",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -210,12 +175,12 @@ namespace GreenUp.EntityFrameworkCore.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    CompanyId = table.Column<Guid>(type: "uuid", nullable: true),
-                    ImageId = table.Column<int>(type: "integer", nullable: true),
+                    CompanyId = table.Column<Guid>(type: "uuid", nullable: false),
+                    Image = table.Column<string>(type: "text", nullable: true),
                     Name = table.Column<string>(type: "text", nullable: false),
                     Value = table.Column<int>(type: "integer", nullable: false),
                     Quantity = table.Column<int>(type: "integer", nullable: false),
-                    UserId = table.Column<Guid>(type: "uuid", nullable: true)
+                    UserId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -225,19 +190,13 @@ namespace GreenUp.EntityFrameworkCore.Migrations
                         column: x => x.CompanyId,
                         principalTable: "Companies",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Rewards_Images_ImageId",
-                        column: x => x.ImageId,
-                        principalTable: "Images",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Rewards_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -270,11 +229,6 @@ namespace GreenUp.EntityFrameworkCore.Migrations
                 column: "AdressId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Associations_LogoId",
-                table: "Associations",
-                column: "LogoId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Associations_RoleId",
                 table: "Associations",
                 column: "RoleId");
@@ -283,11 +237,6 @@ namespace GreenUp.EntityFrameworkCore.Migrations
                 name: "IX_Companies_AdressId",
                 table: "Companies",
                 column: "AdressId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Companies_LogoId",
-                table: "Companies",
-                column: "LogoId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Companies_RoleId",
@@ -305,11 +254,6 @@ namespace GreenUp.EntityFrameworkCore.Migrations
                 column: "LocationId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Missions_ThumbnailId",
-                table: "Missions",
-                column: "ThumbnailId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_MissionUser_UsersId",
                 table: "MissionUser",
                 column: "UsersId");
@@ -320,11 +264,6 @@ namespace GreenUp.EntityFrameworkCore.Migrations
                 column: "CompanyId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Rewards_ImageId",
-                table: "Rewards",
-                column: "ImageId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Rewards_UserId",
                 table: "Rewards",
                 column: "UserId");
@@ -333,11 +272,6 @@ namespace GreenUp.EntityFrameworkCore.Migrations
                 name: "IX_Users_AdressId",
                 table: "Users",
                 column: "AdressId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Users_PhotoId",
-                table: "Users",
-                column: "PhotoId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Users_RoleId",
@@ -366,10 +300,7 @@ namespace GreenUp.EntityFrameworkCore.Migrations
                 name: "Associations");
 
             migrationBuilder.DropTable(
-                name: "Images");
-
-            migrationBuilder.DropTable(
-                name: "Locations");
+                name: "Adresses");
 
             migrationBuilder.DropTable(
                 name: "Roles");

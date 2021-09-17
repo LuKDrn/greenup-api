@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace GreenUp.Web.Mvc.Models.Users
@@ -20,5 +21,11 @@ namespace GreenUp.Web.Mvc.Models.Users
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public DateTime BirthDate { get; set; }
+        public IFormFile Photo { get; set; }
+        [Required]
+        public string Adress { get; set; }
+        [Required]
+        public string City { get; set; }
+        public int ZipCode { get; set; }
     }
 }

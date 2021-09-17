@@ -85,7 +85,9 @@ namespace GreenUp.Web.Mvc
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
+
             app.UseCors("EnableCORS");
+            app.UseStatusCodePages();
 
             app.UseEndpoints(endpoints =>
             {
