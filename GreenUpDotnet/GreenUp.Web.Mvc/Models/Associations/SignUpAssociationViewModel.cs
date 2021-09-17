@@ -1,6 +1,4 @@
-﻿using GreenUp.Core.Business.Locations.Models;
-using GreenUp.Core.Business.Users.Models;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace GreenUp.Web.Mvc.Models.Associations
 {

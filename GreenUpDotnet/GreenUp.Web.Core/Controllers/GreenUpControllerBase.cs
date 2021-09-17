@@ -1,5 +1,4 @@
 ﻿using Abp.AspNetCore.Mvc.Controllers;
-using GreenUp.Core.Business.Images.Models;
 using GreenUp.Core.Business.Users.Models;
 using GreenUp.EntityFrameworkCore.Data;
 using Microsoft.AspNetCore.Http;
@@ -9,7 +8,6 @@ using Microsoft.Extensions.Configuration;
 using System;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace GreenUp.Web.Core.Controllers
 {
@@ -42,23 +40,20 @@ namespace GreenUp.Web.Core.Controllers
         }
 
         [HttpPost]
-        public async Task<Image> UploadImage(IFormFile image)
+        public static string UploadImage(IFormFile image)
         {
-            Image img = new Image()
-            {
-                ImageTitle = image.FileName
-            };
-
-            MemoryStream ms = new MemoryStream();
-            image.CopyTo(ms);
-            img.ImageData = ms.ToArray();
-
-            ms.Close();
-            ms.Dispose();
-
-            await _context.Images.AddAsync(img);
-            await _context.SaveChangesAsync();
+            string img = "/Images/default-profile-picture-avatar-png-green.png";
+            if (image != null)
+            {              
+                MemoryStream ms = new();
+                image.CopyTo(ms);
+                var imageBytes = ms.ToArray();
+                img = $"data:image/png;base64,{Convert.ToBase64String(imageBytes)}";
+                ms.Close();
+                ms.Dispose();
+            }
             return img;
         }
+
     }
 }

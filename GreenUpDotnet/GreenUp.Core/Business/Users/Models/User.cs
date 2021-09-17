@@ -1,6 +1,5 @@
 ﻿using Abp.Domain.Entities;
-using GreenUp.Core.Business.Images.Models;
-using GreenUp.Core.Business.Locations.Models;
+using GreenUp.Core.Business.Adresses.Models;
 using GreenUp.Core.Business.Missions.Models;
 using System;
 using System.Collections.Generic;
@@ -11,6 +10,7 @@ namespace GreenUp.Core.Business.Users.Models
 {
     public class User : Entity<Guid>
     {
+        public DateTime CreationTime { get; set; }
         [Required]
         [EmailAddress]
         public string Mail { get; set; }
@@ -23,18 +23,20 @@ namespace GreenUp.Core.Business.Users.Models
         public string LastName { get; set; }
         [Required]
         public DateTime BirthDate { get; set; }
-        [ForeignKey("PhotoId")]
-        public Image Photo { get; set; }
-        public int PhotoId { get; set; }
+        [Required]
+        public string Photo { get; set; }
         public int Points { get; set; }
         [ForeignKey("RoleId")]
         public Role Role { get; set; }
         public int RoleId { get; set; }
         [ForeignKey("AdressId")]
-        public Location Adress { get; set; }
+        public Adress Adress { get; set; }
         public int AdressId { get; set; }
         public ICollection<Mission> Missions { get; set; }
         public string RefreshToken { get; set; }
         public DateTime RefreshTokenExpiryTime { get; set; }
+        public bool IsActive { get; set; }
+        public bool IsEmailConfirmed { get; set; }
+        public bool IsPhoneNumberConfirmed { get; set; }
     }
 }

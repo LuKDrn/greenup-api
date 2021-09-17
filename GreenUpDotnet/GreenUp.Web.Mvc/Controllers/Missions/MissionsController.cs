@@ -1,5 +1,5 @@
-﻿using GreenUp.Core.Business.Associations.Models;
-using GreenUp.Core.Business.Locations.Models;
+﻿using GreenUp.Core.Business.Adresses.Models;
+using GreenUp.Core.Business.Associations.Models;
 using GreenUp.Core.Business.Missions.Models;
 using GreenUp.EntityFrameworkCore.Data;
 using GreenUp.Web.Core.Controllers;
@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace GreenUp.Web.Mvc.Controllers.Missions
@@ -42,11 +41,11 @@ namespace GreenUp.Web.Mvc.Controllers.Missions
                     Date = model.Date,
                     RewardValue = model.RewardValue,
                     Available = true,
-                    Places = model.Places,
+                    NumberPlaces = model.NumberPlaces,
                     IsInGroup = model.IsInGroup,
-                    Location = new Location()
+                    Location = new Adress()
                     {
-                        Adress = model.Adress,
+                        Place = model.Adress,
                         City = model.City,
                         ZipCode = (int)model.ZipCode,
                     },

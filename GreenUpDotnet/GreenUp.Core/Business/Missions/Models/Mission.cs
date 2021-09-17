@@ -1,7 +1,6 @@
 ﻿using Abp.Domain.Entities;
+using GreenUp.Core.Business.Adresses.Models;
 using GreenUp.Core.Business.Associations.Models;
-using GreenUp.Core.Business.Images.Models;
-using GreenUp.Core.Business.Locations.Models;
 using GreenUp.Core.Business.Users.Models;
 using System;
 using System.Collections.Generic;
@@ -14,7 +13,7 @@ namespace GreenUp.Core.Business.Missions.Models
         public string Titre { get; set; }
         public string Description { get; set; }
         [ForeignKey("LocationId")]
-        public Location Location { get; set; }
+        public Adress Location { get; set; }
         public int LocationId { get; set; }
         public DateTime Date { get; set; }
         [ForeignKey("AssociationId")]
@@ -22,7 +21,7 @@ namespace GreenUp.Core.Business.Missions.Models
         public Guid AssociationId { get; set; }
         public int RewardValue { get; set; }
         public bool IsInGroup { get; set; }
-        public int? Places { get; set; }
+        public int? NumberPlaces { get; set; }
         public bool Available { get; set; }
         public ICollection<User> Users { get; set; }
     }

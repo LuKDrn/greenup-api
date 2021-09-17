@@ -1,5 +1,4 @@
 ﻿using Abp.Domain.Entities;
-using GreenUp.Core.Business.Images.Models;
 using GreenUp.Core.Business.Users.Models;
 using System;
 using System.ComponentModel.DataAnnotations;
@@ -12,9 +11,7 @@ namespace GreenUp.Core.Business.Companies.Models
         [ForeignKey("CompanyId")]
         public Company Company { get; set; }
         public Guid CompanyId { get; set; }
-        [ForeignKey("ImageId")]
-        public Image Image { get; set; }
-        public int ImageId { get; set; }
+        public string Image { get; set; }
         [Required]
         public string Name { get; set; }
         public int Value { get; set; }

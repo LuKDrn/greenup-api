@@ -1,8 +1,10 @@
-﻿using GreenUp.Core.Business.Users.Models;
+﻿using GreenUp.Core.Business.Adresses.Models;
+using GreenUp.Core.Business.Users.Models;
 using GreenUp.EntityFrameworkCore.Data;
 using GreenUp.Web.Core.Controllers;
 using GreenUp.Web.Mvc.Classes;
 using GreenUp.Web.Mvc.Models.Users;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -17,6 +19,7 @@ using System.Threading.Tasks;
 
 namespace GreenUp.Web.Mvc.Controllers.Users
 {
+    [Route("api/[controller]")]
     public class UsersController : GreenUpControllerBase
     {
         private readonly ITokenService _tokenService;
@@ -24,11 +27,12 @@ namespace GreenUp.Web.Mvc.Controllers.Users
         {
             _tokenService = tokenService;
         }
-        [HttpGet("{id}")]
-        [Authorize]
+
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [HttpGet, Route("{id}")]
         public async Task<ActionResult<OneUserViewModel>> Profile(Guid id)
         {
-            User user = await GetUser(id, false).Include(x => x.Photo).FirstOrDefaultAsync();
+            User user = await GetUser(id, false).Include(u => u.Role).Include(u => u.Adress).Include(u => u.Missions).FirstOrDefaultAsync();
             if (user != null)
             {
                 OneUserViewModel model = new OneUserViewModel()
@@ -101,7 +105,7 @@ namespace GreenUp.Web.Mvc.Controllers.Users
         }
 
         [HttpPost, Route("SignUp")]
-        public async Task<ActionResult<User>> SignUp([FromBody] SignUpUserViewModel model)
+        public async Task<ActionResult<string>> SignUp([FromBody] SignUpUserViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -113,11 +117,19 @@ namespace GreenUp.Web.Mvc.Controllers.Users
                     FirstName = model.FirstName,
                     LastName = model.LastName,
                     BirthDate = model.BirthDate,
+                    CreationTime = DateTime.Now,                   
                     Role = role
                 };
+                user.Adress = new Adress()
+                {
+                    Place = model.Adress,
+                    City = model.City,
+                    ZipCode = model.ZipCode
+                };
+                user.Photo = UploadImage(model.Photo);
                 role.Users.Add(user);
                 await _context.SaveChangesAsync();
-                return user;
+                return $"The user {model.Mail} has been created";
             }
             return Ok(new { Error = "Model not valid" });
         }
@@ -130,7 +142,7 @@ namespace GreenUp.Web.Mvc.Controllers.Users
             {
                 user.FirstName = model.FirstName;
                 user.LastName = model.LastName;
-                user.Photo = await UploadImage(model.NewPhoto);
+                user.Photo = UploadImage(model.NewPhoto);
                 user.BirthDate = model.BirthDate;
 
                 return user;
@@ -138,22 +150,6 @@ namespace GreenUp.Web.Mvc.Controllers.Users
             else
             {
                 return Ok("Aucun utilisateur trouvé");
-            }
-        }
-
-        [HttpPut, Route("EditMail")]
-        public async Task<string> EditMail(OneUserViewModel model)
-        {
-            var user = await GetUser(model.Id, false).FirstOrDefaultAsync();
-            if (user != null)
-            {
-                user.Mail = model.Mail;
-
-                return user.Mail;
-            }
-            else
-            {
-                return "Aucun utilisateur à modifié";
             }
         }
 
@@ -169,7 +165,7 @@ namespace GreenUp.Web.Mvc.Controllers.Users
                 }
                 _context.Users.Remove(user);
                 await _context.SaveChangesAsync();
-                return Ok(new { Success = $"Votre compte à été supprimé" });
+                return Ok(new { Success = $"Votre compte a été supprimé" });
             }
             return Ok(new { Error = "Aucun utilisateur trouvé" });
         }

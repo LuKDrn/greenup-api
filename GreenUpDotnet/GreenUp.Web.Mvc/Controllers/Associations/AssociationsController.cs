@@ -1,5 +1,5 @@
-﻿using GreenUp.Core.Business.Associations.Models;
-using GreenUp.Core.Business.Locations.Models;
+﻿using GreenUp.Core.Business.Adresses.Models;
+using GreenUp.Core.Business.Associations.Models;
 using GreenUp.EntityFrameworkCore.Data;
 using GreenUp.Web.Core.Controllers;
 using GreenUp.Web.Mvc.Classes;
@@ -85,9 +85,9 @@ namespace GreenUp.Web.Mvc.Controllers.Associations
                     Password = BCrypt.Net.BCrypt.HashPassword(model.Password),
                     Siren = model.Siren,
                     Role = role,
-                    Adress = new Location()
+                    Adress = new Adress()
                     {
-                        Adress = model.Adress,
+                        Place = model.Adress,
                         City = model.City,
                         ZipCode = model.ZipCode
                     }

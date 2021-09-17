@@ -19,6 +19,29 @@ namespace GreenUp.EntityFrameworkCore.Migrations
                 .HasAnnotation("ProductVersion", "5.0.7")
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
+            modelBuilder.Entity("GreenUp.Core.Business.Adresses.Models.Adress", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Place")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("ZipCode")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Adresses");
+                });
+
             modelBuilder.Entity("GreenUp.Core.Business.Associations.Models.Association", b =>
                 {
                     b.Property<Guid>("Id")
@@ -28,8 +51,8 @@ namespace GreenUp.EntityFrameworkCore.Migrations
                     b.Property<int>("AdressId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("LogoId")
-                        .HasColumnType("integer");
+                    b.Property<string>("Logo")
+                        .HasColumnType("text");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -54,8 +77,6 @@ namespace GreenUp.EntityFrameworkCore.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AdressId");
-
-                    b.HasIndex("LogoId");
 
                     b.HasIndex("RoleId");
 
@@ -71,8 +92,8 @@ namespace GreenUp.EntityFrameworkCore.Migrations
                     b.Property<int>("AdressId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("LogoId")
-                        .HasColumnType("integer");
+                    b.Property<string>("Logo")
+                        .HasColumnType("text");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -97,8 +118,6 @@ namespace GreenUp.EntityFrameworkCore.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AdressId");
-
-                    b.HasIndex("LogoId");
 
                     b.HasIndex("RoleId");
 
@@ -115,8 +134,8 @@ namespace GreenUp.EntityFrameworkCore.Migrations
                     b.Property<Guid>("CompanyId")
                         .HasColumnType("uuid");
 
-                    b.Property<int>("ImageId")
-                        .HasColumnType("integer");
+                    b.Property<string>("Image")
+                        .HasColumnType("text");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -135,53 +154,9 @@ namespace GreenUp.EntityFrameworkCore.Migrations
 
                     b.HasIndex("CompanyId");
 
-                    b.HasIndex("ImageId");
-
                     b.HasIndex("UserId");
 
                     b.ToTable("Rewards");
-                });
-
-            modelBuilder.Entity("GreenUp.Core.Business.Images.Models.Image", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<byte[]>("ImageData")
-                        .HasColumnType("bytea");
-
-                    b.Property<string>("ImageTitle")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Images");
-                });
-
-            modelBuilder.Entity("GreenUp.Core.Business.Locations.Models.Location", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<string>("Adress")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("City")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("ZipCode")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Locations");
                 });
 
             modelBuilder.Entity("GreenUp.Core.Business.Missions.Models.Mission", b =>
@@ -203,16 +178,13 @@ namespace GreenUp.EntityFrameworkCore.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("text");
 
-                    b.Property<int?>("ImageId")
-                        .HasColumnType("integer");
-
                     b.Property<bool>("IsInGroup")
                         .HasColumnType("boolean");
 
                     b.Property<int>("LocationId")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("Places")
+                    b.Property<int?>("NumberPlaces")
                         .HasColumnType("integer");
 
                     b.Property<int>("RewardValue")
@@ -224,8 +196,6 @@ namespace GreenUp.EntityFrameworkCore.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AssociationId");
-
-                    b.HasIndex("ImageId");
 
                     b.HasIndex("LocationId");
 
@@ -259,9 +229,21 @@ namespace GreenUp.EntityFrameworkCore.Migrations
                     b.Property<DateTime>("BirthDate")
                         .HasColumnType("timestamp without time zone");
 
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("timestamp without time zone");
+
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("IsEmailConfirmed")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("IsPhoneNumberConfirmed")
+                        .HasColumnType("boolean");
 
                     b.Property<string>("LastName")
                         .IsRequired()
@@ -275,8 +257,9 @@ namespace GreenUp.EntityFrameworkCore.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("PhotoId")
-                        .HasColumnType("integer");
+                    b.Property<string>("Photo")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<int>("Points")
                         .HasColumnType("integer");
@@ -293,8 +276,6 @@ namespace GreenUp.EntityFrameworkCore.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AdressId");
-
-                    b.HasIndex("PhotoId");
 
                     b.HasIndex("RoleId");
 
@@ -318,15 +299,9 @@ namespace GreenUp.EntityFrameworkCore.Migrations
 
             modelBuilder.Entity("GreenUp.Core.Business.Associations.Models.Association", b =>
                 {
-                    b.HasOne("GreenUp.Core.Business.Locations.Models.Location", "Adress")
+                    b.HasOne("GreenUp.Core.Business.Adresses.Models.Adress", "Adress")
                         .WithMany("Associations")
                         .HasForeignKey("AdressId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("GreenUp.Core.Business.Images.Models.Image", "Logo")
-                        .WithMany("Association")
-                        .HasForeignKey("LogoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -336,22 +311,14 @@ namespace GreenUp.EntityFrameworkCore.Migrations
 
                     b.Navigation("Adress");
 
-                    b.Navigation("Logo");
-
                     b.Navigation("Role");
                 });
 
             modelBuilder.Entity("GreenUp.Core.Business.Companies.Models.Company", b =>
                 {
-                    b.HasOne("GreenUp.Core.Business.Locations.Models.Location", "Adress")
+                    b.HasOne("GreenUp.Core.Business.Adresses.Models.Adress", "Adress")
                         .WithMany("Companies")
                         .HasForeignKey("AdressId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("GreenUp.Core.Business.Images.Models.Image", "Logo")
-                        .WithMany("Companies")
-                        .HasForeignKey("LogoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -360,8 +327,6 @@ namespace GreenUp.EntityFrameworkCore.Migrations
                         .HasForeignKey("RoleId");
 
                     b.Navigation("Adress");
-
-                    b.Navigation("Logo");
 
                     b.Navigation("Role");
                 });
@@ -374,12 +339,6 @@ namespace GreenUp.EntityFrameworkCore.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("GreenUp.Core.Business.Images.Models.Image", "Image")
-                        .WithMany()
-                        .HasForeignKey("ImageId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("GreenUp.Core.Business.Users.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
@@ -387,8 +346,6 @@ namespace GreenUp.EntityFrameworkCore.Migrations
                         .IsRequired();
 
                     b.Navigation("Company");
-
-                    b.Navigation("Image");
 
                     b.Navigation("User");
                 });
@@ -401,11 +358,7 @@ namespace GreenUp.EntityFrameworkCore.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("GreenUp.Core.Business.Images.Models.Image", null)
-                        .WithMany("Missions")
-                        .HasForeignKey("ImageId");
-
-                    b.HasOne("GreenUp.Core.Business.Locations.Models.Location", "Location")
+                    b.HasOne("GreenUp.Core.Business.Adresses.Models.Adress", "Location")
                         .WithMany("Missions")
                         .HasForeignKey("LocationId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -418,15 +371,9 @@ namespace GreenUp.EntityFrameworkCore.Migrations
 
             modelBuilder.Entity("GreenUp.Core.Business.Users.Models.User", b =>
                 {
-                    b.HasOne("GreenUp.Core.Business.Locations.Models.Location", "Adress")
+                    b.HasOne("GreenUp.Core.Business.Adresses.Models.Adress", "Adress")
                         .WithMany("Users")
                         .HasForeignKey("AdressId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("GreenUp.Core.Business.Images.Models.Image", "Photo")
-                        .WithMany("Users")
-                        .HasForeignKey("PhotoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -437,8 +384,6 @@ namespace GreenUp.EntityFrameworkCore.Migrations
                         .IsRequired();
 
                     b.Navigation("Adress");
-
-                    b.Navigation("Photo");
 
                     b.Navigation("Role");
                 });
@@ -458,28 +403,7 @@ namespace GreenUp.EntityFrameworkCore.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("GreenUp.Core.Business.Associations.Models.Association", b =>
-                {
-                    b.Navigation("Missions");
-                });
-
-            modelBuilder.Entity("GreenUp.Core.Business.Companies.Models.Company", b =>
-                {
-                    b.Navigation("Rewards");
-                });
-
-            modelBuilder.Entity("GreenUp.Core.Business.Images.Models.Image", b =>
-                {
-                    b.Navigation("Association");
-
-                    b.Navigation("Companies");
-
-                    b.Navigation("Missions");
-
-                    b.Navigation("Users");
-                });
-
-            modelBuilder.Entity("GreenUp.Core.Business.Locations.Models.Location", b =>
+            modelBuilder.Entity("GreenUp.Core.Business.Adresses.Models.Adress", b =>
                 {
                     b.Navigation("Associations");
 
@@ -488,6 +412,16 @@ namespace GreenUp.EntityFrameworkCore.Migrations
                     b.Navigation("Missions");
 
                     b.Navigation("Users");
+                });
+
+            modelBuilder.Entity("GreenUp.Core.Business.Associations.Models.Association", b =>
+                {
+                    b.Navigation("Missions");
+                });
+
+            modelBuilder.Entity("GreenUp.Core.Business.Companies.Models.Company", b =>
+                {
+                    b.Navigation("Rewards");
                 });
 
             modelBuilder.Entity("GreenUp.Core.Business.Users.Models.Role", b =>
