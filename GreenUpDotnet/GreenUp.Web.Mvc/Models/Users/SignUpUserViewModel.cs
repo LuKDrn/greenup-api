@@ -22,7 +22,7 @@ namespace GreenUp.Web.Mvc.Models.Users
         public string LastName { get; set; }
         public DateTime BirthDate { get; set; }
         public IFormFile Photo { get; set; }
-        [Required]
+        //[Required]
         public string Adress { get; set; }
         [Required]
         public string City { get; set; }

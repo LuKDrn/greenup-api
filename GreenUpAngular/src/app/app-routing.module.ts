@@ -10,6 +10,7 @@ import { AssociationsComponent } from './modules/association/associations/associ
 import { AssociationIdComponent } from './modules/association/association-id/association-id.component';
 import { MissionIdComponent } from './modules/mission/mission-id/mission-id.component';
 import { ProduitIdComponent } from './modules/produit/produit-id/produit-id.component';
+import { EditProfileComponent } from './modules/user/edit-profile/edit-profile.component';
 
 const routes: Routes = [
   {
@@ -28,6 +29,10 @@ const routes: Routes = [
   {
     path: 'signUp',
     component: SignUpComponent
+  },
+  {
+    path: 'edit-profile',
+    component: EditProfileComponent
   },
   {
     path: 'missions',

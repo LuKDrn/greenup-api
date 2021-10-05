@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { UserService } from 'src/app/modules/user/user.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -8,12 +9,17 @@ import { Router } from '@angular/router';
 })
 export class ToolbarComponent implements OnInit {
   public title: string = 'GreenUp';
+  // public user?: User;
 
   constructor(
-    private router: Router
-  ) { }
+    private router: Router,
+    private userService: UserService
+  ) { 
+  }
 
-  ngOnInit() {}
+  ngOnInit() {
+
+  }
 
   public home(): void {
     this.router.navigate(['/home']);
@@ -39,4 +45,7 @@ export class ToolbarComponent implements OnInit {
     this.router.navigate(['/associations']);
   }
 
+  public initUser(): void {
+    // this.userService.
+  }
 }

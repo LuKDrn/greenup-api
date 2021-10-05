@@ -19,14 +19,16 @@ export class SignUpComponent implements OnInit {
   ) {
 
     this.form = this.fb.group({
-      Mail: new FormControl('', [Validators.required, Validators.email, Validators.email]),
-      Password: new FormControl('', [Validators.required, Validators.required]),
-      FirstName: new FormControl('', []),
-      LastName: new FormControl('', []),
-      address: new FormControl('', []),
-      BirthDate: new FormControl('', []),
-      point: new FormControl(0, []),
-      // PhotoId: new FormControl(0, [])
+      mail: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', [Validators.required, Validators.minLength(6)]),
+      confirmPassword: new FormControl('',  [Validators.required, Validators.minLength(6)]),
+      firstName: new FormControl('', []),
+      lastName: new FormControl('', []),
+      adress: new FormControl('', []),
+      city: new FormControl('', []),
+      zipCode: new FormControl(0, []),
+      birthDate: new FormControl('', []),
+      photo: new FormControl(null, [])
     });
    }
 
@@ -41,10 +43,10 @@ export class SignUpComponent implements OnInit {
   }
 
   public signUp(): void {
-    console.log(`s'inscrire`, this.form.value);
+    this.form.get('birthDate')?.setValue(new Date().toISOString());
     this.userService.signUp(this.form.value).subscribe(
       (res: any) => {
-        console.log('res');
+        console.log('res', res);
       },
       (error: any) => {
         console.log('error', error);

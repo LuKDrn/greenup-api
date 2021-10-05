@@ -29,6 +29,7 @@ import { ComponentModule } from '../component/component.module';
 import { AssociationIdComponent } from './association/association-id/association-id.component';
 import { MissionIdComponent } from './mission/mission-id/mission-id.component';
 import { ProduitIdComponent } from './produit/produit-id/produit-id.component';
+import { EditProfileComponent } from './user/edit-profile/edit-profile.component';
 
 
 
@@ -43,7 +44,8 @@ import { ProduitIdComponent } from './produit/produit-id/produit-id.component';
     ChallengesComponent,
     AssociationsComponent,
     AssociationIdComponent,
-    HomeComponent
+    HomeComponent,
+    EditProfileComponent
   ],
   imports: [
 

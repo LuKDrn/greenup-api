@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SharedService } from '../../../shared.service';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-auth',
@@ -18,10 +19,11 @@ export class AuthComponent implements OnInit {
     private router: Router, 
     private http: HttpClient,
     private service: SharedService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private userService: UserService
   ) { 
     this.form = this.fb.group({
-      email: new FormControl('', [Validators.required, Validators.email, Validators.email]),
+      mail: new FormControl('', [Validators.required, Validators.email, Validators.email]),
       password: new FormControl('', [Validators.required, Validators.required])
     });
   }
@@ -32,18 +34,14 @@ export class AuthComponent implements OnInit {
     if (this.form.hasError('required')) {
       return 'You must enter a value';
     }
-
     return this.form.hasError('email') ? 'Les champs ne sont pas valides' : '';
   }
 
-  public login(form: NgForm): void {
-    const credentials = JSON.stringify(form.value);
+  public onSubmit(): void { }
 
-    this.http.post("https://localhost:5001/auth/login", credentials, {
-      headers: new HttpHeaders({
-        "Content-Type": "application/json"
-      })
-    }).subscribe(response => {
+  public login(): void {
+    this.userService.login(this.form.value).subscribe(
+    response => {
       const token = (<any>response).token;
       localStorage.setItem("jwt", token);
       this.invalidLogin = false;
@@ -56,5 +54,4 @@ export class AuthComponent implements OnInit {
   public signUp(): void {
     this.router.navigate(['/signUp']); 
   }
-
 }
