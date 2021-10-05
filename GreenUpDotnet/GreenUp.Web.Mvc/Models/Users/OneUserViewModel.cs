@@ -1,5 +1,5 @@
-﻿using GreenUp.Core.Business.Adresses.Models;
-using GreenUp.Core.Business.Missions.Models;
+﻿using GreenUp.Web.Mvc.Models.Adresses;
+using GreenUp.Web.Mvc.Models.Missions;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
@@ -13,12 +13,12 @@ namespace GreenUp.Web.Mvc.Models.Users
         public string Password { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public DateTime BirthDate { get; set; }
+        public string BirthDate { get; set; }
         public string Photo { get; set; }
         public IFormFile NewPhoto { get; set; }
         public int Points { get; set; }
         public string Role { get; set; }
-        public Adress Adress { get; set; }
-        public ICollection<Mission> Missions = new List<Mission>();
+        public OneAdressViewModel Adress { get; set; }
+        public ICollection<OneMissionViewModel> Missions { get; set; } = new List<OneMissionViewModel>();
     }
 }

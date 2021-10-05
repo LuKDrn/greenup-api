@@ -1,9 +1,13 @@
-﻿using GreenUp.Core.Business.Adresses.Models;
+﻿using GreenUp.Application.Authentications.Tokens;
+using GreenUp.Core.Business.Adresses.Models;
 using GreenUp.Core.Business.Associations.Models;
 using GreenUp.EntityFrameworkCore.Data;
 using GreenUp.Web.Core.Controllers;
-using GreenUp.Web.Mvc.Classes;
+using GreenUp.Web.Mvc.Models.Adresses;
 using GreenUp.Web.Mvc.Models.Associations;
+using GreenUp.Web.Mvc.Models.Missions;
+using GreenUp.Web.Mvc.Models.Users;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -16,6 +20,7 @@ using System.Threading.Tasks;
 
 namespace GreenUp.Web.Mvc.Controllers.Associations
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class AssociationsController : GreenUpControllerBase
@@ -26,12 +31,13 @@ namespace GreenUp.Web.Mvc.Controllers.Associations
             _tokenService = tokenService;
         }
 
+        [AllowAnonymous]
         [HttpPost, Route("Login")]
         public async Task<IActionResult> Login([FromBody]LoginAssociationViewModel model)
         {
             if (ModelState.IsValid)
             {
-                Association association = await _context.Associations.FirstOrDefaultAsync(u =>u.Name == model.Name  && u.Siren == model.Siren);
+                Association association = await _context.Associations.FirstOrDefaultAsync(u => u.Name == model.Name  && u.Siren == model.Siren);
                 if (association != null)
                 {
                     bool verified = BCrypt.Net.BCrypt.Verify(model.Password, association.Password);
@@ -73,13 +79,14 @@ namespace GreenUp.Web.Mvc.Controllers.Associations
             }
         }
 
+        [AllowAnonymous]
         [HttpPost, Route("SignUp")]
         public async Task<ActionResult<Association>> SignUp([FromBody]SignUpAssociationViewModel model)
         {
             if (ModelState.IsValid)
             {
                 var role = await _context.Roles.Include(r => r.Assocations).FirstOrDefaultAsync(x => x.Value == "Association");
-                Association association = new Association()
+                Association association = new()
                 {
                     Name = model.Name,
                     Password = BCrypt.Net.BCrypt.HashPassword(model.Password),
@@ -97,6 +104,67 @@ namespace GreenUp.Web.Mvc.Controllers.Associations
                 return association;
             }
             return Ok(new { Error = "Model not valid" });
+        }
+
+        [Authorize]
+        [HttpGet, Route("Dashboard/{id}")]
+        public async Task<ActionResult<OneAssociationViewModel>> Dashboard(Guid id)
+        {
+            Association association = await GetOneAssociation(id, true).FirstOrDefaultAsync();
+            if(association != null)
+            {
+                var associationMissions = new List<OneMissionViewModel>();
+                if(association.Missions.Count > 0)
+                {
+                    foreach (var mission in association.Missions)
+                    {
+                        var missionUsers = new List<OneMissionUserViewModel>();
+                        if(mission.Users.Count > 0)
+                        {
+                            foreach (var user in mission.Users)
+                            {
+                                missionUsers.Add(new OneMissionUserViewModel
+                                {
+                                    Id = user.UserId,
+                                    FirstName = user.User.FirstName,
+                                    LastName = user.User.LastName,
+                                    Mail = user.User.Mail,
+                                    DateInscription = user.DateInscription.ToString("dd/MM/yyyy HH:mm"),
+                                    Photo = user.User.Photo,
+                                });
+                            }
+                        }
+                        associationMissions.Add(new OneMissionViewModel
+                        {
+                            Id = mission.Id,
+                            Titre = mission.Titre,
+                            Description = mission.Description,
+                            Date = mission.Date.ToString("dd/MM/yyyy HH:mm"),
+                            Available = mission.Available,
+                            IsInGroup = mission.IsInGroup,
+                            NumberPlaces = mission.NumberPlaces,
+                            RewardValue = mission.RewardValue,
+                            Adress = new OneAdressViewModel
+                            {
+                                Id = mission.LocationId,
+                                Place = mission.Location.Place,
+                                City = mission.Location.City,
+                                ZipCode = mission.Location.ZipCode
+                            },
+                            Users = missionUsers
+                        });
+                    }
+                }
+                OneAssociationViewModel model = new()
+                {
+                    Id = association.Id,
+                    Name = association.Name,
+                    Siren = association.Siren.ToString(),
+                    Logo = association.Logo,
+                    
+                };
+            }
+            return null;                       
         }
     }
 }

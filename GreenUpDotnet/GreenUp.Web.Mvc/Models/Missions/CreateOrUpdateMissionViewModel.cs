@@ -6,6 +6,7 @@ namespace GreenUp.Web.Mvc.Models.Missions
     public class CreateOrUpdateMissionViewModel
     {
         public int? Id { get; set; }
+        [Required]
         public Guid AssociationId { get; set; }
         [Required]
         public string Titre { get; set; }

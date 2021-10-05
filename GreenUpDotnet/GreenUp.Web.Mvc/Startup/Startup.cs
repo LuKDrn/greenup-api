@@ -1,6 +1,6 @@
+using GreenUp.Application.Authentications.Tokens;
 using GreenUp.EntityFrameworkCore.Data;
 using GreenUp.EntityFrameworkCore.Data.Seed;
-using GreenUp.Web.Mvc.Classes;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -45,7 +45,15 @@ namespace GreenUp.Web.Mvc
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey@345"))
                 };
             });
-            services.AddTransient<ITokenService, TokenServices>();
+            services.AddAuthorization(config =>
+            {
+                config.AddPolicy("Admin", policy => policy.RequireClaim("type", "Admin"));
+                config.AddPolicy("User", policy => policy.RequireClaim("type", "User"));
+                config.AddPolicy("Association", policy => policy.RequireClaim("type", "Association"));
+                config.AddPolicy("Company", policy => policy.RequireClaim("type", "Company"));
+            });
+
+            services.AddTransient<ITokenService, TokenService>();
 
             services.AddCors(options =>
             {
@@ -67,6 +75,21 @@ namespace GreenUp.Web.Mvc
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "GreenUp.Web.Mvc", Version = "v1" });
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    In = ParameterLocation.Header,
+                    Description = "Please enter JWT with Bearer into field",
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey
+                });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement {
+                    { new OpenApiSecurityScheme
+                            {
+                                Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "Bearer"}
+                            },
+                        new string[] {}
+                    }
+                });
             });
         }
 

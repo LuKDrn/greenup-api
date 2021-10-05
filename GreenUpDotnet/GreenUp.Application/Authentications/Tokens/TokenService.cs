@@ -6,29 +6,22 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace GreenUp.Web.Mvc.Classes
+namespace GreenUp.Application.Authentications.Tokens
 {
-    public interface ITokenService 
-    {
-        string GenerateAccessToken(IEnumerable<Claim> claims);
-        string GenerateRefreshToken();
-        ClaimsPrincipal GetPrincipalFromExpiredToken(string token);
-    }
-
-    public class TokenServices : ITokenService
+    public class TokenService : ITokenService
     {
         public string GenerateAccessToken(IEnumerable<Claim> claims)
         {
             var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey@345"));
             var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
-            var tokeOptions = new JwtSecurityToken(
-                issuer: "http://localhost:5001",
-                audience: "http://localhost:5001",
+            var tokenOptions = new JwtSecurityToken(
+                issuer: "https://localhost:5001",
+                audience: "https://localhost:5001",
                 claims: claims,
-                expires: DateTime.Now.AddMinutes(5),
+                expires: DateTime.Now.AddDays(30.0),
                 signingCredentials: signinCredentials
             );
-            var tokenString = new JwtSecurityTokenHandler().WriteToken(tokeOptions);
+            var tokenString = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
             return tokenString;
         }
         public string GenerateRefreshToken()

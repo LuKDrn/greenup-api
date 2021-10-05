@@ -15,7 +15,7 @@ namespace GreenUp.Web.Mvc.Models.Associations
         [DataType(DataType.Password)]
         [Compare("Password")]
         public string ConfirmPassword { get; set; }
-        public int Siren { get; set; }
+        public string Siren { get; set; }
         [Required]
         public string Adress { get; set; }
         [Required]

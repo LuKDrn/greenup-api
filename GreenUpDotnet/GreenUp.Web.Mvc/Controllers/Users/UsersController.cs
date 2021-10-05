@@ -1,8 +1,12 @@
-﻿using GreenUp.Core.Business.Adresses.Models;
+﻿using GreenUp.Application.Authentications.Tokens;
+using GreenUp.Core.Business.Adresses.Models;
+using GreenUp.Core.Business.Missions.Models;
 using GreenUp.Core.Business.Users.Models;
 using GreenUp.EntityFrameworkCore.Data;
 using GreenUp.Web.Core.Controllers;
-using GreenUp.Web.Mvc.Classes;
+using GreenUp.Web.Mvc.Models.Adresses;
+using GreenUp.Web.Mvc.Models.Associations;
+using GreenUp.Web.Mvc.Models.Missions;
 using GreenUp.Web.Mvc.Models.Users;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -19,6 +23,8 @@ using System.Threading.Tasks;
 
 namespace GreenUp.Web.Mvc.Controllers.Users
 {
+    [Authorize]
+    [ApiController]
     [Route("api/[controller]")]
     public class UsersController : GreenUpControllerBase
     {
@@ -28,26 +34,63 @@ namespace GreenUp.Web.Mvc.Controllers.Users
             _tokenService = tokenService;
         }
 
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpGet, Route("{id}")]
-        public async Task<ActionResult<OneUserViewModel>> Profile(Guid id)
+        public async Task<ActionResult<OneUserViewModel>> Account([FromQuery]Guid id)
         {
             User user = await GetUser(id, false).Include(u => u.Role).Include(u => u.Adress).Include(u => u.Missions).FirstOrDefaultAsync();
             if (user != null)
             {
-                OneUserViewModel model = new OneUserViewModel()
+                var userMissions = new List<OneMissionViewModel>();
+                if (user.Missions.Count > 0)
+                {
+                    foreach (var mission in user.Missions)
+                    {
+                        userMissions.Add(new OneMissionViewModel
+                        {
+                            Id = mission.MissionId,
+                            Titre = mission.Mission.Titre,
+                            Description = mission.Mission.Description,
+                            Date = mission.Mission.Date.ToString("dd/MM/yyyy HH:mm"),
+                            Available = mission.Mission.Available,
+                            IsInGroup = mission.Mission.IsInGroup,
+                            RewardValue = mission.Mission.RewardValue,
+                            NumberPlaces = mission.Mission.NumberPlaces,
+                            Adress = new OneAdressViewModel
+                            {
+                                Id = mission.Mission.LocationId,
+                                City = mission.Mission.Location.City,
+                                Place = mission.Mission.Location.Place,
+                                ZipCode = mission.Mission.Location.ZipCode
+                            },
+                            Association = new OneAssociationViewModel
+                            {
+                                Id = mission.Mission.AssociationId,
+                                Name = mission.Mission.Association.Name,
+                                Siren = mission.Mission.Association.Siren.ToString(),
+                                Logo = mission.Mission.Association.Logo
+                            }
+                        });
+                    }
+                }
+                OneUserViewModel model = new()
                 {
                     Id = id,
                     Password = user.Password,
                     Mail = user.Mail,
                     FirstName = user.FirstName,
                     LastName = user.LastName,
-                    BirthDate = user.BirthDate,
+                    BirthDate = user.BirthDate.ToString("dd/MM/yyyy HH:mm"),
                     Photo = user.Photo,
                     Points = user.Points,
                     Role = user.Role.Value,
-                    Adress = user.Adress,
-                    Missions = user.Missions
+                    Adress = new OneAdressViewModel
+                    {
+                        Id = user.AdressId,
+                        Place = user.Adress.Place,
+                        City = user.Adress.City,
+                        ZipCode = user.Adress.ZipCode
+                    },
+                    Missions = userMissions
                 };
                 return model;
             }
@@ -57,6 +100,7 @@ namespace GreenUp.Web.Mvc.Controllers.Users
             }
         }
 
+        [AllowAnonymous]
         [HttpPost, Route("Login")]
         public async Task<IActionResult> Login([FromBody] LoginUserViewModel model)
         {
@@ -73,6 +117,7 @@ namespace GreenUp.Web.Mvc.Controllers.Users
 
                         var claims = new List<Claim>
                         {
+                            new Claim("type", "User"),
                             new Claim(ClaimTypes.Name, user.Mail),
                             new Claim(ClaimTypes.Role, "User")
                         };
@@ -104,38 +149,47 @@ namespace GreenUp.Web.Mvc.Controllers.Users
             }
         }
 
+        [AllowAnonymous]
         [HttpPost, Route("SignUp")]
         public async Task<ActionResult<string>> SignUp([FromBody] SignUpUserViewModel model)
         {
             if (ModelState.IsValid)
             {
                 var role = await _context.Roles.Include(r => r.Users).Where(r => r.Value == "User").FirstOrDefaultAsync();
-                User user = new User()
+                bool alreadyUserWithMail = await _context.Users.Where(u => u.Mail == model.Mail).AnyAsync();
+                if (!alreadyUserWithMail)
                 {
-                    Mail = model.Mail,
-                    Password = BCrypt.Net.BCrypt.HashPassword(model.Password),
-                    FirstName = model.FirstName,
-                    LastName = model.LastName,
-                    BirthDate = model.BirthDate,
-                    CreationTime = DateTime.Now,                   
-                    Role = role
-                };
-                user.Adress = new Adress()
+                    User user = new()
+                    {
+                        Mail = model.Mail,
+                        Password = BCrypt.Net.BCrypt.HashPassword(model.Password),
+                        FirstName = model.FirstName,
+                        LastName = model.LastName,
+                        BirthDate = model.BirthDate,
+                        CreationTime = DateTime.Now,
+                        Role = role
+                    };
+                    user.Adress = new Adress()
+                    {
+                        Place = model.Adress,
+                        City = model.City,
+                        ZipCode = model.ZipCode
+                    };
+                    user.Photo = UploadImage(model.Photo);
+                    role.Users.Add(user);
+                    await _context.SaveChangesAsync();
+                    return $"The user {model.Mail} has been created";
+                }
+                else
                 {
-                    Place = model.Adress,
-                    City = model.City,
-                    ZipCode = model.ZipCode
-                };
-                user.Photo = UploadImage(model.Photo);
-                role.Users.Add(user);
-                await _context.SaveChangesAsync();
-                return $"The user {model.Mail} has been created";
+                    return Ok(new { Error = "Cette adresse mail est déjà utilisé." });
+                }
             }
-            return Ok(new { Error = "Model not valid" });
+            return Ok(new { Error = "Les informations renseignées ne permettent de finaliser l'inscription." });
         }
 
-        [HttpPut, Route("EditProfile")]
-        public async Task<ActionResult<User>> EditProfile(OneUserViewModel model)
+        [HttpPut, Route("EditAccount")]
+        public async Task<ActionResult<User>> EditProfile([FromBody] OneUserViewModel model)
         {
             var user = await GetUser(model.Id, false).FirstOrDefaultAsync();
             if (user != null)
@@ -143,8 +197,7 @@ namespace GreenUp.Web.Mvc.Controllers.Users
                 user.FirstName = model.FirstName;
                 user.LastName = model.LastName;
                 user.Photo = UploadImage(model.NewPhoto);
-                user.BirthDate = model.BirthDate;
-
+                user.BirthDate = Convert.ToDateTime("model.BirthDate");             
                 return user;
             }
             else
@@ -159,15 +212,29 @@ namespace GreenUp.Web.Mvc.Controllers.Users
             var user = await GetUser(id, true).FirstOrDefaultAsync();
             if (user != null)
             {
-                foreach (var mission in user.Missions)
+                foreach (var missionUser in user.Missions)
                 {
-                    mission.Users.Remove(user);
-                }
+                    _context.MissionUsers.Remove(missionUser);
+                };
                 _context.Users.Remove(user);
                 await _context.SaveChangesAsync();
                 return Ok(new { Success = $"Votre compte a été supprimé" });
             }
             return Ok(new { Error = "Aucun utilisateur trouvé" });
+        }
+
+        [HttpPost, Route("Inscription")]
+        public async Task<ActionResult> Inscription([FromQuery]int missionId, Guid userId)
+        {
+            Mission mission = await _context.Missions.Include(m => m.Users).FirstOrDefaultAsync(m => m.Id == missionId);
+            if (mission == null)
+            {
+                return NotFound($"Aucune mission n'a été trouvé.");
+            }          
+            else
+            {
+                return Ok(new { error = $"Cette n'enregistre plus de nouvelles inscriptions" });
+            }
         }
     }
 }

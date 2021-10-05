@@ -5,6 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.12.2" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.12.2" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\GreenUp.Core\GreenUp.Core.csproj" />
     <ProjectReference Include="..\GreenUp.EntityFrameworkCore\GreenUp.EntityFrameworkCore.csproj" />
   </ItemGroup>

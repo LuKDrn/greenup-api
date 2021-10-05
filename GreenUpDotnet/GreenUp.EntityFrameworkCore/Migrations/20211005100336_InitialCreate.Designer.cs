@@ -10,7 +10,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace GreenUp.EntityFrameworkCore.Migrations
 {
     [DbContext(typeof(GreenUpContext))]
-    [Migration("20210914145109_InitialCreate")]
+    [Migration("20211005100336_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -73,8 +73,8 @@ namespace GreenUp.EntityFrameworkCore.Migrations
                     b.Property<int?>("RoleId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("Siren")
-                        .HasColumnType("integer");
+                    b.Property<string>("Siren")
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -114,8 +114,8 @@ namespace GreenUp.EntityFrameworkCore.Migrations
                     b.Property<int?>("RoleId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("Siren")
-                        .HasColumnType("integer");
+                    b.Property<string>("Siren")
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -159,6 +159,24 @@ namespace GreenUp.EntityFrameworkCore.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Rewards");
+                });
+
+            modelBuilder.Entity("GreenUp.Core.Business.Inscriptions.Models.MissionUser", b =>
+                {
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("MissionId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("DateInscription")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.HasKey("UserId", "MissionId");
+
+                    b.HasIndex("MissionId");
+
+                    b.ToTable("MissionUsers");
                 });
 
             modelBuilder.Entity("GreenUp.Core.Business.Missions.Models.Mission", b =>
@@ -284,21 +302,6 @@ namespace GreenUp.EntityFrameworkCore.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("MissionUser", b =>
-                {
-                    b.Property<int>("MissionsId")
-                        .HasColumnType("integer");
-
-                    b.Property<Guid>("UsersId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("MissionsId", "UsersId");
-
-                    b.HasIndex("UsersId");
-
-                    b.ToTable("MissionUser");
-                });
-
             modelBuilder.Entity("GreenUp.Core.Business.Associations.Models.Association", b =>
                 {
                     b.HasOne("GreenUp.Core.Business.Adresses.Models.Adress", "Adress")
@@ -352,6 +355,25 @@ namespace GreenUp.EntityFrameworkCore.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("GreenUp.Core.Business.Inscriptions.Models.MissionUser", b =>
+                {
+                    b.HasOne("GreenUp.Core.Business.Missions.Models.Mission", "Mission")
+                        .WithMany("Users")
+                        .HasForeignKey("MissionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("GreenUp.Core.Business.Users.Models.User", "User")
+                        .WithMany("Missions")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Mission");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("GreenUp.Core.Business.Missions.Models.Mission", b =>
                 {
                     b.HasOne("GreenUp.Core.Business.Associations.Models.Association", "Association")
@@ -390,21 +412,6 @@ namespace GreenUp.EntityFrameworkCore.Migrations
                     b.Navigation("Role");
                 });
 
-            modelBuilder.Entity("MissionUser", b =>
-                {
-                    b.HasOne("GreenUp.Core.Business.Missions.Models.Mission", null)
-                        .WithMany()
-                        .HasForeignKey("MissionsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("GreenUp.Core.Business.Users.Models.User", null)
-                        .WithMany()
-                        .HasForeignKey("UsersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("GreenUp.Core.Business.Adresses.Models.Adress", b =>
                 {
                     b.Navigation("Associations");
@@ -426,6 +433,11 @@ namespace GreenUp.EntityFrameworkCore.Migrations
                     b.Navigation("Rewards");
                 });
 
+            modelBuilder.Entity("GreenUp.Core.Business.Missions.Models.Mission", b =>
+                {
+                    b.Navigation("Users");
+                });
+
             modelBuilder.Entity("GreenUp.Core.Business.Users.Models.Role", b =>
                 {
                     b.Navigation("Assocations");
@@ -433,6 +445,11 @@ namespace GreenUp.EntityFrameworkCore.Migrations
                     b.Navigation("Companies");
 
                     b.Navigation("Users");
+                });
+
+            modelBuilder.Entity("GreenUp.Core.Business.Users.Models.User", b =>
+                {
+                    b.Navigation("Missions");
                 });
 #pragma warning restore 612, 618
         }

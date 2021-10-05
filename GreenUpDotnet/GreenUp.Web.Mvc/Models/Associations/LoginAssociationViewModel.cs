@@ -6,7 +6,7 @@ namespace GreenUp.Web.Mvc.Models.Associations
     {
         [Required]
         public string Name { get; set; }
-        public int Siren { get; set; }
+        public string Siren { get; set; }
         [Required]
         public string Password { get; set; }
     }

@@ -1,4 +1,6 @@
 ﻿using Abp.AspNetCore.Mvc.Controllers;
+using GreenUp.Core.Business.Associations.Models;
+using GreenUp.Core.Business.Missions.Models;
 using GreenUp.Core.Business.Users.Models;
 using GreenUp.EntityFrameworkCore.Data;
 using Microsoft.AspNetCore.Http;
@@ -11,7 +13,6 @@ using System.Linq;
 
 namespace GreenUp.Web.Core.Controllers
 {
-
     public class GreenUpControllerBase : AbpController
     {
         protected readonly GreenUpContext _context;
@@ -23,6 +24,26 @@ namespace GreenUp.Web.Core.Controllers
         }
 
         [ApiExplorerSettings(IgnoreApi = true)]
+        public IQueryable<Mission> GetOneMission(int id, bool allIncluded)
+        {
+            if (allIncluded)
+            {
+                return _context.Missions
+                    .Include(m => m.Location)
+                    .Include(m => m.Users)
+                        .ThenInclude(u => u.User)
+                    .Include(m => m.Association.Adress)
+                    .AsSplitQuery()
+                    .Where(m => m.Id == id);
+            }
+            else
+            {
+                return _context.Missions
+                    .Where(m => m.Id == id);
+            }
+        }
+
+        [ApiExplorerSettings(IgnoreApi = true)]
         public IQueryable<User> GetUser(Guid id, bool allInclude)
         {
             if (allInclude)
@@ -31,12 +52,30 @@ namespace GreenUp.Web.Core.Controllers
                     .Include(u => u.Role)
                     .Include(u => u.Adress)
                     .Include(u => u.Missions)
-                        .ThenInclude(m => m.Association)
+                        .ThenInclude(m => m.Mission.Association)
                     .AsSplitQuery()
                     .Where(u => u.Id == id);
             }
             return _context.Users
                 .Where(u => u.Id == id);
+        }
+
+        [ApiExplorerSettings(IgnoreApi = true)]
+        public IQueryable<Association> GetOneAssociation(Guid id, bool allIncluded)
+        {
+            if (allIncluded)
+            {
+                return _context.Associations
+                    .Include(a => a.Missions)
+                        .ThenInclude(m => m.Users)
+                    .Include(a => a.Adress)
+                    .Where(a => a.Id == id);
+            }
+            else
+            {
+                return _context.Associations
+                    .Where(a => a.Id == id);
+            }
         }
 
         [HttpPost]

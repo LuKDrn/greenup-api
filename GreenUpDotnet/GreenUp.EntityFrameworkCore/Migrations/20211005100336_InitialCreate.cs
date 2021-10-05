@@ -43,7 +43,7 @@ namespace GreenUp.EntityFrameworkCore.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: false),
                     Password = table.Column<string>(type: "text", nullable: false),
-                    Siren = table.Column<int>(type: "integer", nullable: false),
+                    Siren = table.Column<string>(type: "text", nullable: true),
                     RoleId = table.Column<int>(type: "integer", nullable: true),
                     Logo = table.Column<string>(type: "text", nullable: true),
                     RefreshToken = table.Column<string>(type: "text", nullable: true),
@@ -74,7 +74,7 @@ namespace GreenUp.EntityFrameworkCore.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: false),
                     Password = table.Column<string>(type: "text", nullable: false),
-                    Siren = table.Column<int>(type: "integer", nullable: false),
+                    Siren = table.Column<string>(type: "text", nullable: true),
                     RoleId = table.Column<int>(type: "integer", nullable: true),
                     Logo = table.Column<string>(type: "text", nullable: true),
                     RefreshToken = table.Column<string>(type: "text", nullable: true),
@@ -200,24 +200,25 @@ namespace GreenUp.EntityFrameworkCore.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "MissionUser",
+                name: "MissionUsers",
                 columns: table => new
                 {
-                    MissionsId = table.Column<int>(type: "integer", nullable: false),
-                    UsersId = table.Column<Guid>(type: "uuid", nullable: false)
+                    UserId = table.Column<Guid>(type: "uuid", nullable: false),
+                    MissionId = table.Column<int>(type: "integer", nullable: false),
+                    DateInscription = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_MissionUser", x => new { x.MissionsId, x.UsersId });
+                    table.PrimaryKey("PK_MissionUsers", x => new { x.UserId, x.MissionId });
                     table.ForeignKey(
-                        name: "FK_MissionUser_Missions_MissionsId",
-                        column: x => x.MissionsId,
+                        name: "FK_MissionUsers_Missions_MissionId",
+                        column: x => x.MissionId,
                         principalTable: "Missions",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_MissionUser_Users_UsersId",
-                        column: x => x.UsersId,
+                        name: "FK_MissionUsers_Users_UserId",
+                        column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -254,9 +255,9 @@ namespace GreenUp.EntityFrameworkCore.Migrations
                 column: "LocationId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MissionUser_UsersId",
-                table: "MissionUser",
-                column: "UsersId");
+                name: "IX_MissionUsers_MissionId",
+                table: "MissionUsers",
+                column: "MissionId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Rewards_CompanyId",
@@ -282,7 +283,7 @@ namespace GreenUp.EntityFrameworkCore.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "MissionUser");
+                name: "MissionUsers");
 
             migrationBuilder.DropTable(
                 name: "Rewards");
