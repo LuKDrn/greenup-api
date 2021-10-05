@@ -11,6 +11,8 @@ import { AssociationIdComponent } from './modules/association/association-id/ass
 import { MissionIdComponent } from './modules/mission/mission-id/mission-id.component';
 import { ProduitIdComponent } from './modules/produit/produit-id/produit-id.component';
 import { EditProfileComponent } from './modules/user/edit-profile/edit-profile.component';
+import { AssociationAuthComponent } from './modules/association/association-auth/association-auth.component';
+import { AssociationSignUpComponent } from './modules/association/association-sign-up/association-sign-up.component';
 
 const routes: Routes = [
   {
@@ -61,6 +63,14 @@ const routes: Routes = [
   {
     path: 'association/:id',
     component: AssociationIdComponent
+  },
+  {
+    path: 'associations/auth',
+    component: AssociationAuthComponent
+  },
+  {
+    path: 'associations/signUp',
+    component: AssociationSignUpComponent
   }
 ];
 

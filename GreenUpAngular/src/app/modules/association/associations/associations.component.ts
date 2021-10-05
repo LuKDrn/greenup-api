@@ -18,4 +18,8 @@ export class AssociationsComponent implements OnInit {
   public selectAssociation(id: number): void {
     this.router.navigate(['/association/', id]);
   }
+
+  public auth() : void {
+    this.router.navigate(['/associations/auth/']);
+  }
 }

@@ -1,0 +1,54 @@
+<div class="content-form" style="top: 100px; position: relative;">
+    <div class="container-fluid d-flex flex-column align-items-center ">
+      <h2 class="form-signin-heading">
+        <img src="./../../../assets/social-media/ account-icon.png" alt="account-icon" class="icon-account"/>
+        <br/>
+        <span>S'inscrire ASSOCIATION</span>
+      </h2>
+      <!-- <div *ngIf="invalidLogin" class="alert alert-danger">Invalid username or password.</div> -->
+      <br />
+      <form class="form common-form" [formGroup]="form" #signUpForm="ngForm">
+        <mat-form-field class="form-field" appearance="outline">
+          <mat-label for="name">Name</mat-label>
+          <input matInput id="name" formControlName="name" required autofocus>
+        </mat-form-field>
+        <br />
+        <mat-form-field class="form-field" appearance="outline">
+          <mat-label for="siren">Siren</mat-label>
+          <input matInput id="siren" formControlName="siren" required autofocus>
+        </mat-form-field>
+        <br />
+        <mat-form-field appearance="outline">
+          <mat-label for="address">Adresse</mat-label>
+          <input matInput id="address" formControlName="adress" required>
+        </mat-form-field>
+        <br />
+        <mat-form-field appearance="outline">
+          <mat-label for="city">Ville</mat-label>
+          <input matInput id="city" formControlName="city" required>
+        </mat-form-field>
+        <br />
+        <mat-form-field appearance="outline">
+          <mat-label for="zipCode">Code postal</mat-label>
+          <input matInput type="number" id="zipCode" formControlName="zipCode" required>
+        </mat-form-field>
+        <br />
+        <mat-form-field appearance="outline">
+          <mat-label for="password">Mot de passe</mat-label>
+          <input matInput [type]="hide ? 'password' : 'text'" id="password" formControlName="password" required>
+          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+        </mat-form-field>
+        <br />
+        <mat-form-field appearance="outline" color="primary">
+          <mat-label for="confirmPwd">Confirmation mot de passe</mat-label>
+          <input matInput type="password" id="confirmPwd" name="confirmPwd" placeholder="Confirmer mot de passe" formControlName="confirmPassword" required>
+        </mat-form-field>
+        <br />
+        <br />
+        <button mat-raised-button class="signupBtn" type="button" (click)="signUp() ; $event.preventDefault()">Inscription</button>
+      </form>
+      <a href="#">Déjà inscrit ? Connectez-vous.</a>
+    </div>
+  </div>

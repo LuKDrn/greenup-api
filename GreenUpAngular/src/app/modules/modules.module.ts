@@ -30,6 +30,8 @@ import { AssociationIdComponent } from './association/association-id/association
 import { MissionIdComponent } from './mission/mission-id/mission-id.component';
 import { ProduitIdComponent } from './produit/produit-id/produit-id.component';
 import { EditProfileComponent } from './user/edit-profile/edit-profile.component';
+import { AssociationAuthComponent } from './association/association-auth/association-auth.component';
+import { AssociationSignUpComponent } from './association/association-sign-up/association-sign-up.component';
 
 
 
@@ -45,7 +47,9 @@ import { EditProfileComponent } from './user/edit-profile/edit-profile.component
     AssociationsComponent,
     AssociationIdComponent,
     HomeComponent,
-    EditProfileComponent
+    EditProfileComponent,
+    AssociationAuthComponent,
+    AssociationSignUpComponent
   ],
   imports: [
 

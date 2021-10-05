@@ -22,7 +22,7 @@
         <button mat-button [matMenuTriggerFor]="beforeMenu" class="btn m-3 w-auto" aria-label="bouton se connecter">Se connecter</button>
         <mat-menu #beforeMenu="matMenu" xPosition="before">
           <button mat-menu-item (click)="login()">Espace utilisateur</button>
-          <button mat-menu-item>Espace association</button>
+          <button mat-menu-item (click)="associations()">Espace association</button>
           <button mat-menu-item>Espace entreprise</button>
         </mat-menu>
       </div>
