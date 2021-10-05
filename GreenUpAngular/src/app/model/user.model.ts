@@ -7,6 +7,7 @@ class User {
     public birthDate: string; 
     public address: Address; 
     public point: number;
+    public photo?: string;
     public roles?: Roles[];
     public rewards: Rewards[];
     public missions?: Mission[]; 
@@ -20,6 +21,7 @@ class User {
         this.birthDate = ''; 
         this.address = new Address(); 
         this.point = 0;
+        this.photo = '';
         this.rewards = [];
     }
 

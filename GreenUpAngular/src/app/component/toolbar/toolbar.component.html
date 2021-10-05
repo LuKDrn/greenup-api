@@ -19,12 +19,20 @@
         <!-- <button (click)="login()" mat-button class="btn m-3 w-auto" color="primary" aria-label="bouton se connecter">
           <h6 class="text-white">Se connecter</h6>
         </button> -->
-        <button mat-button [matMenuTriggerFor]="beforeMenu" class="btn m-3 w-auto" aria-label="bouton se connecter">Se connecter</button>
-        <mat-menu #beforeMenu="matMenu" xPosition="before">
-          <button mat-menu-item (click)="login()">Espace utilisateur</button>
-          <button mat-menu-item>Espace association</button>
-          <button mat-menu-item>Espace entreprise</button>
-        </mat-menu>
+        <ng-container *ngIf="!sharedService.isConnected; else notConnected">
+          <button mat-button [matMenuTriggerFor]="beforeMenu" class="btn m-3 w-auto" aria-label="bouton se connecter">Se connecter</button>
+          <mat-menu #beforeMenu="matMenu" xPosition="before">
+            <button mat-menu-item (click)="login()">Espace utilisateur</button>
+            <button mat-menu-item>Espace association</button>
+            <button mat-menu-item>Espace entreprise</button>
+          </mat-menu>
+        </ng-container>
+        <ng-template #notConnected>
+          <button mat-button [matMenuTriggerFor]="beforeMenu" class="btn m-3 w-auto" aria-label="bouton se connecter">Se déconnecter</button>
+          <mat-menu #beforeMenu="matMenu" xPosition="before">
+            <button mat-menu-item (click)="logout()">Se déconnecter</button>
+          </mat-menu>
+        </ng-template>
       </div>
     </div>
   </div>

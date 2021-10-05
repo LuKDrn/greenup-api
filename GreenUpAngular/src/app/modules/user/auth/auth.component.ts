@@ -22,10 +22,7 @@ export class AuthComponent implements OnInit {
     private fb: FormBuilder,
     private userService: UserService
   ) { 
-    this.form = this.fb.group({
-      mail: new FormControl('', [Validators.required, Validators.email, Validators.email]),
-      password: new FormControl('', [Validators.required, Validators.required])
-    });
+    this.form = this.initForm();
   }
 
   ngOnInit(): void { }
@@ -45,6 +42,7 @@ export class AuthComponent implements OnInit {
       const token = (<any>response).token;
       localStorage.setItem("jwt", token);
       this.invalidLogin = false;
+      this.service.isConnected = true;
       this.router.navigate(["/"]);
     }, err => {
       this.invalidLogin = true;
@@ -53,5 +51,12 @@ export class AuthComponent implements OnInit {
 
   public signUp(): void {
     this.router.navigate(['/signUp']); 
+  }
+
+  public initForm(): FormGroup {
+    return this.fb.group({
+      mail: new FormControl('', [Validators.required, Validators.email, Validators.email]),
+      password: new FormControl('', [Validators.required, Validators.required])
+    });
   }
 }

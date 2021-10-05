@@ -35,9 +35,9 @@ namespace GreenUp.Web.Mvc.Controllers.Users
         }
 
         [HttpGet, Route("{id}")]
-        public async Task<ActionResult<OneUserViewModel>> Account([FromQuery]Guid id)
+        public async Task<ActionResult<OneUserViewModel>> Account(string id)
         {
-            User user = await GetUser(id, false).Include(u => u.Role).Include(u => u.Adress).Include(u => u.Missions).FirstOrDefaultAsync();
+            User user = await GetUser(Guid.Parse(id), false).Include(u => u.Role).Include(u => u.Adress).Include(u => u.Missions).FirstOrDefaultAsync();
             if (user != null)
             {
                 var userMissions = new List<OneMissionViewModel>();
@@ -74,7 +74,7 @@ namespace GreenUp.Web.Mvc.Controllers.Users
                 }
                 OneUserViewModel model = new()
                 {
-                    Id = id,
+                    Id = Guid.Parse(id),
                     Password = user.Password,
                     Mail = user.Mail,
                     FirstName = user.FirstName,
@@ -118,6 +118,7 @@ namespace GreenUp.Web.Mvc.Controllers.Users
                         var claims = new List<Claim>
                         {
                             new Claim("type", "User"),
+                            new Claim("id", user.Id.ToString()),
                             new Claim(ClaimTypes.Name, user.Mail),
                             new Claim(ClaimTypes.Role, "User")
                         };
@@ -175,7 +176,7 @@ namespace GreenUp.Web.Mvc.Controllers.Users
                         City = model.City,
                         ZipCode = model.ZipCode
                     };
-                    user.Photo = UploadImage(model.Photo);
+                    user.Photo = model.Photo;//UploadImage(model.Photo);
                     role.Users.Add(user);
                     await _context.SaveChangesAsync();
                     return $"The user {model.Mail} has been created";

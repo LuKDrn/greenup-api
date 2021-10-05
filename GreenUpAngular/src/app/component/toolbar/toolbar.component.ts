@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/modules/user/user.service';
+import jwt_decode from 'jwt-decode';
+import { SharedService } from 'src/app/shared.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -9,17 +11,24 @@ import { UserService } from 'src/app/modules/user/user.service';
 })
 export class ToolbarComponent implements OnInit {
   public title: string = 'GreenUp';
-  // public user?: User;
+  public user: any; //User;
+  public jwt: string | any;
+  public isConnected: boolean
 
   constructor(
     private router: Router,
-    private userService: UserService
+    private userService: UserService,
+    public sharedService: SharedService
   ) { 
+    if (localStorage.getItem('jwt')) {
+      this.isConnected = true;
+      this.user = this.sharedService.getProfile();
+    } else {
+      this.isConnected = false;
+    }
   }
 
-  ngOnInit() {
-
-  }
+  ngOnInit() {}
 
   public home(): void {
     this.router.navigate(['/home']);
@@ -45,7 +54,9 @@ export class ToolbarComponent implements OnInit {
     this.router.navigate(['/associations']);
   }
 
-  public initUser(): void {
-    // this.userService.
+  public logout(): void {
+    this.sharedService.deleteToken();
+    this.sharedService.isConnected = false;
+    this.router.navigate(['/home']);
   }
 }

@@ -45,10 +45,12 @@
         <mat-datepicker #birthDate></mat-datepicker>
       </mat-form-field>
       <br />
-      <mat-form-field appearance="outline">
-        <mat-label for="photoProfile">Photo de profil</mat-label>
-        <input class="file-input" id="photoProfile" type="file" formControlName="photo">
-      </mat-form-field>
+      <div class="dropzone">
+        <input type="file" accept="image/x-png,image/jpeg" #fileDropRef id="fileDropRef" (change)="fileBrowseHandler($event.target)" />
+        <img src="./../../../../assets/icon/file-upload.svg" alt="">
+        <h3>Photo de profil</h3>
+        <label for="fileDropRef">Ajouter</label>
+      </div>
       <br />
       <mat-form-field appearance="outline">
         <mat-label for="password">Mot de passe</mat-label>

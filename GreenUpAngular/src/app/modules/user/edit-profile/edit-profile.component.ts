@@ -3,7 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from '../user.service';
-import * as jwt_decode from "jwt-decode";
+import jwt_decode from 'jwt-decode';
+import { SharedService } from 'src/app/shared.service';
 
 @Component({
   selector: 'app-edit-profile',
@@ -14,22 +15,23 @@ export class EditProfileComponent implements OnInit {
   public invalidLogin!: boolean;
   public form: FormGroup;
   public jwt: string | any;
+  public user: any;
+  public loading: boolean;
 
   constructor(
     private router: Router,
     private http: HttpClient,
     private fb: FormBuilder,
-    private userService: UserService
+    private userService: UserService,
+    private sharedService: SharedService
   ) {
-    if (localStorage.getItem('jwt')) {
-      this.jwt = localStorage.getItem('jwt');
-    }
-    this.initForm();
+    this.loading = false;
+    this.user = null;
+    this.getProfile();
+    this.form = this.initForm();
   }
 
-  ngOnInit(): void {
-    console.log('jwt', this.jwt);
-  }
+  ngOnInit(): void {}
 
   public editProfile(): void {
     this.userService.edit(this.form.value).subscribe(
@@ -43,10 +45,12 @@ export class EditProfileComponent implements OnInit {
   }
 
   public deleteProfile(): void {
-    const id: number = 0;
-    this.userService.deleteProfile(id).subscribe(
+    console.log('user', this.user);
+    this.userService.deleteProfile(this.user.id).subscribe(
       (res: any) => {
         console.log('res', res);
+        this.sharedService.deleteToken();
+        this.router.navigate(['/home']);
       },
       (error: any) => {
         console.log('error', error);
@@ -54,8 +58,8 @@ export class EditProfileComponent implements OnInit {
     );
   }
 
-  private initForm(): void {
-    this.form = this.fb.group({
+  private initForm(): FormGroup {
+    return this.fb.group({
       // password: new FormControl('', [Validators.minLength(6)]),
       // confirmPassword: new FormControl('',  [Validators.minLength(6)]),
       firstName: new FormControl('', []),
@@ -68,7 +72,28 @@ export class EditProfileComponent implements OnInit {
     });
   }
 
-  private initUser(): void {
-    // this.
+  private getDecodedAccessToken(token: string): any {
+    try{
+        return jwt_decode(token);
+    }
+    catch(Error){
+        return null;
+    }
+  }
+
+  public getProfile() : any {
+    this.loading = true;
+    const $jwt: any = localStorage.getItem('jwt');
+    const $userToken = this.getDecodedAccessToken($jwt);
+    this.userService.getUser($userToken.id).subscribe(
+      (res: any) => {
+        this.sharedService.isConnected = true;
+        this.loading = false;
+        return res.id;
+      },
+      (error: any) => {
+        console.log('error', error);
+      }
+    );
   }
 }
