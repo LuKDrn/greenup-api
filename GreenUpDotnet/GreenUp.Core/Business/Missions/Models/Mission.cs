@@ -1,6 +1,7 @@
 ﻿using Abp.Domain.Entities;
 using GreenUp.Core.Business.Adresses.Models;
 using GreenUp.Core.Business.Associations.Models;
+using GreenUp.Core.Business.Inscriptions.Models;
 using GreenUp.Core.Business.Users.Models;
 using System;
 using System.Collections.Generic;
@@ -23,6 +24,6 @@ namespace GreenUp.Core.Business.Missions.Models
         public bool IsInGroup { get; set; }
         public int? NumberPlaces { get; set; }
         public bool Available { get; set; }
-        public ICollection<User> Users { get; set; }
+        public ICollection<MissionUser> Users { get; set; }
     }
 }
