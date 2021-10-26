@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from 'src/app/modules/user/user.service';
 
 @Component({
@@ -9,16 +9,21 @@ import { UserService } from 'src/app/modules/user/user.service';
 })
 export class ToolbarComponent implements OnInit {
   public title: string = 'GreenUp';
-  // public user?: User;
+  public indexIsActive: number;
 
   constructor(
     private router: Router,
+    private aRoute: ActivatedRoute,
     private userService: UserService
   ) { 
+    this.indexIsActive = 0;
   }
 
   ngOnInit() {
-
+    console.log('route', this.router.url.toString());
+    const $url = this.router.url.toString();
+    const $tabUrl = $url.split('/');
+    console.log($tabUrl);
   }
 
   public home(): void {
@@ -47,5 +52,9 @@ export class ToolbarComponent implements OnInit {
 
   public initUser(): void {
     // this.userService.
+  }
+
+  public isActive(index: number) {
+    this.indexIsActive = index; 
   }
 }

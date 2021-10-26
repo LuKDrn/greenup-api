@@ -1,25 +1,37 @@
-<mat-toolbar class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
+<mat-toolbar class="navbar navbar-expand-lg navbar-light fixed-top navbar_custom">
   <div class="container-fluid">
-    <a class="navigate" href="/">
-      <img src="./../../assets/logo.PNG" height="60" style="margin-right: 10vh;" />
-    </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler"
       aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="navbar-collapse collapse" id="navbarToggler">
       <div class="navbar-nav">
-        <a class="navigate m-2 " (click)="missions()"><span>Missions</span></a>
-        <a class="navigate m-2 " (click)="produits()"><span>Produits </span></a>
-        <a class="navigate m-2 " (click)="challenges()"><span>Challenges</span></a>
-        <a class="navigate m-2" (click)="associations()"><span>Associations</span></a>
+        <a class="navigate m-2" (click)="home() ; isActive(0)">
+          <span>Accueil</span>
+          <div *ngIf="indexIsActive === 0" class="underline"></div>
+        </a>
+        <a class="navigate m-2" (click)="missions() ; isActive(1)">
+          <span>Missions</span>
+          <div *ngIf="indexIsActive === 1" class="underline"></div>
+        </a>
+        <a class="navigate m-2" (click)="produits() ; isActive(2)">
+          <span>Produits bio</span>
+          <div *ngIf="indexIsActive === 2" class="underline"></div>
+        </a>
+        <a class="navigate m-2" (click)="challenges() ; isActive(3)">
+          <span>Challenges</span>
+          <div *ngIf="indexIsActive === 3" class="underline"></div>
+        </a>
+        <a class="navigate m-2" (click)="associations() ; isActive(4)">
+          <span>Associations</span>
+          <div *ngIf="indexIsActive === 4" class="underline"></div>
+        </a>
       </div>
-      <div class="d-flex align-items-center" style="position: absolute; right: 5%">
-        <a class="navigate m-3" href="/"><span>Contact</span></a>
-        <!-- <button (click)="login()" mat-button class="btn m-3 w-auto" color="primary" aria-label="bouton se connecter">
-          <h6 class="text-white">Se connecter</h6>
-        </button> -->
-        <button mat-button [matMenuTriggerFor]="beforeMenu" class="btn m-3 w-auto" aria-label="bouton se connecter">Se connecter</button>
+      <div class="d-flex align-items-center navigate_right">
+        <a class="navigate contact m-3" href="/"><span>Contact</span></a>
+        <button mat-button [matMenuTriggerFor]="beforeMenu" class="btn w-auto" aria-label="bouton se connecter">
+          <span>Se connecter</span>
+        </button>
         <mat-menu #beforeMenu="matMenu" xPosition="before">
           <button mat-menu-item (click)="login()">Espace utilisateur</button>
           <button mat-menu-item (click)="associations()">Espace association</button>
