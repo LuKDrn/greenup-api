@@ -1,22 +1,64 @@
-.content-form {
-    display: block;
-    text-align: center;
+h2 {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 44px;
+    line-height: 66px;
+    margin-left: 10%;
 
-    .form {
-        color: black;
-    
-        .form-field {
-            // display: block;
-            color: black !important;
-        }
+    span {
+        font-family: Poppins;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 24px;
     }
-    
-    .signupBtn {
-        margin-top: 20px;
+}
+
+.login-redirection {
+    margin-left: 10%;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 25px;
+    line-height: 37px;
+
+    a {
+        color: #4EAAA7;
+        text-decoration: none;
     }
-    
-    .icon-account {
-        width: 100px;
+}
+
+.signupBtn {
+    margin-left: 10%;
+    background: #4EAAA7;
+    color: #FFFF;
+    border: 1px solid #4EAAA7;
+    box-sizing: border-box;
+    border-radius: 8px;
+    width: 400px;
+    height: 59px;
+
+    span {
+        font-family: Poppins;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 24px;
+        line-height: 36px;
     }
+}
+
+form {
+    color: black !important;
+}
+
+mat-checkbox {
+    span {
+        color: #4EAAA7;
+    }
+}
+
+.form_row {
+    margin-left: 10%;
 }
 

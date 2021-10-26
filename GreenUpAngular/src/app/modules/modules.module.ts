@@ -32,7 +32,7 @@ import { ProduitIdComponent } from './produit/produit-id/produit-id.component';
 import { EditProfileComponent } from './user/edit-profile/edit-profile.component';
 import { AssociationAuthComponent } from './association/association-auth/association-auth.component';
 import { AssociationSignUpComponent } from './association/association-sign-up/association-sign-up.component';
-
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 
 @NgModule({
@@ -52,7 +52,6 @@ import { AssociationSignUpComponent } from './association/association-sign-up/as
     AssociationSignUpComponent
   ],
   imports: [
-
     MatCarouselModule,
     CommonModule,
     AppRoutingModule, 
@@ -67,6 +66,7 @@ import { AssociationSignUpComponent } from './association/association-sign-up/as
     ReactiveFormsModule,
     MatInputModule,
     MatButtonModule,
+    MatCheckboxModule,
     MatDatepickerModule,
     MatNativeDateModule,
     CommonModule

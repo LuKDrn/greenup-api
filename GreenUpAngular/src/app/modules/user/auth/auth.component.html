@@ -5,7 +5,7 @@
       <br/>
       <span>Connexion</span>
     </h2>
-    <div *ngIf="invalidLogin" class="alert alert-danger">Invalid username or password.</div>
+    <div *ngIf="invalidLogin" class="alert alert-danger">Email et/ou mot de passe invalide.</div>
     <br />
     <form class="form form-signin" [formGroup]="form" #loginForm="ngForm">
       <mat-form-field appearance="outline">

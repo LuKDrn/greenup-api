@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { UserService } from '../user.service';
 import { Subscription } from 'rxjs';
 
@@ -11,7 +11,9 @@ import { Subscription } from 'rxjs';
 export class SignUpComponent implements OnInit {
   public form: FormGroup;
   public invalidLogin!: boolean;
-  public hide = true;
+  public hidePassword = true;
+  public hideConfirmPassword = true;
+  public conditionIsCheck: boolean;
 
   constructor(
     private fb: FormBuilder,
@@ -20,16 +22,17 @@ export class SignUpComponent implements OnInit {
 
     this.form = this.fb.group({
       mail: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', [Validators.required, Validators.minLength(6)]),
-      confirmPassword: new FormControl('',  [Validators.required, Validators.minLength(6)]),
-      firstName: new FormControl('', []),
-      lastName: new FormControl('', []),
-      adress: new FormControl('', []),
-      city: new FormControl('', []),
-      zipCode: new FormControl(0, []),
-      birthDate: new FormControl('', []),
-      photo: new FormControl(null, [])
+      password: new FormControl('', [Validators.required]),
+      confirmPassword: new FormControl('',  [Validators.required]),
+      firstName: new FormControl(''),
+      lastName: new FormControl(''),
+      adress: new FormControl(''),
+      city: new FormControl(''),
+      zipCode: new FormControl(0),
+      birthDate: new FormControl(''),
+      photo: new FormControl(null)
     });
+    this.conditionIsCheck = false;
    }
 
   ngOnInit(): void {}

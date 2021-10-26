@@ -1,71 +1,88 @@
-<div class="content-form" style="top: 100px; position: relative;">
-  <div class="container-fluid">
-    <h2 class="form-signin-heading">
-      <img src="./../../../assets/social-media/ account-icon.png" alt="account-icon" class="icon-account"/>
-      <br/>
-      <span>S'inscrire</span>
-    </h2>
-    <!-- <div *ngIf="invalidLogin" class="alert alert-danger">Invalid username or password.</div> -->
-    <br />
-    <form class="form common-form" [formGroup]="form" #signUpForm="ngForm">
-      <mat-form-field class="form-field" appearance="outline">
-        <mat-label for="email">Email</mat-label>
-        <input matInput id="email" formControlName="mail" required autofocus>
-      </mat-form-field>
+<div class="container">
+  <div class="content-form row">
+    <div class="col" style="top: 200px; position: relative">
+      <h2 class="form-signin-heading">
+        Welcome sur GreenUp
+        <br>
+        <span>Tous les champs suivies d'un * sont à remplir obligatoirement</span>
+      </h2>
+      <div class="col-12" class="login-redirection">
+        <span>Déjà un compte ? <a href="#">Se connecter</a></span>
+      </div>
       <br />
-      <mat-form-field appearance="outline">
-        <mat-label for="firstname">Prénom</mat-label>
-        <input matInput id="firstname" formControlName="firstName" required>
-      </mat-form-field>
-      <br />
-      <mat-form-field appearance="outline">
-        <mat-label for="lastname">Nom</mat-label>
-        <input matInput id="lastname" formControlName="lastName" required>
-      </mat-form-field>
-      <br />
-      <mat-form-field appearance="outline">
-        <mat-label for="address">Adresse</mat-label>
-        <input matInput id="address" formControlName="adress" required>
-      </mat-form-field>
-      <br />
-      <mat-form-field appearance="outline">
-        <mat-label for="city">Ville</mat-label>
-        <input matInput id="city" formControlName="city" required>
-      </mat-form-field>
-      <br />
-      <mat-form-field appearance="outline">
-        <mat-label for="zipCode">Code postal</mat-label>
-        <input matInput type="number" id="zipCode" formControlName="zipCode" required>
-      </mat-form-field>
-      <br />
-      <mat-form-field appearance="outline">
-        <mat-label for="birthDate">Date de naissance</mat-label>
-        <input id="birthDate" matInput [matDatepicker]="birthDate" formControlName="birthDate">
-        <mat-datepicker-toggle matSuffix [for]="birthDate"></mat-datepicker-toggle>
-        <mat-datepicker #birthDate></mat-datepicker>
-      </mat-form-field>
-      <br />
-      <mat-form-field appearance="outline">
-        <mat-label for="photoProfile">Photo de profil</mat-label>
-        <input class="file-input" id="photoProfile" type="file" formControlName="photo">
-      </mat-form-field>
-      <br />
-      <mat-form-field appearance="outline">
-        <mat-label for="password">Mot de passe</mat-label>
-        <input matInput [type]="hide ? 'password' : 'text'" id="password" formControlName="password" required>
-        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-        </button>
-      </mat-form-field>
-      <br />
-      <mat-form-field appearance="outline" color="primary">
-        <mat-label for="confirmPwd">Confirmation mot de passe</mat-label>
-        <input matInput type="password" id="confirmPwd" name="confirmPwd" placeholder="Confirmer mot de passe" formControlName="confirmPassword" required>
-      </mat-form-field>
-      <br />
-      <br/>
-      <button mat-raised-button class="signupBtn" type="button" (click)="signUp() ; $event.preventDefault()">Inscription</button>
-    </form>
-    <a href="#">Déjà inscrit ? Connectez-vous.</a>
+      <form class="form_row" [formGroup]="form" #signUpForm="ngForm">
+        <div class="row">
+          <mat-form-field class="col" appearance="fill">
+            <mat-label for="lastname">Nom</mat-label>
+            <input matInput id="lastname" formControlName="lastName" required>
+          </mat-form-field>
+          <mat-form-field class="col" appearance="fill">
+            <mat-label for="firstname">Prénom</mat-label>
+            <input matInput id="firstname" formControlName="firstName" required>
+          </mat-form-field>
+        </div>
+        <div class="row">
+          <mat-form-field appearance="fill">
+            <mat-label for="birthDate">Date de naissance</mat-label>
+            <input id="birthDate" matInput [matDatepicker]="birthDate" formControlName="birthDate">
+            <mat-datepicker-toggle matSuffix [for]="birthDate"></mat-datepicker-toggle>
+            <mat-datepicker #birthDate></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div class="row">
+          <mat-form-field appearance="fill">
+            <mat-label for="address">Adresse</mat-label>
+            <input matInput id="address" formControlName="adress" required>
+          </mat-form-field>
+        </div>
+        <div class="row">
+            <mat-form-field class="col" appearance="fill">
+              <mat-label for="zipCode">Code postal</mat-label>
+              <input matInput type="number" id="zipCode" formControlName="zipCode" required>
+            </mat-form-field>
+            <mat-form-field class="col" appearance="fill">
+              <mat-label for="city">Ville</mat-label>
+              <input matInput id="city" formControlName="city" required>
+            </mat-form-field>
+        </div>
+        <div class="row">
+          <mat-form-field class="form-field" appearance="fill">
+            <mat-label for="email">Email</mat-label>
+            <input matInput id="email" formControlName="mail" required autofocus>
+          </mat-form-field>
+        </div>
+        <div class="row">
+          <mat-form-field appearance="fill">
+            <mat-label for="password">Mot de passe</mat-label>
+            <input matInput [type]="hidePassword ? 'password' : 'text'" id="password" formControlName="password" required>
+            <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
+              <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+          </mat-form-field>
+        </div>
+        <div class="row">
+          <mat-form-field appearance="fill" color="primary">
+            <mat-label for="confirmPwd">Confirmation mot de passe</mat-label>
+            <input matInput [type]="hideConfirmPassword ? 'password' : 'text'" id="confirmPwd" name="confirmPwd" placeholder="Confirmer mot de passe" formControlName="confirmPassword" required>
+            <button mat-icon-button matSuffix (click)="hideConfirmPassword = !hideConfirmPassword" [attr.aria-label]="'Hide Confirm password'" [attr.aria-pressed]="hideConfirmPassword">
+              <mat-icon>{{hideConfirmPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+          </mat-form-field>
+        </div>
+        <!-- <mat-form-field appearance="outline"> -->
+          <!-- <mat-label for="photoProfile">Photo de profil</mat-label> -->
+          <!-- <input [hidden]="true" class="file-input" id="photoProfile" type="file" formControlName="photo">
+        </mat-form-field> -->
+        <div class="row">
+          <button mat-raised-button class="signupBtn" [disabled]="!conditionIsCheck" type="button" (click)="signUp() ; $event.preventDefault()"><span>Suivant</span></button>
+        </div>
+        <div class="row">
+          <mat-checkbox class="example-margin" (change)="conditionIsCheck = !conditionIsCheck">J'accepte <span>les termes </span> et <span>les conditions</span>.</mat-checkbox>
+        </div>
+      </form>
+    </div>
+    <div class="col">
+      <img src="./../../../../assets/signinIllustration.png" alt="">
+    </div>
   </div>
 </div>
