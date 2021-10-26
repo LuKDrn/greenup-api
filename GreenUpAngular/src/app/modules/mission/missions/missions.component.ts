@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { MissionsService } from '../missions.service';
-import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,10 +9,16 @@ import { Router } from '@angular/router';
 })
 export class MissionsComponent implements OnInit {
 
+  public nbMissions: number;
+  public missions: Array<any>; //Changer le type en Mission
+
   constructor(
     private mserv: MissionsService,
     private router: Router,
-  ) { }
+  ) {
+    this.missions = [];
+    this.nbMissions = this.missions.length;
+   }
 
   ngOnInit(): void {
     // this.getMissionsList();
@@ -21,6 +26,10 @@ export class MissionsComponent implements OnInit {
 
   public selectMission(id: number): void {
     this.router.navigate(['/mission/', id]);
+  }
+
+  public addMission(): void {
+    this.router.navigate(['/mission/addMission']);
   }
 
   private getMissionsList(): void {
@@ -33,5 +42,4 @@ export class MissionsComponent implements OnInit {
       }
     );
   }
-
 }

@@ -1,0 +1,65 @@
+<div class="container" style="position: absolute; top: 200px">
+    <div class="row">
+        <div class="col-2"></div>
+        <form class="col-4">
+            <!-- class="form_row" [formGroup]="form" #signUpForm="ngForm" -->
+            <div class="row">
+                <div>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Titre</mat-label>
+                        <input matInput type="text">
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Description</mat-label>
+                        <textarea matInput></textarea>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <mat-form-field appearance="fill">
+                    <mat-label>Adresse</mat-label>
+                    <input matInput type="text">
+                </mat-form-field>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Ville</mat-label>
+                        <input matInput type="text">
+                    </mat-form-field>
+                </div>
+                <div class="col">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Code postal</mat-label>
+                        <input matInput type="number">
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Nombre de point</mat-label>
+                        <input matInput type="number">
+                    </mat-form-field>
+                </div>
+                <div class="col">
+                    <mat-checkbox>Mission en groupe</mat-checkbox>
+                </div>
+                <!-- Apparait si isInGroup est coché -->
+                <!-- <div class="col">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Nombre de places</mat-label>
+                        <input matInput type="number">
+                    </mat-form-field>
+                </div> -->
+            </div>
+            <div class="row">
+                <mat-checkbox>La mission est-elle disponible ?</mat-checkbox>
+            </div>
+        </form>
+    </div>
+</div>
