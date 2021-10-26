@@ -7,3 +7,28 @@ $secondaryColor: #FFC533;
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
+//----------------------------------*\
+// Fonts
+//----------------------------------*/
+@import 'assets/scss/modules/_fonts.scss';
+
+// primary font
+$primary_font: 'Poppins';
+
+// font-weight
+$thin:100;
+$light:300;
+$regular:400;
+$bold:700;
+$black:900;
+
+// Font size
+$font-xs:12px;
+$font-sm: 14px;
+$primary-fs: 16px;
+$font-md: 18px;
+$font-lg: 20px;
+
+
+html, body { height: 100%; }
+body { margin: 0; font-family: $primary_font 'Sans-serif'; }
