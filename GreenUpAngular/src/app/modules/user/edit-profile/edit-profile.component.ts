@@ -21,6 +21,7 @@ export class EditProfileComponent implements OnInit {
     private fb: FormBuilder,
     private userService: UserService
   ) {
+    this.form = this.fb.group({});
     if (localStorage.getItem('jwt')) {
       this.jwt = localStorage.getItem('jwt');
     }

@@ -13,8 +13,10 @@ import { ProduitIdComponent } from './modules/produit/produit-id/produit-id.comp
 import { EditProfileComponent } from './modules/user/edit-profile/edit-profile.component';
 import { AssociationAuthComponent } from './modules/association/association-auth/association-auth.component';
 import { AssociationSignUpComponent } from './modules/association/association-sign-up/association-sign-up.component';
+import { AddMissionComponent } from './modules/mission/add-mission/add-mission.component';
 
 const routes: Routes = [
+  //HOME
   {
     path: 'home',
     component: HomeComponent
@@ -24,6 +26,7 @@ const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full'
   },
+  //USER
   { 
     path : 'auth',
     component: AuthComponent
@@ -36,14 +39,16 @@ const routes: Routes = [
     path: 'edit-profile',
     component: EditProfileComponent
   },
+  //MISSIONS
   {
     path: 'missions',
     component: MissionsComponent
   },
   {
     path: 'mission/:id',
-    component: MissionIdComponent
+    component: AddMissionComponent // MissionIdComponent
   },
+  //PRODUITS BIO
   {
     path: 'produits',
     component: ProduitsComponent
@@ -52,10 +57,12 @@ const routes: Routes = [
     path: 'produit/:id',
     component: ProduitIdComponent
   },
+  //CHALLENGES
   {
     path: 'challenges',
     component: ChallengesComponent
   },
+  //ASSOCIATION
   {
     path: 'associations',
     component: AssociationsComponent

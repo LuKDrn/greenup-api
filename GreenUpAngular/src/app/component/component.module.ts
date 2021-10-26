@@ -8,8 +8,12 @@ import { MatCardModule } from '@angular/material/card';
 import { FooterComponent } from './footer/footer.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
-
-
+import { FilterComponent } from './filter/filter.component';
+import { MatSelectModule } from '@angular/material/select';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatChipsModule } from '@angular/material/chips';
 
 @NgModule({
     imports: [
@@ -18,13 +22,19 @@ import { MatMenuModule } from '@angular/material/menu';
       MatIconModule,
       MatCardModule,
       MatButtonModule,
-      MatMenuModule
+      MatMenuModule,
+      MatSelectModule,
+      MatCheckboxModule,
+      MatFormFieldModule,
+      MatDividerModule,
+      MatChipsModule,
     ],
     declarations: [
         ToolbarComponent,
         CardComponent,
         FooterComponent,
+        FilterComponent,
     ],
-    exports: [CardComponent, ToolbarComponent, FooterComponent] 
+    exports: [CardComponent, ToolbarComponent, FooterComponent, FilterComponent] 
 })
 export class ComponentModule {}

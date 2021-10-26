@@ -1,0 +1,55 @@
+.bannerMission {
+    img {
+        position: absolute;
+        margin-top: 10%;
+        z-index: 1;
+        left: 0;
+    }
+
+    h1 {
+        position: absolute;
+        text-transform: uppercase;
+        z-index: 2;
+        margin-top: 15%;
+        margin-left: 30%;
+        font-family: Poppins;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 25px;
+        line-height: 37px;
+        color: #FFFFFF;
+    }
+
+    form {
+        input {
+            position: absolute;
+            z-index: 2;
+            margin-top: 20%;
+            margin-left: 15%;
+            padding-left: 5%;
+            width: 667px;
+            height: 60px;
+            background: #FCFCFC;
+            border-radius: 50px;
+            border: transparent
+        }
+    }
+}
+
+.contentMission {
+    position: relative;
+    top: 400px;
+
+    .countMission {
+        // width: 457px;
+        // height: 66px;
+        // left: 372px;
+        // top: 436px;
+        font-family: Poppins;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 44px;
+        line-height: 66px;
+        color: #323434;
+    }
+}
