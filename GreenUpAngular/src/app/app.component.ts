@@ -8,7 +8,7 @@ import * as feather from 'feather-icons';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  title = 'GreenUpAngular';
+  title = 'GreenUp';
 
   ngOnInit() {
     feather.replace();
