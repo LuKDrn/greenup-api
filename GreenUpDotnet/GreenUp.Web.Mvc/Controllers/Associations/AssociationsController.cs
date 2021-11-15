@@ -151,6 +151,7 @@ namespace GreenUp.Web.Mvc.Controllers.Associations
                                 City = mission.Location.City,
                                 ZipCode = mission.Location.ZipCode
                             },
+                            AssociationId = id.ToString(),
                             Users = missionUsers
                         });
                     }
@@ -161,8 +162,9 @@ namespace GreenUp.Web.Mvc.Controllers.Associations
                     Name = association.Name,
                     Siren = association.Siren.ToString(),
                     Logo = association.Logo,
-                    
+                    Missions = associationMissions
                 };
+                return model;
             }
             return null;                       
         }

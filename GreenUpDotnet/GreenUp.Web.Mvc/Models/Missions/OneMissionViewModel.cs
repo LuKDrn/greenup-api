@@ -10,6 +10,7 @@ namespace GreenUp.Web.Mvc.Models.Missions
         public string Titre { get; set; }
         public string Description { get; set; }
         public OneAdressViewModel Adress { get; set; }
+        public string AssociationId { get; set; }
         public OneAssociationViewModel Association { get; set; }
         public string Date { get; set; }
         public int RewardValue { get; set; }
