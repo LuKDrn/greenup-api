@@ -9,15 +9,15 @@ export class UserService {
   public headers = new HttpHeaders({
     'Content-Type': 'application/json'
   });
+  public url = 'https://localhost:5001/api/Users';
   constructor(protected http: HttpClient) {}
 
   public signUp(form: any): Observable<any> {
     console.log('form', JSON.stringify(form));
     return this.http
-        .post<any>('https://localhost:5001/api/Users/SignUp', JSON.stringify(form), {headers: this.headers})
+        .post<any>(`${this.url}/SignUp`, JSON.stringify(form), {headers: this.headers})
         .pipe(
             tap((response: any) => {
-                console.log('test');
                 return response;
             }),
         );
@@ -26,7 +26,7 @@ export class UserService {
   public login(form: any): Observable<any> {
     console.log('form', JSON.stringify(form));
     return this.http
-      .post<any>('https://localhost:5001/api/Users/Login', JSON.stringify(form), {headers: this.headers})
+      .post<any>(`${this.url}/Login`, JSON.stringify(form), {headers: this.headers})
       .pipe(
           tap((response: any) => {
               console.log('test');
@@ -37,7 +37,7 @@ export class UserService {
 
   public getUser(): Observable<any> {
     return this.http
-      .get<any>('https://localhost:5001/api/Users/Login')
+      .get<any>(`${this.url}/Login`)
       .pipe(
           tap((response: any) => {
               console.log('test');
@@ -49,7 +49,7 @@ export class UserService {
   public edit(form: any): Observable<any> {
     console.log('form', JSON.stringify(form));
     return this.http
-      .put<any>('https://localhost:5001/api/Users/EditProfile', JSON.stringify(form), {headers: this.headers})
+      .put<any>(`${this.url}/EditProfile`, JSON.stringify(form), {headers: this.headers})
       .pipe(
         tap((response: any) => {
             console.log('test');
@@ -61,7 +61,7 @@ export class UserService {
   public deleteProfile(id: number): Observable<any> {
     console.log(id);
     return this.http
-      .delete<any>(`https://localhost:5001/api/Users/${id}`)
+      .delete<any>(`${this.url}/${id}`)
       .pipe(
         tap((response: any) => {
             console.log('test');

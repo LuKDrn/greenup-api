@@ -1,102 +1,45 @@
 .card {
-    height: 347px;
-    width: 412px;
-    margin-left: 10%;
-
+    width: 374px;
+    height: 466px;
     background: #FCFCFC;
     border-radius: 5px;
 
-    .header {
-        .img {
-            background: #C4C4C4;
-            border-radius: 5.33799px;
+    .content_card {
+        .line_primary {
+            margin: 53px auto;
+            width: 100px;
+            width: 47px;
+            height: 0px;
+            border: 2px solid #4EAAA7;
         }
 
-        .title {
-            font-family: 'Roboto';
+        .title_missions {
+            font-family: Poppins;
             font-style: normal;
             font-weight: 500;
-            font-size: 24.0209px;
-            line-height: 28px;
-            text-align: justify;
-
-            color: #4EAAA7;
+            font-size: 24px;
+            line-height: 36px;
+            text-transform: uppercase;
         }
-
-        .location {
-            
-            font-family: 'Roboto';
-            font-style: normal;
-            font-weight: normal;
-            font-size: 20px;
-            line-height: 23px;
-            text-align: justify;
-            color: #4A4F4E;
-        }
-
-        .point {
-            font-family: 'Roboto';
-            font-style: normal;
-            font-weight: normal;
-            font-size: 20px;
-            line-height: 23px;
-            text-align: justify;
-
-            color: #C4C4C4;
-        }
-
     }
 
-    .content {
-        .iconValise {
-        }
-        .titleDesc {
-
-            font-family: 'Roboto';
-            font-style: normal;
-            font-weight: normal;
-            font-size: 21.352px;
-            line-height: 25px;
-            text-align: justify;
-            color: #323434;
-        }
-        .desc {
-            font-family: 'Roboto';
-            font-style: normal;
-            font-weight: 300;
-            font-size: 21.352px;
-            line-height: 25px;
-            color: #323434;
-        }
-        .date {
-            
-            font-family: 'Roboto';
-            font-style: normal;
-            font-weight: normal;
-            font-size: 21.352px;
-            line-height: 25px;
-            color: #323434;
-        }
-
-        .look {
+    .footer_card {
+        margin: 0 auto;
+        width: 300px;
+        .btn {
+            width: 265px;
             height: 40px;
-            width: 107px;
-
-            background: #73BFBC;
-            border-radius: 3.30753px;
-            .iconLook {
-            }
-
-            .lookText {
-
-                font-family: 'Roboto';
-                font-style: normal;
-                font-weight: 500;
-                font-size: 16.5376px;
-                line-height: 19px;
+            background: #50AFAC;
+            border-radius: 3px;
+            span {
                 text-transform: uppercase;
-
+                font-family: Orkney;
                 color: #FFFFFF;
+                font-style: normal;
+                font-weight: normal;
+                font-size: 16px;
+                line-height: 20px;
+                text-align: center;
             }
         }
     }

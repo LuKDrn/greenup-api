@@ -1,0 +1,43 @@
+<div class="container">
+    <div class="row">
+        <h1>Filtres</h1>
+        <ng-container *ngIf="dureeChoice.length > 0 || typeChoice.length > 0 || distanceChoice !== 0">
+            <mat-chip
+                class="chip mb-4">
+                Effacer les filtres
+                <mat-icon matChipRemove (click)="removeFilter()">cancel</mat-icon>
+            </mat-chip>
+        </ng-container>
+    </div>
+    <div class="row">
+        <h2>Lieu</h2>
+        <input matInput type="text" placeholder="Angers...">
+        <mat-divider class="mt-4 mb-4"></mat-divider>
+    </div>
+    <div class="row">
+        <h2>Dans un rayon de :</h2>
+        <mat-form-field class="select_formField">
+            <mat-select [value]="distanceChoice">
+                <mat-option *ngFor="let distance of distanceTab" [value]="distance">{{ distance }} km</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-divider class="mt-4 mb-4"></mat-divider>
+    </div>
+    <div class="row">
+        <h2>Type de mission</h2>
+        <ul>
+            <li *ngFor="let type of typeTab">
+                <mat-checkbox  (change)="selectedType($event, type);" [checked]="type.selected">{{ type.name }}</mat-checkbox>
+            </li>
+        </ul>
+        <mat-divider class="mt-4 mb-4"></mat-divider>
+    </div>
+    <div class="row mb-5">
+        <h2>Durée</h2>
+        <ul>
+            <li *ngFor="let duree of dureeTab">
+                <mat-checkbox  (change)="selectedType($event, duree);" [checked]="duree.selected">{{ duree.name }}</mat-checkbox>
+            </li>
+        </ul>
+    </div>
+</div>

@@ -1,9 +1,37 @@
-<div style="top: 100px; position: relative;">
-    <h1>Toutes les missions</h1>
-    <mat-card>
-        <mat-card-title>Une mission</mat-card-title>
-        <mat-card-content>
-            <button (click)="selectMission(1)">Voir la mission</button>
-        </mat-card-content>
-    </mat-card>
+<div class="container">
+    <div class="row bannerMission">
+        <img src="./../../../../assets/missionIllustration.png" alt="image moteur de recherche">
+        <h1>Rechercher une mission</h1>
+        <form>
+            <input matInput type="text" placeholder="Rechercher ...">
+        </form>
+    </div>
+    <div class="row contentMission">
+        <section class="col-3">
+            <app-filter></app-filter>
+        </section>
+        <section class="col-9">
+            <div class="row">
+                <h1>Les missions</h1>
+                <span class="countMission">{{ nbMissions }} offres disponible<span *ngIf="nbMissions > 1">s</span></span>
+                <span>Actuellement {{ nbMissions }} offres disponible<span *ngIf="nbMissions > 1">s</span></span>
+            </div>
+            <div class="row">
+                <div class="row">
+                    <!-- <ng-container *ngFor="let mission of ['a', 'b', 'c', 'd', 'e'] ; let index=index">
+                        ({{index}})
+                        <div [ngClass]="index%2 !== 0  ? 'col' : 'row'">
+                            <div class="col" *ngIf="index%2 === 0;else dataMission">
+                                {{ mission }}
+                            </div>
+                            <ng-template #dataMission>
+                                {{ mission }}
+                            </ng-template>
+                        </div>
+                    </ng-container> -->
+                    <button matButton type="button" (click)="addMission()">Créer une mission</button>
+                </div>
+            </div>
+        </section>
+    </div>
 </div>

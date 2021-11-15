@@ -33,7 +33,8 @@ import { EditProfileComponent } from './user/edit-profile/edit-profile.component
 import { AssociationAuthComponent } from './association/association-auth/association-auth.component';
 import { AssociationSignUpComponent } from './association/association-sign-up/association-sign-up.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { AddMissionComponent } from './mission/add-mission/add-mission.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     HomeComponent,
     EditProfileComponent,
     AssociationAuthComponent,
-    AssociationSignUpComponent
+    AssociationSignUpComponent,
+    AddMissionComponent
   ],
   imports: [
     MatCarouselModule,
@@ -69,7 +71,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatCheckboxModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    CommonModule
+    CommonModule,
+    MatSnackBarModule
   ],
   providers: [ProduitsService, MissionsService, ChallengesService, AssociationsService, UserService],
 })
