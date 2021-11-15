@@ -20,6 +20,7 @@ import { MatCarouselModule } from '@ngmodule/material-carousel';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { ModulesModule } from './modules/modules.module';
+import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 
 
 export function tokenGetter() {
@@ -29,6 +30,7 @@ export function tokenGetter() {
 @NgModule({
   declarations: [
     AppComponent,
+    PagenotfoundComponent,
   ],
   entryComponents: [],
   imports: [

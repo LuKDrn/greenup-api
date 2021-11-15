@@ -13,18 +13,23 @@ import { ProduitIdComponent } from './modules/produit/produit-id/produit-id.comp
 import { EditProfileComponent } from './modules/user/edit-profile/edit-profile.component';
 import { AssociationAuthComponent } from './modules/association/association-auth/association-auth.component';
 import { AssociationSignUpComponent } from './modules/association/association-sign-up/association-sign-up.component';
+import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { AddMissionComponent } from './modules/mission/add-mission/add-mission.component';
 
 const routes: Routes = [
   //HOME
   {
-    path: 'home',
-    component: HomeComponent
-  },
-  {
     path: '',
-    redirectTo: 'home',
-    pathMatch: 'full'
+    children: [
+      {
+        path: '',
+        component: HomeComponent
+      },
+      {
+        path: 'home',
+        component: HomeComponent
+      }
+    ]
   },
   //USER
   { 
@@ -78,6 +83,11 @@ const routes: Routes = [
   {
     path: 'associations/signUp',
     component: AssociationSignUpComponent
+  },
+  {
+    path :'**',
+    pathMatch: 'full',
+    component: PagenotfoundComponent
   }
 ];
 
