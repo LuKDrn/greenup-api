@@ -35,7 +35,7 @@ namespace GreenUp.Web.Mvc.Controllers.Users
         }
 
         [HttpGet, Route("{id}")]
-        public async Task<ActionResult<OneUserViewModel>> Account([FromQuery]Guid id)
+        public async Task<ActionResult<OneUserViewModel>> Account(Guid id)
         {
             User user = await GetUser(id, false).Include(u => u.Role).Include(u => u.Adress).Include(u => u.Missions).FirstOrDefaultAsync();
             if (user != null)
@@ -118,6 +118,7 @@ namespace GreenUp.Web.Mvc.Controllers.Users
                         var claims = new List<Claim>
                         {
                             new Claim("type", "User"),
+                            new Claim("userId", user.Id.ToString()),
                             new Claim(ClaimTypes.Name, user.Mail),
                             new Claim(ClaimTypes.Role, "User")
                         };

@@ -7,10 +7,19 @@ import {Observable} from 'rxjs';
   providedIn: 'root'
 })
 export class SharedService {
-readonly APIUrl="https://localhost:5001/api"
-  constructor(private http:HttpClient) { }
+  readonly APIUrl="https://localhost:5001/api";
+  public isConnected: boolean;
+
+  constructor(private http:HttpClient) {
+    this.isConnected = false;
+  }
 
   getUserList(): Observable<any[]>{
     return this.http.get<any>(this.APIUrl+'/user');
   }
+
+  public deleteToken(): void {
+    localStorage.removeItem('jwt');
+  }
+
 }

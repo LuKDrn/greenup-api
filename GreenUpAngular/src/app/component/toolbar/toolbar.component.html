@@ -29,8 +29,8 @@
         <div class="d-flex position-absolute" style="right:4%">
           <a class="navigate contact my-2 mx-4" href="#"><span>Contact</span></a>
           <div class="">
-          <button mat-button [matMenuTriggerFor]="beforeMenu" class="btn btn-login" id="loginDropdown" aria-label="bouton se connecter">Se connecter
-          </button>
+          <button *ngIf="!isConnected" mat-button [matMenuTriggerFor]="beforeMenu" class="btn btn-login" id="loginDropdown" aria-label="bouton se connecter">Se connecter</button>
+          <button *ngIf="isConnected" class="btn btn-login" id="loginDropdown" aria-label="bouton mon compte" (click)="goToProfile()">Mon compte</button>
           <mat-menu #beforeMenu="matMenu" xPosition="before" aria-labelledby="loginDropdown">
             <button mat-menu-item (click)="login()">Espace utilisateur</button>
             <button mat-menu-item (click)="associations()">Espace association</button>
