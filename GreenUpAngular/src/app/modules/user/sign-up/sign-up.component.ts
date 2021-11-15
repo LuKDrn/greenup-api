@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angula
 import { UserService } from '../user.service';
 import { Subscription } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sign-up',
@@ -19,7 +20,8 @@ export class SignUpComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private router: Router
   ) {
 
     this.form = this.fb.group({
@@ -56,6 +58,7 @@ export class SignUpComponent implements OnInit {
           this.openSnackBar(res.error);
         } else {
           this.openSnackBar('Vous êtes maintenant inscrit');
+          this.login();
         }
       },
       (error: any) => {
@@ -66,5 +69,9 @@ export class SignUpComponent implements OnInit {
 
   public openSnackBar(message: string) {
     this._snackBar.open(message, 'Ok');
+  }
+
+  public login(): void {
+    this.router.navigate(['/auth']);
   }
 }

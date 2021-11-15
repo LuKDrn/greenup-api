@@ -1,6 +1,6 @@
 
-<div class="col-md-12 col-xl-12 bg-white">
-    <app-toolbar></app-toolbar>
+<div class="col-md-12 col-xl-12 bg-white" *ngIf="!loading">
+    <app-toolbar [isConnected]="isConnected"></app-toolbar>
     <router-outlet></router-outlet>
     <app-footer></app-footer>
 </div>

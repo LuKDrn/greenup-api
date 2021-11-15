@@ -1,4 +1,4 @@
-<div class="content-form" style="top: 100px; position: relative;">
+<!-- <div class="content-form" style="top: 100px; position: relative;">
     <div class="container-fluid">
         <h2 class="form-signin-heading">
             <img src="./../../../assets/social-media/ account-icon.png" alt="account-icon" class="icon-account"/>
@@ -43,5 +43,35 @@
         </form>
         <h2>Supprimer mon compte</h2>
         <button mat-raised-button color="warn">Supprimer</button>
+    </div>
+</div> -->
+
+<div class="container" *ngIf="!loading">
+    <div class="row">
+        <div class="profile-menu col">
+            <h2>{{ 'Mon profil' | uppercase }}</h2>
+            <div>
+                <img src="./../../../../assets/icons/feather/black/user.svg" alt=""> 
+            </div>
+            <div class="name-user">
+                {{ user.lastName }} {{ user.firstName }}
+            </div>
+            <div class="point-user">
+                {{ user.points }} points
+            </div>
+            <hr>
+            <button class="btn-add-mission">
+                <!-- <img src="./../../../../assets/icons/feather/black/plus.svg" alt=""> -->
+                Ajouter une mission
+            </button>
+
+            <button class="btn-logout" (click)="logout()">
+                Déconnexion
+            </button>
+
+        </div>
+        <div class="col">
+
+        </div>
     </div>
 </div>

@@ -7,7 +7,8 @@ import { catchError, tap } from 'rxjs/operators';
 })
 export class UserService {
   public headers = new HttpHeaders({
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
+    'Authorization': "Bearer "+ localStorage.getItem('jwt')
   });
   public url = 'https://localhost:5001/api/Users';
   constructor(protected http: HttpClient) {}
@@ -35,9 +36,9 @@ export class UserService {
       );
   }
 
-  public getUser(): Observable<any> {
+  public getUser(id: string): Observable<any> {
     return this.http
-      .get<any>(`${this.url}/Login`)
+      .get<any>(`${this.url}/${id}`)
       .pipe(
           tap((response: any) => {
               console.log('test');
