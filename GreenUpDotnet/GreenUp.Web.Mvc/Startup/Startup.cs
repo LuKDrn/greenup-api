@@ -69,7 +69,7 @@ namespace GreenUp.Web.Mvc
 
             //Ajout du contexte default de BDD au Projet
             services.AddDbContext<GreenUpContext>(options =>
-                options.UseNpgsql(Configuration.GetConnectionString("Default")));
+                options.UseNpgsql(Configuration.GetConnectionString("Default"), o => o.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery)));
 
             services.AddControllers().AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             services.AddSwaggerGen(c =>

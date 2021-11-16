@@ -33,7 +33,6 @@ namespace GreenUp.Web.Core.Controllers
                     .Include(m => m.Users)
                         .ThenInclude(u => u.User)
                     .Include(m => m.Association.Adress)
-                    .AsSplitQuery()
                     .Where(m => m.Id == id);
             }
             else
@@ -53,7 +52,6 @@ namespace GreenUp.Web.Core.Controllers
                     .Include(u => u.Adress)
                     .Include(u => u.Missions)
                         .ThenInclude(m => m.Mission.Association)
-                    .AsSplitQuery()
                     .Where(u => u.Id == id);
             }
             return _context.Users
@@ -68,6 +66,8 @@ namespace GreenUp.Web.Core.Controllers
                 return _context.Associations
                     .Include(a => a.Missions)
                         .ThenInclude(m => m.Users)
+                    .Include(a => a.Missions)
+                        .ThenInclude(m => m.Location)
                     .Include(a => a.Adress)
                     .Where(a => a.Id == id);
             }

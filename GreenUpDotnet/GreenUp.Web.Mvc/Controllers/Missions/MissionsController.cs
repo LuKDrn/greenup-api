@@ -29,6 +29,44 @@ namespace GreenUp.Web.Mvc.Controllers.Missions
 
         }
 
+        [AllowAnonymous]
+        [HttpGet, Route("List")]
+        public async Task<ActionResult<ICollection<OneMissionViewModel>>> ListMission(int numberOfItems)
+        {
+            ICollection<Mission> missions = await _context.Missions.Include(m => m.Location).Include(m => m.Association).AsNoTracking().Take(numberOfItems).ToListAsync();
+            var model = new List<OneMissionViewModel>();
+            foreach (var mission in missions)
+            {
+                model.Add(new OneMissionViewModel
+                {
+                    Id = mission.Id,
+                    Titre = mission.Titre,
+                    Description = mission.Description,
+                    Date = mission.Date.ToString("dd/MM/yyyy HH:mm"),
+                    Available = mission.Available,
+                    IsInGroup = mission.IsInGroup,
+                    RewardValue = mission.RewardValue,
+                    NumberPlaces = mission.NumberPlaces,
+                    Adress = new OneAdressViewModel
+                    {
+                        Id = mission.LocationId,
+                        City = mission.Location.City,
+                        Place = mission.Location.Place,
+                        ZipCode = mission.Location.ZipCode
+                    },
+                    Association = new OneAssociationViewModel
+                    {
+                        Id = mission.AssociationId,
+                        Name = mission.Association.Name,
+                        Siren = mission.Association.Siren,
+                        Logo = mission.Association.Logo
+                    }
+                });
+            }
+            return model;
+        }
+
+
         [HttpGet, Route("GetOneAssociationMissions")]
         public async Task<ActionResult<ICollection<OneMissionViewModel>>> GetAssociationMissions(Guid associationId)
         {
@@ -133,7 +171,7 @@ namespace GreenUp.Web.Mvc.Controllers.Missions
         }
 
         [HttpPost, Route("Add")]
-        public async Task<ActionResult<Mission>> Add(CreateOrUpdateMissionViewModel model)
+        public async Task<string> Add(CreateOrUpdateMissionViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -156,9 +194,9 @@ namespace GreenUp.Web.Mvc.Controllers.Missions
                 };
                 association.Missions.Add(mission);
                 await _context.SaveChangesAsync();
-                return mission;
+                return "La mission a bien été créée";
             }
-            return BadRequest(new { error = "Informations saisies incorrectes" });
+            return "Informations saisies incorrectes";
         }
 
         [HttpPut, Route("Update")]
