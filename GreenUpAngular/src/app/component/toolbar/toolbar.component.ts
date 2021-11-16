@@ -46,6 +46,10 @@ export class ToolbarComponent implements OnInit {
     this.router.navigate(['/associations']);
   }
 
+  public blog(): void {
+    this.router.navigate(['/blog']);
+  }
+
   public goToProfile(): void {
     this.router.navigate(['/edit-profile']);
   }
