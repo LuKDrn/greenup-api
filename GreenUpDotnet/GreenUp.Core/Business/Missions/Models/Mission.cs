@@ -2,6 +2,7 @@
 using GreenUp.Core.Business.Adresses.Models;
 using GreenUp.Core.Business.Associations.Models;
 using GreenUp.Core.Business.Inscriptions.Models;
+using GreenUp.Core.Business.Tags.Models;
 using GreenUp.Core.Business.Users.Models;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,7 @@ namespace GreenUp.Core.Business.Missions.Models
         [ForeignKey("LocationId")]
         public Adress Location { get; set; }
         public int LocationId { get; set; }
+        public DateTime CreationDate { get; set; }
         public DateTime Date { get; set; }
         [ForeignKey("AssociationId")]
         public Association Association { get; set; }
@@ -25,5 +27,6 @@ namespace GreenUp.Core.Business.Missions.Models
         public int? NumberPlaces { get; set; }
         public bool Available { get; set; }
         public ICollection<MissionUser> Users { get; set; }
+        public ICollection<Tag> Tags { get; set; }
     }
 }

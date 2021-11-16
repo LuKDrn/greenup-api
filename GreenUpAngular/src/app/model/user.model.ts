@@ -1,4 +1,9 @@
-class User {
+import { Address } from "./address.model";
+import { Mission } from "./mission.model";
+import { Rewards } from "./rewards.model";
+import { Roles } from "./roles.model";
+
+export class User {
     public id: number;
     public mail: string;
     public password: string;

@@ -53,7 +53,7 @@ const routes: Routes = [
   },
   {
     path: 'mission/:id',
-    component: AddMissionComponent // MissionIdComponent
+    component: MissionIdComponent // MissionIdComponent
   },
   //PRODUITS BIO
   {

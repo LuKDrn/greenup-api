@@ -130,16 +130,18 @@ namespace GreenUp.Web.Mvc.Controllers.Missions
             }
         }
 
+        [AllowAnonymous]
         [HttpGet, Route("{id}")]
-        public async Task<OneMissionViewModel> Details(int missionId)
+        public async Task<OneMissionViewModel> Details(int id)
         {
-            Mission mission = await GetOneMission(missionId, true).FirstOrDefaultAsync();
+            Mission mission = await GetOneMission(id, true).FirstOrDefaultAsync();
             if(mission != null)
             {
 
                 OneMissionViewModel model = new()
                 {
-                    Id = missionId,
+                    Id = id,
+                    AssociationId = mission.AssociationId.ToString(),
                     Titre = mission.Titre,
                     Description = mission.Description,
                     Date = mission.Date.ToString("dd/MM/yyyy HH:mm"),
