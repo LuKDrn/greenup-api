@@ -26,9 +26,6 @@ namespace GreenUp.Core.Business.Users.Models
         [Required]
         public string Photo { get; set; }
         public int Points { get; set; }
-        [ForeignKey("RoleId")]
-        public Role Role { get; set; }
-        public int RoleId { get; set; }
         [ForeignKey("AdressId")]
         public Adress Adress { get; set; }
         public int AdressId { get; set; }

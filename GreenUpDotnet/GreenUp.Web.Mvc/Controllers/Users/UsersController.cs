@@ -37,7 +37,7 @@ namespace GreenUp.Web.Mvc.Controllers.Users
         [HttpGet, Route("{id}")]
         public async Task<ActionResult<OneUserViewModel>> Account(Guid id)
         {
-            User user = await GetUser(id, false).Include(u => u.Role).Include(u => u.Adress).Include(u => u.Missions).FirstOrDefaultAsync();
+            User user = await GetUser(id, false).Include(u => u.Adress).Include(u => u.Missions).FirstOrDefaultAsync();
             if (user != null)
             {
                 var userMissions = new List<OneMissionViewModel>();
@@ -82,7 +82,6 @@ namespace GreenUp.Web.Mvc.Controllers.Users
                     BirthDate = user.BirthDate.ToString("dd/MM/yyyy HH:mm"),
                     Photo = user.Photo,
                     Points = user.Points,
-                    Role = user.Role.Value,
                     Adress = new OneAdressViewModel
                     {
                         Id = user.AdressId,
@@ -156,7 +155,6 @@ namespace GreenUp.Web.Mvc.Controllers.Users
         {
             if (ModelState.IsValid)
             {
-                var role = await _context.Roles.Include(r => r.Users).Where(r => r.Value == "User").FirstOrDefaultAsync();
                 bool alreadyUserWithMail = await _context.Users.Where(u => u.Mail == model.Mail).AnyAsync();
                 if (!alreadyUserWithMail)
                 {
@@ -168,7 +166,6 @@ namespace GreenUp.Web.Mvc.Controllers.Users
                         LastName = model.LastName,
                         BirthDate = model.BirthDate,
                         CreationTime = DateTime.Now,
-                        Role = role
                     };
                     user.Adress = new Adress()
                     {
@@ -177,7 +174,7 @@ namespace GreenUp.Web.Mvc.Controllers.Users
                         ZipCode = model.ZipCode
                     };
                     user.Photo = UploadImage(model.Photo);
-                    role.Users.Add(user);
+                    _context.Users.Add(user);
                     await _context.SaveChangesAsync();
                     return $"The user {model.Mail} has been created";
                 }
@@ -227,7 +224,8 @@ namespace GreenUp.Web.Mvc.Controllers.Users
         [HttpPost, Route("Inscription")]
         public async Task<ActionResult> Inscription([FromQuery]int missionId, Guid userId)
         {
-            Mission mission = await _context.Missions.Include(m => m.Users).FirstOrDefaultAsync(m => m.Id == missionId);
+            Mission mission = await GetOneMission(missionId, false).Include(m => m.Users).FirstOrDefaultAsync();
+            User user = await GetUser(userId, false).Include(u => u.Missions).FirstOrDefaultAsync();
             if (mission == null)
             {
                 return NotFound($"Aucune mission n'a été trouvé.");

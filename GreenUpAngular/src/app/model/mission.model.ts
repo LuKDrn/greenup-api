@@ -1,5 +1,6 @@
 import { Address } from "./address.model";
 import { Association } from "./association.model";
+import { Tag } from "./tag.model";
 import { User } from "./user.model";
 
 export class Mission {
@@ -15,6 +16,7 @@ export class Mission {
     public available: boolean;
     public user?: User[];
     public association: Association;
+    public tags: Tag[];
 
     constructor() {
         this.id = 0;
@@ -30,5 +32,6 @@ export class Mission {
         this.available = false;
         this.association = new Association();
         this.adress = new Address();
+        this.tags = [];
     }
 }
