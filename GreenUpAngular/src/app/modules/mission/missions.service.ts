@@ -11,9 +11,7 @@ export class MissionsService {
     'Content-Type': 'application/json'
   });
   public urlMissions = 'https://localhost:5001/api/Missions'; 
-  constructor(protected http: HttpClient) {
-
-  }
+  constructor(protected http: HttpClient) {}
 
   public getAllMissions(): Observable<any[]> {
     return this.http.get<any[]>(this.urlMissions);

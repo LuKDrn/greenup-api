@@ -35,6 +35,9 @@ import { AssociationSignUpComponent } from './association/association-sign-up/as
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { AddMissionComponent } from './mission/add-mission/add-mission.component';
+import { ListBlogComponent } from './blog/list-blog/list-blog.component';
+import { BlogComponent } from './blog/blog/blog.component';
+import { BlogService } from './blog/blog.service';
 
 @NgModule({
   declarations: [
@@ -51,7 +54,9 @@ import { AddMissionComponent } from './mission/add-mission/add-mission.component
     EditProfileComponent,
     AssociationAuthComponent,
     AssociationSignUpComponent,
-    AddMissionComponent
+    AddMissionComponent,
+    ListBlogComponent,
+    BlogComponent
   ],
   imports: [
     MatCarouselModule,
@@ -74,6 +79,6 @@ import { AddMissionComponent } from './mission/add-mission/add-mission.component
     CommonModule,
     MatSnackBarModule
   ],
-  providers: [ProduitsService, MissionsService, ChallengesService, AssociationsService, UserService],
+  providers: [ProduitsService, MissionsService, ChallengesService, AssociationsService, UserService, BlogService],
 })
 export class ModulesModule { }
