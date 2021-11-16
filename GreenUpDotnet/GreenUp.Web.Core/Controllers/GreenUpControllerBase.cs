@@ -48,7 +48,6 @@ namespace GreenUp.Web.Core.Controllers
             if (allInclude)
             {
                 return _context.Users
-                    .Include(u => u.Role)
                     .Include(u => u.Adress)
                     .Include(u => u.Missions)
                         .ThenInclude(m => m.Mission.Association)

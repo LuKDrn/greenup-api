@@ -15,8 +15,6 @@ namespace GreenUp.Core.Business.Companies.Models
         [Required]
         public string Password { get; set; }
         public string Siren { get; set; }
-        [ForeignKey("RoleId")]
-        public Role Role { get; set; }
         public string Logo { get; set; }
         public string RefreshToken { get; set; }
         public DateTime RefreshTokenExpiryTime { get; set; }

@@ -16,8 +16,7 @@ namespace GreenUp.Core.Business.Associations.Models
         [Required]
         public string Password { get; set; }
         public string Siren { get; set; }
-        [ForeignKey("RoleId")]
-        public Role Role { get; set; }
+
         public string Logo { get; set; }
         public string PhoneNumber { get; set; }
         public string Website { get; set; }

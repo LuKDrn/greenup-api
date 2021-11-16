@@ -34,8 +34,8 @@ public mission : Mission;
   public getOneMission(id:number) : any {
     this.missionService.getOneMission(id).subscribe(
       (res: Mission) => {
-        console.log('res', res);
         this.mission = res;
+        console.log('res', this.mission);
         return this.mission;
       },
       (error: any) => {

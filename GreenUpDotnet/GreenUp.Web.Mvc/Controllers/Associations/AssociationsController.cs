@@ -85,13 +85,14 @@ namespace GreenUp.Web.Mvc.Controllers.Associations
         {
             if (ModelState.IsValid)
             {
-                var role = await _context.Roles.Include(r => r.Assocations).FirstOrDefaultAsync(x => x.Value == "Association");
                 Association association = new()
                 {
                     Name = model.Name,
                     Password = BCrypt.Net.BCrypt.HashPassword(model.Password),
                     Siren = model.Siren,
-                    Role = role,
+                    PhoneNumber = model.PhoneNumber,
+                    Website = model.Website,
+                    Mail = model.Mail,
                     Adress = new Adress()
                     {
                         Place = model.Adress,
@@ -99,7 +100,7 @@ namespace GreenUp.Web.Mvc.Controllers.Associations
                         ZipCode = model.ZipCode
                     }
                 };
-                role.Assocations.Add(association);
+                _context.Associations.Add(association);
                 await _context.SaveChangesAsync();
                 return association;
             }
