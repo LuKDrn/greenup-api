@@ -1,3 +1,52 @@
-<div style="top: 100px; position: relative;">
-    <h1>Bienvenue sur la mission 1</h1>
+<div class="container-fluid">
+    <div class="row col-10 m-auto mb-5">
+        <a class="btn btn-sm text-sm my-1 col-auto link-dark" title="Retour aux missions" (click)="missions()">
+            <img src="../../../../assets/icons/feather/black/chevron-left.svg" class="mr-1" alt="Go back">
+            <span> Retour aux missions</span>
+        </a>
+        <div class="card shadow p-5">
+            <div class="row col-12">
+                <div class="d-flex flex-column col-xl-8 col-md-8 col-sm-12">
+                    <h1 class="fw-bold">{{ mission.titre }}</h1>
+                    <div class="row justify-content-between text-left col-12 my-2">
+                        <div class="d-flex flex-column col-xl-4 col-md-4 col-sm-12">
+                            <p class="fw-bold">Association</p>
+                            <p class="text-sm">{{ mission.association.name }}</p>
+                        </div>
+                        <div class="d-flex flex-column col-xl-4 col-md-4 col-sm-12">
+                            <p class="fw-bold">Localisation</p>
+                            <p class="text-sm">{{ mission.adress.place }}, {{ mission.adress.city }} {{ mission.adress.zipCode }}</p>
+                        </div>
+                        <div class="d-flex flex-column col-xl-4 col-md-4 col-sm-12">
+                            <p class="fw-bold">Date<p>
+                            <p class="text-sm">{{ mission.date }}</p>
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <h2 class="fw-bold">Votre mission</h2>
+                        <p>{{ mission.description }}</p>
+                    </div>
+                </div>
+                <div class="d-flex flex-column m-auto justify-content-between align-items-center col-xl-4 col-md-4 col-sm-12 border-start px-2">
+                    <img src="http://assets.stickpng.com/images/5a0c731b9642de34b6b65cee.png" class="rounded-circle my-3" height="40" alt="{{mission.association.name}} Logo" />
+                    <p class="fw-bold">{{mission.association.name}}</p>
+                    <p class="text-sm">2 rue de l'école supérieur de la Loire, Angers 49000</p>
+                    <p class="text-sm">06 00 00 00 00</p>
+                    <a href="http://www.greenpeace.fr" target="_blank" class="text-sm link-dark"><img src="../../../../assets/icons/feather/black/external-link.svg" class="mr-2" height="15" /> <span> Site web</span></a>
+                    <form class="btn btn-sm mt-5 text-white" id="postule-button"> 
+                        JE POSTULE
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-center align-items-center my-5" id="protect-house-banner">
+        <div class="col-12 py-3">
+            <p class="fs-6 text-center">Protégeons notre maison, engageons-nous avec les petites actions quotidiennes
+            </p>
+        </div>
+    </div>
+    <div class="row col-10 m-auto my-5">
+        <h1 class="fw-bold">D'autres missions similaires : </h1>
+    </div>
 </div>

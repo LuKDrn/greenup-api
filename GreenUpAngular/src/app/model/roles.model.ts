@@ -1,4 +1,6 @@
-class Roles {
+import { User } from "./user.model";
+
+export class Roles {
     public id: number;
     public value: string;
     public users: User[];

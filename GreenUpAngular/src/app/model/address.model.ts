@@ -1,15 +1,23 @@
-class Address {
-    public uid: number;
-    public address: string;
+import { Association } from "./association.model";
+import { Company } from "./company.model";
+import { User } from "./user.model";
+
+export class Address {
+    public id: number;
+    public place: string;
     public city: string;
     public zipCode: number;
-    public company: Company[];
+    public companies: Company[];
+    public users: User[];
+    public associations: Association[];
 
     constructor() {
-        this.uid = 0;
-        this.address = '';
+        this.id = 0;
+        this.place = '';
         this.city = '';
         this.zipCode = 0;
-        this.company = [];
+        this.users = [];
+        this.associations = [];
+        this.companies = [];
     }
 }

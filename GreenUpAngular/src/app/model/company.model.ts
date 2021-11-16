@@ -1,4 +1,6 @@
-class Company {
+import { Address } from "./address.model";
+
+export class Company {
     public id: number;
     public name: string;
     public siren: number;

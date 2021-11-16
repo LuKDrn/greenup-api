@@ -1,0 +1,25 @@
+$primary-color: #408C89;
+$secondary-color: #FFC533;
+
+.text-sm {
+    font-size : 0.75rem !important;
+}
+.text-xs {
+    font-size: 0.625rem !important;
+}
+p{
+    margin-bottom: 0;
+}
+#postule-button{
+    background-color: $primary-color;
+}
+#postule-button:hover{
+    background-color: $secondary-color;
+    transition-duration: 0.5s;
+    transform: scale(1.1);
+}
+#protect-house-banner {
+    background-color: $primary-color;
+    color: #fff;
+    font-weight: 300;
+}

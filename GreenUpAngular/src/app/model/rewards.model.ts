@@ -1,4 +1,4 @@
-class Rewards {
+export class Rewards {
     public id: number;
     public name: string;
     public value: number;

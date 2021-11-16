@@ -19,6 +19,9 @@ namespace GreenUp.Core.Business.Associations.Models
         [ForeignKey("RoleId")]
         public Role Role { get; set; }
         public string Logo { get; set; }
+        public string PhoneNumber { get; set; }
+        public string Website { get; set; }
+        public string Mail { get; set; }
         public string RefreshToken { get; set; }
         public DateTime RefreshTokenExpiryTime { get; set; }
         [ForeignKey("AdressId")]

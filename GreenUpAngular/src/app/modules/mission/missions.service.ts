@@ -10,24 +10,24 @@ export class MissionsService {
   public headers = new HttpHeaders({
     'Content-Type': 'application/json'
   });
-  public urlMissions = 'https://localhost:5001/api/Missions'; 
+  public missionApi = 'https://localhost:5001/api/Missions'; 
   constructor(protected http: HttpClient) {
 
   }
 
   public getAllMissions(): Observable<any[]> {
-    return this.http.get<any[]>(this.urlMissions);
+    return this.http.get<any[]>(this.missionApi);
   }
 
   //Voir les params 
-  public getOneMissions(id: string): Observable<any> {
-    return this.http.get<any[]>(`${this.urlMissions}/${id}`);
+  public getOneMission(id: number): Observable<any> {
+    return this.http.get<any[]>(`${this.missionApi}/${id}`);
   }
 
   public addMission(form: any): Observable<any> {
     console.log('form', JSON.stringify(form));
     return this.http
-      .post<any>(`${this.urlMissions}/Add`, JSON.stringify(form), {headers: this.headers})
+      .post<any>(`${this.missionApi}/Add`, JSON.stringify(form), {headers: this.headers})
       .pipe(
         tap((response: any) => {
           console.log('ajout réussi');
@@ -39,7 +39,7 @@ export class MissionsService {
   public updateMission(form: any): Observable<any> {
     console.log('form', JSON.stringify(form));
     return this.http
-      .post<any>(`${this.urlMissions}/Update`, JSON.stringify(form), {headers: this.headers})
+      .post<any>(`${this.missionApi}/Update`, JSON.stringify(form), {headers: this.headers})
       .pipe(
         tap((response: any) => {
           console.log('modification réussi');
