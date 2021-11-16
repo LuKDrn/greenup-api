@@ -15,6 +15,8 @@ import { AssociationAuthComponent } from './modules/association/association-auth
 import { AssociationSignUpComponent } from './modules/association/association-sign-up/association-sign-up.component';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { AddMissionComponent } from './modules/mission/add-mission/add-mission.component';
+import { BlogComponent } from './modules/blog/blog/blog.component';
+import { ListBlogComponent } from './modules/blog/list-blog/list-blog.component';
 
 const routes: Routes = [
   //HOME
@@ -83,6 +85,15 @@ const routes: Routes = [
   {
     path: 'associations/signUp',
     component: AssociationSignUpComponent
+  },
+  //BLOG
+  {
+    path: 'blog',
+    component: ListBlogComponent
+  },
+  {
+    path: 'blog/:id',
+    component: BlogComponent
   },
   {
     path :'**',

@@ -1,0 +1,114 @@
+.img-block {
+    img {
+        width: 15rem;
+        height: 13rem;
+    }
+}
+
+.card-blog {
+    h1 {
+        margin-top: 20px;
+        font-family: Poppins;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 20px;
+        color: #306967;
+    }
+
+    h2 {
+        font-family: Orkney;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 32px;
+        line-height: 38px;
+        color: #1A1A1A;
+    }
+
+    p {
+
+        font-family: Orkney;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 19px;
+        color: #1A1A1A;
+    }
+
+    span {
+        font-family: Orkney;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 18px;
+        color: #323434;
+    }
+
+    a {
+
+        font-family: Orkney;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 18px;
+        color: #306967;
+    }
+
+    .footer-card {
+        display: flex;
+        justify-content: space-between;
+    }
+}
+
+.card-custom {
+    h4 {
+        font-family: Poppins;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 20px;
+        color: #306967;
+    }
+
+    h5 {
+        font-family: Poppins;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 20px;
+        color: #1A1A1A;
+    }
+
+    p {
+        font-family: Orkney;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 19px;
+        color: #1A1A1A;
+    }
+
+    .footer-card {
+        display: flex;
+        justify-content: space-between;
+
+        span {
+            font-family: Orkney;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 16px;
+            line-height: 18px;
+            color: #323434;
+        }
+
+        a {
+            font-family: Catamaran;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 18px;
+            line-height: 18px;
+            color: #408C89;
+        }
+    }
+}
+

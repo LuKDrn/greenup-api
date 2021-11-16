@@ -14,6 +14,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatChipsModule } from '@angular/material/chips';
+import { CardBlogComponent } from './card-blog/card-blog.component';
 
 @NgModule({
     imports: [
@@ -34,7 +35,8 @@ import { MatChipsModule } from '@angular/material/chips';
         CardComponent,
         FooterComponent,
         FilterComponent,
+        CardBlogComponent,
     ],
-    exports: [CardComponent, ToolbarComponent, FooterComponent, FilterComponent] 
+    exports: [CardComponent, ToolbarComponent, FooterComponent, FilterComponent, CardBlogComponent] 
 })
 export class ComponentModule {}
