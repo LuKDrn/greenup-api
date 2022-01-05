@@ -7,19 +7,19 @@
         <div class="card shadow p-5">
             <div class="row col-12">
                 <div class="d-flex flex-column col-xl-8 col-md-8 col-sm-12">
-                    <h1 class="fw-bold">{{ mission.titre }}</h1>
+                    <h1 class="fw-bold">{{ mission.title }}</h1>
                     <div class="row justify-content-between text-left col-12 my-2">
                         <div class="d-flex flex-column col-xl-4 col-md-4 col-sm-12">
                             <p class="fw-bold">Association</p>
-                            <p class="text-sm">{{ mission.association.name }}</p>
+                            <p class="text-sm">{{ mission.association.lastName }}</p>
                         </div>
                         <div class="d-flex flex-column col-xl-4 col-md-4 col-sm-12">
                             <p class="fw-bold">Localisation</p>
-                            <p class="text-sm">{{ mission.adress.place }}, {{ mission.adress.city }} {{ mission.adress.zipCode }}</p>
+                            <p class="text-sm">{{ mission.address.place }}, {{ mission.address.city }} {{ mission.address.zipCode }}</p>
                         </div>
                         <div class="d-flex flex-column col-xl-4 col-md-4 col-sm-12">
                             <p class="fw-bold">Date<p>
-                            <p class="text-sm">{{ mission.date }}</p>
+                            <p class="text-sm">{{ mission.creation }}</p>
                         </div>
                     </div>
                     <div class="row mt-4">
@@ -28,9 +28,9 @@
                     </div>
                 </div>
                 <div class="d-flex flex-column m-auto justify-content-between align-items-center col-xl-4 col-md-4 col-sm-12 border-start px-2">
-                    <img src="http://assets.stickpng.com/images/5a0c731b9642de34b6b65cee.png" class="rounded-circle my-3" height="40" alt="{{mission.association.name}} Logo" />
-                    <p class="fw-bold">{{mission.association.name}}</p>
-                    <p class="text-sm">{{ mission.association.adress }}, {{ mission.association.adress}} {{ mission.association.adress }}</p>
+                    <img src="http://assets.stickpng.com/images/5a0c731b9642de34b6b65cee.png" class="rounded-circle my-3" height="40" alt="{{mission.association.lastName}} Logo" />
+                    <p class="fw-bold">{{mission.association.lastName}}</p>
+                    <p class="text-sm">{{ mission.association.addresses }}, {{ mission.association.addresses}} {{ mission.association.addresses }}</p>
                     <p class="text-sm">{{mission.association.phoneNumber}}</p>
                     <a href="http://www.greenpeace.fr" target="_blank" class="text-sm link-dark"><img src="../../../../assets/icons/feather/black/external-link.svg" class="mr-2" height="15" /> <span> Site web</span></a>
                     <form class="btn btn-sm mt-5 text-white" id="postule-button"> 
