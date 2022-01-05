@@ -1,5 +1,4 @@
 ﻿using Abp.AspNetCore.Mvc.Controllers;
-using GreenUp.Core.Business.Associations.Models;
 using GreenUp.Core.Business.Missions.Models;
 using GreenUp.Core.Business.Users.Models;
 using GreenUp.EntityFrameworkCore.Data;
@@ -29,17 +28,17 @@ namespace GreenUp.Web.Core.Controllers
             if (allIncluded)
             {
                 return _context.Missions
+                    .Include(m => m.Status)
                     .Include(m => m.Location)
-                    .Include(m => m.Users)
+                    .Include(m => m.Participants)
                         .ThenInclude(u => u.User)
-                    .Include(m => m.Association.Adress)
+                    .Include(m => m.Association.Addresses)
+                    .Include(m => m.Tasks)
+                    .Include(m => m.Tags)
                     .Where(m => m.Id == id);
             }
-            else
-            {
-                return _context.Missions
-                    .Where(m => m.Id == id);
-            }
+            return _context.Missions
+                .Where(m => m.Id == id);
         }
 
         [ApiExplorerSettings(IgnoreApi = true)]
@@ -48,33 +47,36 @@ namespace GreenUp.Web.Core.Controllers
             if (allInclude)
             {
                 return _context.Users
-                    .Include(u => u.Adress)
-                    .Include(u => u.Missions)
-                        .ThenInclude(m => m.Mission.Association)
-                    .Where(u => u.Id == id);
+                    .Include(u => u.Addresses)
+                    .Include(u => u.Participations)
+                        .ThenInclude(p => p.Mission.Location)
+                    .Include(u => u.Participations)
+                        .ThenInclude(p => p.Mission.Association)
+                    .Include(u => u.Favorites)
+                    .Include(u => u.Orders)
+                    .Where(u => u.IsUser && u.Id == id);
             }
             return _context.Users
-                .Where(u => u.Id == id);
+                .Where(u => u.IsUser && u.Id == id);
         }
 
         [ApiExplorerSettings(IgnoreApi = true)]
-        public IQueryable<Association> GetOneAssociation(Guid id, bool allIncluded)
+        public IQueryable<User> GetOneAssociation(Guid id, bool allIncluded)
         {
             if (allIncluded)
             {
-                return _context.Associations
-                    .Include(a => a.Missions)
-                        .ThenInclude(m => m.Users)
-                    .Include(a => a.Missions)
-                        .ThenInclude(m => m.Location)
-                    .Include(a => a.Adress)
-                    .Where(a => a.Id == id);
+                return _context.Users
+                    .Include(u => u.Addresses)
+                    .Include(u => u.Missions)
+                        .ThenInclude(m => m.Status)
+                    .Include(u => u.Missions)
+                        .ThenInclude(u => u.Participants)
+                    .Include(u => u.Missions)
+                        .ThenInclude(u => u.Location)
+                    .Where(u => u.IsAssociation && u.Id == id);
             }
-            else
-            {
-                return _context.Associations
-                    .Where(a => a.Id == id);
-            }
+            return _context.Users
+                .Where(u => u.IsAssociation && u.Id == id);
         }
 
         [HttpPost]
@@ -92,6 +94,5 @@ namespace GreenUp.Web.Core.Controllers
             }
             return img;
         }
-
     }
 }

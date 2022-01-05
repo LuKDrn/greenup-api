@@ -1,14 +1,12 @@
 ﻿using GreenUp.Application.Authentications.Tokens;
-using GreenUp.Core.Business.Adresses.Models;
+using GreenUp.Core.Business.Addresses.Models;
 using GreenUp.Core.Business.Missions.Models;
 using GreenUp.Core.Business.Users.Models;
 using GreenUp.EntityFrameworkCore.Data;
 using GreenUp.Web.Core.Controllers;
-using GreenUp.Web.Mvc.Models.Adresses;
 using GreenUp.Web.Mvc.Models.Associations;
 using GreenUp.Web.Mvc.Models.Missions;
 using GreenUp.Web.Mvc.Models.Users;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -37,66 +35,28 @@ namespace GreenUp.Web.Mvc.Controllers.Users
         [HttpGet, Route("{id}")]
         public async Task<ActionResult<OneUserViewModel>> Account(Guid id)
         {
-            User user = await GetUser(id, false).Include(u => u.Adress).Include(u => u.Missions).FirstOrDefaultAsync();
+            User user = await GetUser(id, true).FirstOrDefaultAsync();
             if (user != null)
-            {
-                var userMissions = new List<OneMissionViewModel>();
-                if (user.Missions.Count > 0)
-                {
-                    foreach (var mission in user.Missions)
-                    {
-                        userMissions.Add(new OneMissionViewModel
-                        {
-                            Id = mission.MissionId,
-                            Titre = mission.Mission.Titre,
-                            Description = mission.Mission.Description,
-                            Date = mission.Mission.Date.ToString("dd/MM/yyyy HH:mm"),
-                            Available = mission.Mission.Available,
-                            IsInGroup = mission.Mission.IsInGroup,
-                            RewardValue = mission.Mission.RewardValue,
-                            NumberPlaces = mission.Mission.NumberPlaces,
-                            Adress = new OneAdressViewModel
-                            {
-                                Id = mission.Mission.LocationId,
-                                City = mission.Mission.Location.City,
-                                Place = mission.Mission.Location.Place,
-                                ZipCode = mission.Mission.Location.ZipCode
-                            },
-                            Association = new OneAssociationViewModel
-                            {
-                                Id = mission.Mission.AssociationId,
-                                Name = mission.Mission.Association.Name,
-                                Siren = mission.Mission.Association.Siren.ToString(),
-                                Logo = mission.Mission.Association.Logo
-                            }
-                        });
-                    }
-                }
+            {                           
                 OneUserViewModel model = new()
                 {
                     Id = id,
                     Password = user.Password,
                     Mail = user.Mail,
+                    PhoneNumber = user.PhoneNumber,
                     FirstName = user.FirstName,
                     LastName = user.LastName,
-                    BirthDate = user.BirthDate.ToString("dd/MM/yyyy HH:mm"),
+                    Birthdate = user.Birthdate.ToString("dd/MM/yyyy HH:mm"),
                     Photo = user.Photo,
                     Points = user.Points,
-                    Adress = new OneAdressViewModel
-                    {
-                        Id = user.AdressId,
-                        Place = user.Adress.Place,
-                        City = user.Adress.City,
-                        ZipCode = user.Adress.ZipCode
-                    },
-                    Missions = userMissions
+                    Adresses = user.Addresses,
+                    Participations = user.Participations,
+                    Favorites = user.Favorites,
+                    Orders = user.Orders
                 };
                 return model;
             }
-            else
-            {
                 return Ok(new { Error = "Aucun utilisateur trouvé" });
-            }
         }
 
         [AllowAnonymous]
@@ -105,7 +65,7 @@ namespace GreenUp.Web.Mvc.Controllers.Users
         {
             if (ModelState.IsValid)
             {
-                User user = await _context.Users.FirstOrDefaultAsync(u => u.Mail == model.Mail);
+                User user = await _context.Users.FirstOrDefaultAsync(u => u.IsUser && u.Mail == model.Mail);
                 if (user != null)
                 {
                     bool verified = BCrypt.Net.BCrypt.Verify(model.Password, user.Password);
@@ -159,29 +119,28 @@ namespace GreenUp.Web.Mvc.Controllers.Users
                 if (!alreadyUserWithMail)
                 {
                     User user = new()
-                    {
+                    {                      
                         Mail = model.Mail,
+                        PhoneNumber = model.PhoneNumber,
                         Password = BCrypt.Net.BCrypt.HashPassword(model.Password),
                         FirstName = model.FirstName,
                         LastName = model.LastName,
-                        BirthDate = model.BirthDate,
+                        Birthdate = model.Birthdate,
                         CreationTime = DateTime.Now,
+                        Addresses = new List<Address>()
                     };
-                    user.Adress = new Adress()
+                    user.Addresses.Add(new Address()
                     {
                         Place = model.Adress,
                         City = model.City,
                         ZipCode = model.ZipCode
-                    };
+                    });
                     user.Photo = UploadImage(model.Photo);
                     _context.Users.Add(user);
                     await _context.SaveChangesAsync();
                     return $"The user {model.Mail} has been created";
                 }
-                else
-                {
                     return Ok(new { Error = "Cette adresse mail est déjà utilisé." });
-                }
             }
             return Ok(new { Error = "Les informations renseignées ne permettent de finaliser l'inscription." });
         }
@@ -192,16 +151,15 @@ namespace GreenUp.Web.Mvc.Controllers.Users
             var user = await GetUser(model.Id, false).FirstOrDefaultAsync();
             if (user != null)
             {
+                user.Mail = model.Mail;
+                user.PhoneNumber = model.PhoneNumber;
                 user.FirstName = model.FirstName;
                 user.LastName = model.LastName;
                 user.Photo = UploadImage(model.NewPhoto);
-                user.BirthDate = Convert.ToDateTime("model.BirthDate");             
+                user.Birthdate = Convert.ToDateTime("model.BirthDate");
                 return user;
             }
-            else
-            {
-                return Ok("Aucun utilisateur trouvé");
-            }
+            return Ok("Aucun utilisateur trouvé");
         }
 
         [HttpDelete("{id}")]
@@ -210,9 +168,9 @@ namespace GreenUp.Web.Mvc.Controllers.Users
             var user = await GetUser(id, true).FirstOrDefaultAsync();
             if (user != null)
             {
-                foreach (var missionUser in user.Missions)
+                foreach (var participation in user.Participations)
                 {
-                    _context.MissionUsers.Remove(missionUser);
+                    _context.Participations.Remove(participation);
                 };
                 _context.Users.Remove(user);
                 await _context.SaveChangesAsync();
@@ -224,7 +182,7 @@ namespace GreenUp.Web.Mvc.Controllers.Users
         [HttpPost, Route("Inscription")]
         public async Task<ActionResult> Inscription([FromQuery]int missionId, Guid userId)
         {
-            Mission mission = await GetOneMission(missionId, false).Include(m => m.Users).FirstOrDefaultAsync();
+            Mission mission = await GetOneMission(missionId, false).Include(m => m.Participants).FirstOrDefaultAsync();
             User user = await GetUser(userId, false).Include(u => u.Missions).FirstOrDefaultAsync();
             if (mission == null)
             {

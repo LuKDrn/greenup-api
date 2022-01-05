@@ -1,15 +1,10 @@
-export class Participation {
-    public userId: number;
-    public missionId: number;
-    public validation: boolean;
-    public dateInscription: string;
-    public doc: MissionDoc[];
+import { Mission } from "./mission.model";
+import { User } from "./user.model";
 
-    constructor() {
-        this.userId = 0;
-        this.missionId = 0;
-        this.validation = false;
-        this.dateInscription = Date.now.toString();
-        this.doc = [];
-    }
+export class Participation {
+    public userId: string = '';
+    public user: User = new User()
+    public missionId: number = 0;
+    public mission: Mission = new Mission();
+    public dateInscription: string = '';
 }

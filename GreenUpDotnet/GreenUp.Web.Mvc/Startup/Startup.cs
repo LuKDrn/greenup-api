@@ -94,7 +94,7 @@ namespace GreenUp.Web.Mvc
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, GreenUpContext context)
         {
             if (env.IsDevelopment())
             {
@@ -116,6 +116,7 @@ namespace GreenUp.Web.Mvc
             {
                 endpoints.MapControllers();
             });
+            DbInitializer.Initialize(context);
 
         }
     }

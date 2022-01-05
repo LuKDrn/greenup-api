@@ -3,9 +3,9 @@ using GreenUp.Core.Business.Users.Models;
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace GreenUp.Core.Business.Inscriptions.Models
+namespace GreenUp.Core.Business.Participations.Models
 {
-    public class MissionUser
+    public class Participation
     {
         [ForeignKey("UserId")]
         public User User { get; set; }

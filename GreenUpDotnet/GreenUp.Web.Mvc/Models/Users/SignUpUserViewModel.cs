@@ -10,6 +10,9 @@ namespace GreenUp.Web.Mvc.Models.Users
         [EmailAddress]
         public string Mail { get; set; }
         [Required]
+        [DataType(DataType.PhoneNumber)]
+        public string PhoneNumber { get; set; }
+        [Required]
         [MinLength(6)]
         [DataType(DataType.Password)]
         public string Password { get; set; }
@@ -20,7 +23,7 @@ namespace GreenUp.Web.Mvc.Models.Users
         public string ConfirmPassword { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public DateTime BirthDate { get; set; }
+        public DateTime Birthdate { get; set; }
         public IFormFile Photo { get; set; }
         //[Required]
         public string Adress { get; set; }
