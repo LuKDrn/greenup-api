@@ -1,13 +1,13 @@
-﻿using GreenUp.Core.Business.Adresses.Models;
-using GreenUp.Core.Business.Associations.Models;
+﻿using GreenUp.Core.Business.Addresses.Models;
 using GreenUp.Core.Business.Missions.Models;
+using GreenUp.Core.Business.Participations.Models;
+using GreenUp.Core.Business.Tags.Models;
 using GreenUp.Core.Business.Users.Models;
 using GreenUp.EntityFrameworkCore.Data;
 using GreenUp.Web.Core.Controllers;
-using GreenUp.Web.Mvc.Models.Adresses;
 using GreenUp.Web.Mvc.Models.Associations;
 using GreenUp.Web.Mvc.Models.Missions;
-using GreenUp.Web.Mvc.Models.Users;
+using GreenUp.Web.Mvc.Models.Participations;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -33,34 +33,30 @@ namespace GreenUp.Web.Mvc.Controllers.Missions
         [HttpGet, Route("List")]
         public async Task<ActionResult<ICollection<OneMissionViewModel>>> ListMission(int numberOfItems)
         {
-            ICollection<Mission> missions = await _context.Missions.Include(m => m.Location).Include(m => m.Association).AsNoTracking().Take(numberOfItems).ToListAsync();
+            ICollection<Mission> missions = await _context.Missions.Include(m => m.Status).Include(m => m.Location).Include(m => m.Association).AsNoTracking().Take(numberOfItems).OrderBy(m => m.Creation).ToListAsync();
             var model = new List<OneMissionViewModel>();
             foreach (var mission in missions)
             {
                 model.Add(new OneMissionViewModel
                 {
                     Id = mission.Id,
-                    Titre = mission.Titre,
+                    Titre = mission.Title,
                     Description = mission.Description,
-                    Date = mission.Date.ToString("dd/MM/yyyy HH:mm"),
-                    Available = mission.Available,
+                    Creation = mission.Creation.ToString("dd/MM/yyyy HH:mm"),
+                    Edit = mission.Edit.ToString("dd/MM/yyyy HH:mm"),
+                    Start = mission.Start.ToString("dd/MM/yyyy HH:mm"),
+                    End = mission.End.ToString("dd/MM/yyyy HH:mm"),
                     IsInGroup = mission.IsInGroup,
                     RewardValue = mission.RewardValue,
                     NumberPlaces = mission.NumberPlaces,
-                    Adress = new OneAdressViewModel
+                    Address = new Address
                     {
                         Id = mission.LocationId,
                         City = mission.Location.City,
                         Place = mission.Location.Place,
                         ZipCode = mission.Location.ZipCode
                     },
-                    Association = new OneAssociationViewModel
-                    {
-                        Id = mission.AssociationId,
-                        Name = mission.Association.Name,
-                        Siren = mission.Association.Siren,
-                        Logo = mission.Association.Logo
-                    }
+                    Association = mission.Association
                 });
             }
             return model;
@@ -70,64 +66,27 @@ namespace GreenUp.Web.Mvc.Controllers.Missions
         [HttpGet, Route("GetOneAssociationMissions")]
         public async Task<ActionResult<ICollection<OneMissionViewModel>>> GetAssociationMissions(Guid associationId)
         {
-            Association association = await GetOneAssociation(associationId, false)
+            User association = await GetOneAssociation(associationId, false)
+                .Include(a => a.Missions).ThenInclude(m => m.Status)
+                .Include(a => a.Missions).ThenInclude(m => m.Tasks)
                 .Include(a => a.Missions).ThenInclude(m => m.Location)
-                .Include(a => a.Missions).ThenInclude(m => m.Users)
+                .Include(a => a.Missions).ThenInclude(m => m.Participants)
                 .FirstOrDefaultAsync();
-            if(association != null)
+            if (association != null)
             {
                 var model = new List<OneMissionViewModel>();
                 foreach (var mission in association.Missions)
                 {
-                    var usersModel = new List<OneMissionUserViewModel>();
-                    if(mission.Users.Count > 0)
+                    var participants = new List<OneParticipantViewModel>();
+                    foreach (var participation in mission.Participants)
                     {
-                        foreach (var user in mission.Users)
-                        {
-                            usersModel.Add(new OneMissionUserViewModel
-                            {
-                                Id = user.UserId,
-                                FirstName = user.User.FirstName,
-                                LastName = user.User.LastName,
-                                Mail = user.User.Mail,
-                                Adress = new OneAdressViewModel
-                                {
-                                    Id = user.User.AdressId,
-                                    Place = user.User.Adress.Place,
-                                    City = user.User.Adress.City,
-                                    ZipCode = user.User.Adress.ZipCode
-                                },
-                                Photo = user.User.Photo,
-                                DateInscription = user.DateInscription.ToString("dd/MM/yyyy HH:mm")
-                            });
-                        }
+                        participants.Add(ConvertParticipantToViewModel(participation));
                     }
-                    model.Add(new OneMissionViewModel
-                    {
-                        Id = mission.Id,
-                        Titre = mission.Titre,
-                        Description = mission.Description,
-                        Date = mission.Date.ToString("dd/MM/yyyy HH:mm"),
-                        Available = mission.Available,
-                        IsInGroup = mission.IsInGroup,
-                        NumberPlaces = mission.NumberPlaces,
-                        RewardValue = mission.RewardValue,
-                        Adress = new OneAdressViewModel()
-                        {
-                            Id = mission.LocationId,
-                            Place = mission.Location.Place,
-                            City = mission.Location.City,
-                            ZipCode = mission.Location.ZipCode
-                        },
-                        Users = usersModel
-                    });
-                }
+                    model.Add(ConvertMissionToViewModel(mission, participants));
+                    };
                 return model;
             }
-            else
-            {
-                return NotFound($"Aucun association n'a été trouvé");
-            }
+            return NotFound($"Aucun association n'a été trouvé");
         }
 
         [AllowAnonymous]
@@ -135,41 +94,17 @@ namespace GreenUp.Web.Mvc.Controllers.Missions
         public async Task<OneMissionViewModel> Details(int id)
         {
             Mission mission = await GetOneMission(id, true).FirstOrDefaultAsync();
-            if(mission != null)
+            if (mission != null)
             {
-
-                OneMissionViewModel model = new()
+                var participants = new List<OneParticipantViewModel>();
+                foreach (var user in mission.Participants)
                 {
-                    Id = id,
-                    AssociationId = mission.AssociationId.ToString(),
-                    Titre = mission.Titre,
-                    Description = mission.Description,
-                    Date = mission.Date.ToString("dd/MM/yyyy HH:mm"),
-                    IsInGroup = mission.IsInGroup,
-                    NumberPlaces = mission.NumberPlaces,
-                    Available = mission.Available,
-                    RewardValue = mission.RewardValue,
-                    Adress = new OneAdressViewModel()
-                    {
-                        Id = mission.LocationId,
-                        Place = mission.Location.Place,
-                        City = mission.Location.City,
-                        ZipCode = mission.Location.ZipCode
-                    },
-                    Association = new OneAssociationViewModel()
-                    {
-                        Id = mission.AssociationId,
-                        Name = mission.Association.Name,
-                        Siren = mission.Association.Siren.ToString(),
-                        Logo = mission.Association.Logo
-                    },             
-                };
+                    participants.Add(ConvertParticipantToViewModel(user));
+                }
+                OneMissionViewModel model = ConvertMissionToViewModel(mission, participants);
                 return model;
             }
-            else
-            {
-                return null;
-            }
+            return null;
         }
 
         [HttpPost, Route("Add")]
@@ -177,23 +112,49 @@ namespace GreenUp.Web.Mvc.Controllers.Missions
         {
             if (ModelState.IsValid)
             {
-                Association association = await _context.Associations.Include(a => a.Missions).FirstOrDefaultAsync(a => a.Id == model.AssociationId);
+                User association = await GetOneAssociation(model.AssociationId, false).Include(a => a.Missions).FirstOrDefaultAsync();
                 Mission mission = new()
                 {
-                    Titre = model.Titre,
+                    Title = model.Titre,
                     Description = model.Description,
-                    Date = model.Date,
+                    Creation = DateTime.Now,
+                    Start = model.Start,
+                    End = model.End,
                     RewardValue = model.RewardValue,
-                    Available = true,
                     NumberPlaces = model.NumberPlaces,
                     IsInGroup = model.IsInGroup,
-                    Location = new Adress()
+                    Location = new Address()
                     {
                         Place = model.Adress,
                         City = model.City,
                         ZipCode = (int)model.ZipCode,
                     },
+                    Status = await _context.Statuses.FirstOrDefaultAsync(s => s.Id == 1)
                 };
+                foreach (var task in model.Tasks)
+                {
+                    mission.Tasks.Add(new MissionTask()
+                    {
+                        Title = task.Title,
+                        Description = task.Description,
+                    });
+                };
+                foreach (var tag in model.SelectedTags.Concat(model.NewTags))
+                {
+                    var tagAlreadyExists = await _context.Tags.FirstOrDefaultAsync(t => t.Name == tag);
+                    if (tagAlreadyExists == null)
+                    {
+                        Tag newTag = new()
+                        {
+                            Name = tag
+                        };
+                        mission.Tags.Add(newTag);
+                    }
+                    else
+                    {
+                        mission.Tags.Add(tagAlreadyExists);
+                    }
+                }
                 association.Missions.Add(mission);
                 await _context.SaveChangesAsync();
                 return "La mission a bien été créée";
@@ -204,40 +165,37 @@ namespace GreenUp.Web.Mvc.Controllers.Missions
         [HttpPut, Route("Update")]
         public async Task<ActionResult<Mission>> Update(CreateOrUpdateMissionViewModel model)
         {
-            Association association = await _context.Associations.Include(a => a.Missions).FirstOrDefaultAsync(a => a.Id == model.AssociationId);
-            Mission mission = await _context.Missions.Include(m => m.Location).Include(m => m.Users).FirstOrDefaultAsync(m => m.Id == model.Id && m.AssociationId == model.AssociationId);
+            User association = await GetOneAssociation(model.AssociationId, false).Include(a => a.Missions).FirstOrDefaultAsync();
+            Mission mission = await GetOneMission((int)model.Id, true).FirstOrDefaultAsync();
             if (mission != null && association.Missions.Select(m => m.Id).Contains((int)model.Id))
             {
-                if (mission.Users.Count == 0)
+                if (mission.Participants.Count == 0)
                 {
-                    mission.Titre = model.Titre;
+                    mission.Title = model.Titre;
                     mission.Description = model.Description;
-                    mission.Date = model.Date;
+                    mission.Start = model.Start;
+                    mission.End = model.End;
                     mission.RewardValue = model.RewardValue;
-                    mission.Available = true;
                     mission.NumberPlaces = model.NumberPlaces;
                     mission.IsInGroup = model.IsInGroup;
-                    Adress missionLocation = mission.Location;
+                    mission.StatusId = model.SelectedStatus;
+                    Address missionLocation = mission.Location;
                     missionLocation.Place = model.Adress;
                     missionLocation.City = model.City;
                     missionLocation.ZipCode = (int)model.ZipCode;
+                    mission.Edit = DateTime.Now;
                     await _context.SaveChangesAsync();
-
                     return Ok(new
                     {
                         mission,
-                        success = $"Les informatinos de la mission de l'association {association.Name} ont été mises à jours"
+                        success = $"Les informatinos de la mission de l'association {association.LastName} ont été mises à jours"
                     });
-                    
                 }
-                else
-                {
-                    return NotFound(new { error = $"Error : Les informations de cette mission ne sont plus modifiables." });
-                }
+                return NotFound(new { error = $"Error : Les informations de cette mission ne sont plus modifiables." });
             }
             else
             {
-                return NotFound(new { error = $"Error : Aucune mission de l'association {association.Name} n'a été trouvé." });
+                return NotFound(new { error = $"Error : Aucune mission de l'association {association.LastName} n'a été trouvé." });
             }
         }
 
@@ -246,21 +204,71 @@ namespace GreenUp.Web.Mvc.Controllers.Missions
         {
             if (ModelState.IsValid)
             {
-                Association association = await _context.Associations.Include(a => a.Missions).FirstOrDefaultAsync(a => a.Id == associationId);
-                Mission mission = await _context.Missions.Include(m => m.Association).FirstOrDefaultAsync(m => m.Id == missionId && m.AssociationId == associationId);
+                User association = await GetOneAssociation(associationId, false).Include(a => a.Missions).FirstOrDefaultAsync();
+                Mission mission = await GetOneMission(missionId, true).FirstOrDefaultAsync();
                 if (mission != null && association.Missions.Select(m => m.Id).Contains(missionId))
                 {
-                    association.Missions.Remove(mission);
-                    _context.Missions.Remove(mission);
+                    if(mission.StatusId <= 2) { 
+                        association.Missions.Remove(mission);
+                        _context.Missions.Remove(mission);
+                    }
+                    else
+                    {
+                        mission.StatusId = 5;
+                    }
                     await _context.SaveChangesAsync();
                 }
                 else
                 {
-                    return $"Error : Aucune mission de l'association {association.Name} n'a été trouvé à supprimer.";
+                    return $"Error : Aucune mission de l'association {association.LastName} n'a été trouvé à supprimer.";
                 }
             }
             return "Error : Les informations saisies ne permettent pas une suppression de mission.";
         }
 
+
+        private OneParticipantViewModel ConvertParticipantToViewModel(Participation user)
+        {
+            return new OneParticipantViewModel
+            {
+                UserId = user.UserId,
+                FirstName = user.User.FirstName,
+                LastName = user.User.LastName,
+                Mail = user.User.Mail,
+                DateInscription = user.DateInscription.ToString("dd/MM/yyyy HH:mm"),
+                Photo = user.User.Photo,
+            };
+        }
+        private OneMissionViewModel ConvertMissionToViewModel(Mission mission, ICollection<OneParticipantViewModel> participants)
+        {
+            return new OneMissionViewModel()
+            {
+                Id = mission.Id,
+                Titre = mission.Title,
+                Description = mission.Description,
+                Creation = mission.Creation.ToString("dd/MM/yyyy HH:mm"),
+                Edit = mission.Edit.ToString("dd/MM/yyyy HH:mm"),
+                Start = mission.Start.ToString("dd/MM/yyyy HH:mm"),
+                End = mission.End.ToString("dd/MM/yyyy HH:mm"),
+                IsInGroup = mission.IsInGroup,
+                NumberPlaces = mission.NumberPlaces,
+                RewardValue = mission.RewardValue,
+                Association = mission.Association,
+                Status = new Status()
+                {
+                    Id = mission.StatusId,
+                    Value = mission.Status.Value
+                },
+                Address = new Address()
+                {
+                    Id = mission.LocationId,
+                    Place = mission.Location.Place,
+                    City = mission.Location.City,
+                    ZipCode = mission.Location.ZipCode
+                },
+                Tasks = mission.Tasks,
+                Participants = participants
+            };
+        }
     }
 }

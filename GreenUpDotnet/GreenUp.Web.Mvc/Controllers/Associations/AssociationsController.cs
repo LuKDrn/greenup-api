@@ -1,12 +1,13 @@
 ﻿using GreenUp.Application.Authentications.Tokens;
-using GreenUp.Core.Business.Adresses.Models;
-using GreenUp.Core.Business.Associations.Models;
+using GreenUp.Core.Business.Addresses.Models;
+using GreenUp.Core.Business.Missions.Models;
+using GreenUp.Core.Business.Participations.Models;
+using GreenUp.Core.Business.Users.Models;
 using GreenUp.EntityFrameworkCore.Data;
 using GreenUp.Web.Core.Controllers;
-using GreenUp.Web.Mvc.Models.Adresses;
 using GreenUp.Web.Mvc.Models.Associations;
 using GreenUp.Web.Mvc.Models.Missions;
-using GreenUp.Web.Mvc.Models.Users;
+using GreenUp.Web.Mvc.Models.Participations;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -26,18 +27,18 @@ namespace GreenUp.Web.Mvc.Controllers.Associations
     public class AssociationsController : GreenUpControllerBase
     {
         protected readonly ITokenService _tokenService;
-        public AssociationsController(GreenUpContext _context, IConfiguration _config,ITokenService tokenService) : base(_context, _config)
+        public AssociationsController(GreenUpContext _context, IConfiguration _config, ITokenService tokenService) : base(_context, _config)
         {
             _tokenService = tokenService;
         }
 
         [AllowAnonymous]
         [HttpPost, Route("Login")]
-        public async Task<IActionResult> Login([FromBody]LoginAssociationViewModel model)
+        public async Task<IActionResult> Login([FromBody] LoginAssociationViewModel model)
         {
             if (ModelState.IsValid)
             {
-                Association association = await _context.Associations.FirstOrDefaultAsync(u => u.Name == model.Name  && u.Siren == model.Siren);
+                User association = await _context.Users.FirstOrDefaultAsync(u => u.RnaNumber == model.RnaNumber && u.IsAssociation);
                 if (association != null)
                 {
                     bool verified = BCrypt.Net.BCrypt.Verify(model.Password, association.Password);
@@ -48,7 +49,7 @@ namespace GreenUp.Web.Mvc.Controllers.Associations
 
                         var claims = new List<Claim>
                         {
-                            new Claim(ClaimTypes.Name, association.Name),
+                            new Claim(ClaimTypes.Name, association.LastName),
                             new Claim(ClaimTypes.Role, "Association")
                         };
                         var accessToken = _tokenService.GenerateAccessToken(claims);
@@ -81,26 +82,30 @@ namespace GreenUp.Web.Mvc.Controllers.Associations
 
         [AllowAnonymous]
         [HttpPost, Route("SignUp")]
-        public async Task<ActionResult<Association>> SignUp([FromBody]SignUpAssociationViewModel model)
+        public async Task<ActionResult<User>> SignUp([FromBody] SignUpAssociationViewModel model)
         {
             if (ModelState.IsValid)
             {
-                Association association = new()
+                User association = new()
                 {
-                    Name = model.Name,
+                    CreationTime = DateTime.Now,
+                    LastName = model.Name,
                     Password = BCrypt.Net.BCrypt.HashPassword(model.Password),
-                    Siren = model.Siren,
+                    RnaNumber = model.RnaNumber,
                     PhoneNumber = model.PhoneNumber,
-                    Website = model.Website,
+                    WebsiteUrl = model.WebsiteUrl,
                     Mail = model.Mail,
-                    Adress = new Adress()
-                    {
-                        Place = model.Adress,
-                        City = model.City,
-                        ZipCode = model.ZipCode
-                    }
+                    Addresses = new List<Address>(),
+                    IsAssociation = true
                 };
-                _context.Associations.Add(association);
+                var headquarter = new Address()
+                {
+                    Place = model.Adress,
+                    City = model.City,
+                    ZipCode = model.ZipCode
+                };
+                association.Addresses.Add(headquarter);
+                _context.Users.Add(association);
                 await _context.SaveChangesAsync();
                 return association;
             }
@@ -111,63 +116,80 @@ namespace GreenUp.Web.Mvc.Controllers.Associations
         [HttpGet, Route("Dashboard/{id}")]
         public async Task<ActionResult<OneAssociationViewModel>> Dashboard(Guid id)
         {
-            Association association = await GetOneAssociation(id, true).FirstOrDefaultAsync();
-            if(association != null)
+            User association = await GetOneAssociation(id, true).FirstOrDefaultAsync();
+            if (association != null)
             {
-                var associationMissions = new List<OneMissionViewModel>();
-                if(association.Missions.Count > 0)
-                {
-                    foreach (var mission in association.Missions)
-                    {
-                        var missionUsers = new List<OneMissionUserViewModel>();
-                        if(mission.Users.Count > 0)
-                        {
-                            foreach (var user in mission.Users)
-                            {
-                                missionUsers.Add(new OneMissionUserViewModel
-                                {
-                                    Id = user.UserId,
-                                    FirstName = user.User.FirstName,
-                                    LastName = user.User.LastName,
-                                    Mail = user.User.Mail,
-                                    DateInscription = user.DateInscription.ToString("dd/MM/yyyy HH:mm"),
-                                    Photo = user.User.Photo,
-                                });
-                            }
-                        }
-                        associationMissions.Add(new OneMissionViewModel
-                        {
-                            Id = mission.Id,
-                            Titre = mission.Titre,
-                            Description = mission.Description,
-                            Date = mission.Date.ToString("dd/MM/yyyy HH:mm"),
-                            Available = mission.Available,
-                            IsInGroup = mission.IsInGroup,
-                            NumberPlaces = mission.NumberPlaces,
-                            RewardValue = mission.RewardValue,
-                            Adress = new OneAdressViewModel
-                            {
-                                Id = mission.LocationId,
-                                Place = mission.Location.Place,
-                                City = mission.Location.City,
-                                ZipCode = mission.Location.ZipCode
-                            },
-                            AssociationId = id.ToString(),
-                            Users = missionUsers
-                        });
-                    }
-                }
                 OneAssociationViewModel model = new()
                 {
                     Id = association.Id,
-                    Name = association.Name,
-                    Siren = association.Siren.ToString(),
-                    Logo = association.Logo,
-                    Missions = associationMissions
+                    CreationTime = association.CreationTime,
+                    Name = association.LastName,
+                    RnaNumber = association.RnaNumber,
+                    Logo = association.Photo,
+                    PhoneNumber = association.PhoneNumber,
+                    Mail = association.Mail,
+                    IsActive = association.IsActive,
+                    Addresses = association.Addresses,
                 };
+                foreach (var mission in association.Missions)
+                {
+                    var participants = new List<OneParticipantViewModel>();
+                    foreach (var user in mission.Participants)
+                    {
+                        participants.Add(ConvertUserToParticipantViewModel(user));
+                    }
+                    var missions = new List<OneMissionViewModel>();
+                    missions.Add(ConvertMissionToViewModel(mission, participants));
+
+                }
+
                 return model;
             }
-            return null;                       
+            return null;
+        }
+
+        private OneParticipantViewModel ConvertUserToParticipantViewModel(Participation user)
+        {
+            return new OneParticipantViewModel
+            {
+                UserId = user.UserId,
+                FirstName = user.User.FirstName,
+                LastName = user.User.LastName,
+                Mail = user.User.Mail,
+                DateInscription = user.DateInscription.ToString("dd/MM/yyyy HH:mm"),
+                Photo = user.User.Photo,
+            };
+        }
+
+        private OneMissionViewModel ConvertMissionToViewModel(Mission mission, ICollection<OneParticipantViewModel> participants)
+        {
+            return new OneMissionViewModel
+            {
+                Id = mission.Id,
+                Titre = mission.Title,
+                Description = mission.Description,
+                Start = mission.Start.ToString("dd/MM/yyyy HH:mm"),
+                End = mission.End.ToString("dd/MM/yyyy HH:mm"),
+                Creation = mission.Creation.ToString("dd/MM/yyyy HH:mm"),
+                Edit = mission.Edit.ToString("dd/MM/yyyy HH:mm"),
+                IsInGroup = mission.IsInGroup,
+                NumberPlaces = mission.NumberPlaces,
+                RewardValue = mission.RewardValue,
+                Status = new Status
+                {
+                    Id = mission.StatusId,
+                    Value = mission.Status.Value
+                },
+                Address = new Address
+                {
+                    Id = mission.LocationId,
+                    Place = mission.Location.Place,
+                    City = mission.Location.City,
+                    ZipCode = mission.Location.ZipCode
+                },
+                Tasks = mission.Tasks,
+                Participants = participants,
+            };
         }
     }
 }

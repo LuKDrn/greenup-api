@@ -15,7 +15,8 @@ namespace GreenUp.Web.Mvc.Models.Associations
         [DataType(DataType.Password)]
         [Compare("Password")]
         public string ConfirmPassword { get; set; }
-        public string Siren { get; set; }
+        [Required]
+        public string RnaNumber { get; set; }
         [Required]
         [DataType(DataType.PhoneNumber)]
         public string PhoneNumber { get; set; }
@@ -23,7 +24,7 @@ namespace GreenUp.Web.Mvc.Models.Associations
         [DataType(DataType.EmailAddress)]
         public string Mail { get; set; }
         [Url]
-        public string Website { get; set; }
+        public string WebsiteUrl { get; set; }
         [Required]
         public string Adress { get; set; }
         [Required]

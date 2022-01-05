@@ -5,8 +5,7 @@ namespace GreenUp.Web.Mvc.Models.Associations
     public class LoginAssociationViewModel
     {
         [Required]
-        public string Name { get; set; }
-        public string Siren { get; set; }
+        public string RnaNumber { get; set; }
         [Required]
         public string Password { get; set; }
     }
