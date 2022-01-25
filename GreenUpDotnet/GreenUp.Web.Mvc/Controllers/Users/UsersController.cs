@@ -119,7 +119,8 @@ namespace GreenUp.Web.Mvc.Controllers.Users
                 if (!alreadyUserWithMail)
                 {
                     User user = new()
-                    {                      
+                    {     
+                        IsUser = true,
                         Mail = model.Mail,
                         PhoneNumber = model.PhoneNumber,
                         Password = BCrypt.Net.BCrypt.HashPassword(model.Password),
