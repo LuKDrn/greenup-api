@@ -51,7 +51,7 @@ export class SignUpComponent implements OnInit {
   }
 
   public signUp(): void {
-    this.form.get('birthDate')?.setValue(new Date().toISOString());
+    // this.form.get('birthDate')?.setValue(new Date().toISOString());
     this.userService.signUp(this.form.value).subscribe(
       (res: any) => {
         console.log('res', res);
