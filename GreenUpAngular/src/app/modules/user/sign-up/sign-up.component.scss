@@ -1,42 +1,46 @@
-h2 {
-    font-family: Poppins;
+$primary-color: #408C89;
+$secondary-color: #FFC533;
+
+a {
+    color: #4EAAA7;
+    text-decoration: none;
+    font-weight: bold;
+}
+#signup-cover {
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+#signup-illustration {
+    background: url('./../../../../assets/img/user/undraw_add_friends_re_3xte.svg') center no-repeat;
+    background-size: contain;
+}
+
+.signup-title {
+    font-family: "Poppins";
     font-style: normal;
     font-weight: 500;
     font-size: 44px;
     line-height: 66px;
-    margin-left: 10%;
+}
 
-    span {
-        font-family: Poppins;
-        font-style: normal;
-        font-weight: normal;
-        font-size: 16px;
-        line-height: 24px;
-    }
+.icon-label {
+    margin-right: 2%;
 }
 
 .login-redirection {
-    margin-left: 10%;
-    font-family: Poppins;
+    font-family: "Poppins";
     font-style: normal;
     font-weight: 300;
     font-size: 25px;
     line-height: 37px;
-
-    a {
-        color: #4EAAA7;
-        text-decoration: none;
-    }
 }
 
 .signupBtn {
-    margin-left: 10%;
     background: #4EAAA7;
     color: #FFFF;
     border: 1px solid #4EAAA7;
     box-sizing: border-box;
-    border-radius: 8px;
-    width: 400px;
     height: 59px;
 
     span {

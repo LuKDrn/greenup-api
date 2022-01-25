@@ -28,40 +28,45 @@
   </div>
 </div> -->
 
-<div class="container">
-  <div class="content-form row">
-    <div class="col" style="top: 200px; position: relative">
-      <h2 class="form-signin-heading">
-        Welcome sur GreenUp
-        <br>
-        <span>Tous les champs suivies d'un * sont à remplir obligatoirement</span>
-      </h2>
-      <div class="col-12" class="login-redirection">
-        <span>Pas encore de compte ? <a routerLink="/signUp">S'inscrire</a></span>
+<div class="container-fluid">
+  <div class="row justify-content-center mb-5" id="auth-cover">
+    <div class="col-xl-6 col-md-6 col-sm-12 d-flex flex-column align-items-center justify-content-center px-2">
+      <div class="row text-center">
+        <h2 class="auth-title mb-0">Welcome sur GreenUp</h2>
+        <p class="mt-0">Tous les champs suivies d'un * sont à remplir obligatoirement</p>
       </div>
-      <br />
-      <form class="form_row" [formGroup]="form" #signUpForm="ngForm">
-        <div class="row">
-          <mat-form-field class="col" appearance="fill">
-            <mat-label for="email">Email</mat-label>
-            <input matInput type="email" id="email" formControlName="mail" required autofocus>
-          </mat-form-field>
-          <span>Identifiant oublié ?</span>
-        </div>
-        <div class="row">
-          <mat-form-field class="col" appearance="fill">
-            <mat-label for="password">Mot de passe</mat-label>
-            <input matInput type="password" id="password" formControlName="password" required >
-          </mat-form-field>
-          <span>Mot de passe oublié ?</span>
-        </div>
-        <div class="row">
-          <button mat-raised-button class="loginBtn" type="button" (click)="login() ; $event.preventDefault()">Connexion</button>
-        </div>
-      </form>
+      <div class="row my-3">
+        <h3 class="login-redirection">Pas encore de compte ? <a routerLink="/signUp">S'inscrire</a></h3>
+        <form [formGroup]="form" class="row text-center" #signUpForm="ngForm">
+          <div class="form-group">
+            <div class="row">
+              <mat-form-field class="col" appearance="standard">
+                <mat-label class="text-secondary fs-5 fw-bold d-flex align-items-center" for="mailInput">
+                  <mat-icon matSuffix class="icon-label">email</mat-icon>Adresse mail *
+                </mat-label>
+                <input matInput id="mailInput" placeholder="nom.prenom@exemple.com" formControlName="email" required>
+                <!-- <mat-error *ngIf=".invalid">{{getMailErrorMessage()}}</mat-error> -->
+              </mat-form-field>
+              <a class="text-end">Identifiant oublié ?</a>
+            </div>
+            <div class="row">
+              <mat-form-field class="col" appearance="standard">
+                <mat-label class="text-secondary fs-5 fw-bold d-flex align-items-center" for="passwordInput">
+                  <mat-icon matSuffix class="icon-label">vpn_key</mat-icon>Mot de passe *
+                </mat-label>
+                <input matInput id="passwordInput" formControlName="password" required>
+                <!-- <mat-error *ngIf=".invalid">{{getMailErrorMessage()}}</mat-error> -->
+              </mat-form-field>
+              <a class="text-end">Mot de passe oublié ?</a>
+            </div>
+          </div>
+          <div class="mt-5">
+            <button mat-raised-button class="loginBtn w-50 rounded shadow" type="button" (click)="login() ; $event.preventDefault()">Se
+              connecter</button>
+          </div>
+        </form>
+      </div>
     </div>
-    <div class="col">
-      <img src="./../../../../assets/signinIllustration.png" alt="">
-    </div>
+    <div class="col-xl-5 col-md-5 col-sm-12" id="auth-illustration"></div>
   </div>
 </div>
