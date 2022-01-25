@@ -23,7 +23,7 @@ export class AuthComponent implements OnInit {
     private userService: UserService
   ) { 
     this.form = this.fb.group({
-      mail: new FormControl('', [Validators.required, Validators.email]),
+      email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required])
     });
   }
@@ -32,9 +32,9 @@ export class AuthComponent implements OnInit {
 
   public getErrorMessage() {
     if (this.form.hasError('required')) {
-      return 'You must enter a value';
+      return 'Vous devez saisir quelque chose';
     }
-    return this.form.hasError('email') ? 'Les champs ne sont pas valides' : '';
+    return this.form.hasError('email') ? 'Veuillez saisir une adresse mail valide' : '';
   }
 
   public onSubmit(): void { }
