@@ -38,6 +38,7 @@ import { AddMissionComponent } from './mission/add-mission/add-mission.component
 import { ListBlogComponent } from './blog/list-blog/list-blog.component';
 import { BlogComponent } from './blog/blog/blog.component';
 import { BlogService } from './blog/blog.service';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,7 @@ import { BlogService } from './blog/blog.service';
     AssociationSignUpComponent,
     AddMissionComponent,
     ListBlogComponent,
-    BlogComponent
+    BlogComponent,
   ],
   imports: [
     MatCarouselModule,
@@ -77,7 +78,7 @@ import { BlogService } from './blog/blog.service';
     MatDatepickerModule,
     MatNativeDateModule,
     CommonModule,
-    MatSnackBarModule
+    MatSnackBarModule,
   ],
   providers: [ProduitsService, MissionsService, ChallengesService, AssociationsService, UserService, BlogService],
 })

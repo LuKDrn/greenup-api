@@ -36,9 +36,9 @@
           <button *ngIf="!isConnected" mat-button [matMenuTriggerFor]="beforeMenu" class="btn btn-login" id="loginDropdown" aria-label="bouton se connecter">Se connecter</button>
           <button *ngIf="isConnected" class="btn btn-login" id="loginDropdown" aria-label="bouton mon compte" (click)="goToProfile()">Mon compte</button>
           <mat-menu #beforeMenu="matMenu" xPosition="before" aria-labelledby="loginDropdown">
-            <button mat-menu-item (click)="login()">Espace utilisateur</button>
-            <button mat-menu-item (click)="associations()">Espace association</button>
-            <button mat-menu-item>Espace entreprise</button>
+            <button mat-menu-item (click)="login('user')">Espace utilisateur</button>
+            <button mat-menu-item (click)="login('association')">Espace association</button>
+            <button mat-menu-item (click)="login('entreprise')">Espace entreprise</button>
           </mat-menu>
         </div>
       </div>

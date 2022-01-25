@@ -13,12 +13,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCardModule } from '@angular/material/card';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCarouselModule } from '@ngmodule/material-carousel';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
+import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { ModulesModule } from './modules/modules.module';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 
@@ -57,7 +55,10 @@ export function tokenGetter() {
     MatNativeDateModule,
     ModulesModule,
   ],
-  providers: [SharedService],
+  providers: [
+    SharedService,
+    {provide: MAT_DATE_LOCALE, useValue: 'fr-FR'},
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

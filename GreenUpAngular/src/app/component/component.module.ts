@@ -15,6 +15,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatChipsModule } from '@angular/material/chips';
 import { CardBlogComponent } from './card-blog/card-blog.component';
+import { ForgotIdentifiantComponent } from './dialog/forgot-identifiant/forgot-identifiant.component';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
     imports: [
@@ -29,6 +31,7 @@ import { CardBlogComponent } from './card-blog/card-blog.component';
       MatFormFieldModule,
       MatDividerModule,
       MatChipsModule,
+      MatDialogModule
     ],
     declarations: [
         ToolbarComponent,
@@ -36,6 +39,7 @@ import { CardBlogComponent } from './card-blog/card-blog.component';
         FooterComponent,
         FilterComponent,
         CardBlogComponent,
+        ForgotIdentifiantComponent,
     ],
     exports: [CardComponent, ToolbarComponent, FooterComponent, FilterComponent, CardBlogComponent] 
 })

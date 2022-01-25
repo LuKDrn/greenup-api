@@ -26,10 +26,6 @@ export class ToolbarComponent implements OnInit {
     this.router.navigate(['/']);
   }
 
-  public login(): void {
-    this.router.navigate(['/auth']);
-  }
-
   public missions(): void {
     this.router.navigate(['/missions']);
   }
@@ -42,8 +38,16 @@ export class ToolbarComponent implements OnInit {
     this.router.navigate(['/challenges']);
   }
 
+  public login(typeLogin: string): void {
+    this.router.navigate(['/auth', `${typeLogin}`]);
+  }
+
   public associations(): void {
     this.router.navigate(['/associations']);
+  }
+
+  public entreprises(): void {
+    this.router.navigate(['/auth']);
   }
 
   public blog(): void {

@@ -35,11 +35,11 @@ const routes: Routes = [
   },
   //USER
   { 
-    path : 'auth',
+    path : 'auth/:id',
     component: AuthComponent
   },
   {
-    path: 'signUp',
+    path: 'signUp/:id',
     component: SignUpComponent
   },
   {

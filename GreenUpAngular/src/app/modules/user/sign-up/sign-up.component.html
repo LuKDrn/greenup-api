@@ -7,7 +7,7 @@
         <span>Tous les champs suivies d'un * sont à remplir obligatoirement</span>
       </h2>
       <div class="col-12" class="login-redirection">
-        <span>Déjà un compte ? <a routerLink="/auth">Se connecter</a></span>
+        <span>Déjà un compte ? <a [routerLink]="['/auth', this.typeSignUp]">Se connecter</a></span>
       </div>
       <br />
       <form class="form_row" [formGroup]="form" #signUpForm="ngForm">
@@ -21,10 +21,23 @@
             <input matInput id="firstname" formControlName="firstName" required>
           </mat-form-field>
         </div>
+        <div class="row" *ngIf="!isUser">
+          <mat-form-field appearance="fill">
+            <mat-label for="numSiret">Numéro de SIRET</mat-label>
+            <input matInput id="numSiret" formControlName="siretNumber" required>
+          </mat-form-field>
+        </div>
+        <div class="row" *ngIf="!isUser">
+          <mat-form-field appearance="fill">
+            <mat-label for="numRna">Numéro RNA</mat-label>
+            <input matInput id="numRna" formControlName="rnaNumber" required>
+          </mat-form-field>
+        </div>
         <div class="row">
           <mat-form-field appearance="fill">
-            <mat-label for="birthDate">Date de naissance</mat-label>
-            <input id="birthDate" matInput [matDatepicker]="birthDate" formControlName="birthDate">
+            <mat-label for="birthDate" *ngIf="isUser">Date de naissance</mat-label>
+            <mat-label for="birthDate" *ngIf="!isUser">Date de création</mat-label>
+            <input id="birthDate" matInput [matDatepicker]="birthDate" [max]="dateMax" formControlName="birthDate">
             <mat-datepicker-toggle matSuffix [for]="birthDate"></mat-datepicker-toggle>
             <mat-datepicker #birthDate></mat-datepicker>
           </mat-form-field>
@@ -38,7 +51,7 @@
         <div class="row">
             <mat-form-field class="col" appearance="fill">
               <mat-label for="zipCode">Code postal</mat-label>
-              <input matInput type="number" id="zipCode" formControlName="zipCode" required>
+              <input matInput type="text" pattern="[0-9]{5}" id="zipCode" formControlName="zipCode" required>
             </mat-form-field>
             <mat-form-field class="col" appearance="fill">
               <mat-label for="city">Ville</mat-label>
