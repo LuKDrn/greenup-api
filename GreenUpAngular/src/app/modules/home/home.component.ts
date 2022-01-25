@@ -61,10 +61,6 @@ export class HomeComponent implements OnInit {
     console.log(this.comp);
     console.log(this.missions);
   }
-
-  public logOut(){
-    localStorage.removeItem("jwt");
-  }
 }
 
 interface HomeComp {

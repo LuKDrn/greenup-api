@@ -9,9 +9,11 @@ import {Observable} from 'rxjs';
 export class SharedService {
   readonly APIUrl="https://localhost:5001/api";
   public isConnected: boolean;
+  public isLoading: boolean;
 
   constructor(private http:HttpClient) {
     this.isConnected = false;
+    this.isLoading = false;
   }
 
   getUserList(): Observable<any[]>{

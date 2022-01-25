@@ -1,0 +1,18 @@
+#proposCover {
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+#propos-illustration {
+    background: url('./../../../assets/img/contact/undraw_team_spirit_re_yl1v.svg') center no-repeat;
+    background-size: contain;
+}
+
+.propos-title {
+    font-family: "Poppins";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 44px;
+    line-height: 66px;
+}

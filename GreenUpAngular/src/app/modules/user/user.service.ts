@@ -11,12 +11,21 @@ export class UserService {
     'Authorization': "Bearer "+ localStorage.getItem('jwt')
   });
   public url = 'https://localhost:5001/api/Users';
-  constructor(protected http: HttpClient) {}
+  public isConnected: boolean;
+  constructor(protected http: HttpClient) {
+    this.isConnected = this.checkJwt();
+  }
 
-  public signUp(form: any): Observable<any> {
+  public signUp(form: any, typeAppel: string): Observable<any> {
+    let $url = 'https://localhost:5001/api/';
+    if (typeAppel === 'association' || typeAppel === 'entreprise') {
+      $url += 'Associations';
+    } else {
+      $url = this.url;
+    }
     console.log('form', JSON.stringify(form));
     return this.http
-        .post<any>(`${this.url}/SignUp`, JSON.stringify(form), {headers: this.headers})
+        .post<any>(`${$url}/SignUp`, JSON.stringify(form), {headers: this.headers})
         .pipe(
             tap((response: any) => {
                 return response;
@@ -24,7 +33,13 @@ export class UserService {
         );
   }
 
-  public login(form: any): Observable<any> {
+  public login(form: any, typeAppel: string): Observable<any> {
+    let $url = 'https://localhost:5001/api/';
+    if (typeAppel === 'association' || typeAppel === 'entreprise') {
+      $url += 'Associations';
+    } else {
+      $url = this.url;
+    }
     console.log('form', JSON.stringify(form));
     return this.http
       .post<any>(`${this.url}/Login`, JSON.stringify(form), {headers: this.headers})
@@ -69,5 +84,14 @@ export class UserService {
             return response;
         }),
     );
+  }
+
+  public checkJwt(): boolean {
+    const $jwt = localStorage.getItem('jwt');
+    if ($jwt) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

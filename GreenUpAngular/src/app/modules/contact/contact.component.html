@@ -1,0 +1,58 @@
+<div class="container-fluid">
+    <div class="row justify-content-center mb-5" id="contactCover">
+        <div class="col-xl-6 col-md-6 col-sm-12 d-flex flex-column align-items-center justify-content-center px-2">
+            <div class="row text-center">
+                <h2 class="auth-title mb-0">Contactez-nous</h2>
+                <p class="mt-0">Besoin d'informations ? N'hésitez pas à nous contacter !</p>
+            </div>
+            <div class="row my-3">
+                <form [formGroup]="form" class="row text-center" #contactForm="ngForm">
+                    <div class="form-group">
+                        <div class="row">
+                            <mat-form-field class="col" appearance="standard">
+                              <mat-label class="text-secondary fs-5 fw-bold d-flex align-items-center" for="nameInput">
+                                <mat-icon matSuffix class="icon-label">badge</mat-icon>Nom *
+                              </mat-label>
+                              <input matInput id="nameInput" placeholder="Dupont ..." formControlName="nom" required>
+                              <!-- <mat-error *ngIf=".invalid">{{getMailErrorMessage()}}</mat-error> -->
+                            </mat-form-field>
+                        </div>
+                        <div class="row">
+                            <mat-form-field class="col" appearance="standard">
+                              <mat-label class="text-secondary fs-5 fw-bold d-flex align-items-center" for="mailInput">
+                                <mat-icon matSuffix class="icon-label">email</mat-icon>E-mail *
+                              </mat-label>
+                              <input matInput id="mailInput" placeholder="example1@example2.fr" formControlName="mail" required>
+                              <!-- <mat-error *ngIf=".invalid">{{getMailErrorMessage()}}</mat-error> -->
+                            </mat-form-field>
+                        </div>
+                        <div class="row">
+                            <mat-form-field class="col" appearance="standard">
+                              <mat-label class="text-secondary fs-5 fw-bold d-flex align-items-center" for="telInput">
+                                <mat-icon matSuffix class="icon-label">contact_phone</mat-icon>Téléphone *
+                              </mat-label>
+                              <input matInput id="telInput" formControlName="tel" required>
+                              <!-- <mat-error *ngIf=".invalid">{{getMailErrorMessage()}}</mat-error> -->
+                            </mat-form-field>
+                        </div>
+                        <div class="row">
+                            <mat-form-field class="col" appearance="standard">
+                              <mat-label class="text-secondary fs-5 fw-bold d-flex align-items-center" for="messageInput">
+                                <mat-icon matSuffix class="icon-label">chat</mat-icon>Message *
+                              </mat-label>
+                              <textarea matInput id="messageInput" formControlName="message" required></textarea>
+                              <!-- <mat-error *ngIf=".invalid">{{getMailErrorMessage()}}</mat-error> -->
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="mt-5">
+                        <button mat-raised-button class="sendBtn w-50 rounded shadow" type="button" (click)="envoyer(); $event.preventDefault()">
+                            Envoyer
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-xl-5 col-md-5 col-sm-12" id="contact-illustration"></div>
+    </div> 
+</div>

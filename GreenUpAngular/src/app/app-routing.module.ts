@@ -17,6 +17,8 @@ import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { AddMissionComponent } from './modules/mission/add-mission/add-mission.component';
 import { BlogComponent } from './modules/blog/blog/blog.component';
 import { ListBlogComponent } from './modules/blog/list-blog/list-blog.component';
+import { ContactComponent } from './modules/contact/contact.component';
+import { ProposComponent } from './modules/propos/propos.component';
 
 const routes: Routes = [
   //HOME
@@ -95,6 +97,16 @@ const routes: Routes = [
     path: 'blog/:id',
     component: BlogComponent
   },
+  //CONTACT
+  {
+    path: 'contact',
+    component: ContactComponent
+  },
+  //A PROPOS
+  {
+    path: 'a-propos',
+    component: ProposComponent
+  },  
   {
     path :'**',
     pathMatch: 'full',

@@ -23,7 +23,7 @@
                 <mat-label class="text-secondary fs-5 fw-bold d-flex align-items-center" for="passwordInput">
                   <mat-icon matSuffix class="icon-label">vpn_key</mat-icon>Mot de passe *
                 </mat-label>
-                <input matInput id="passwordInput" formControlName="password" required>
+                <input matInput id="passwordInput" type="password" formControlName="password" required>
                 <!-- <mat-error *ngIf=".invalid">{{getMailErrorMessage()}}</mat-error> -->
               </mat-form-field>
               <button mat-button (click)="forgotIdent()">Mot de passe oublié ?</button>

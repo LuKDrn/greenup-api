@@ -17,6 +17,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { CardBlogComponent } from './card-blog/card-blog.component';
 import { ForgotIdentifiantComponent } from './dialog/forgot-identifiant/forgot-identifiant.component';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { DialogTextComponent } from './dialog/dialog-text/dialog-text.component';
 
 @NgModule({
     imports: [
@@ -40,6 +41,7 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
         FilterComponent,
         CardBlogComponent,
         ForgotIdentifiantComponent,
+        DialogTextComponent,
     ],
     exports: [CardComponent, ToolbarComponent, FooterComponent, FilterComponent, CardBlogComponent] 
 })

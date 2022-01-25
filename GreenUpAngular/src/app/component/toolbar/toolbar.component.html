@@ -30,15 +30,26 @@
           <span>Blog</span>
           <div *ngIf="indexIsActive === 5" class="underline"></div>
         </a>
+        <a class="navigate m-2" (click)="aPropos() ; isActive(6)">
+          <span>A propos</span>
+          <div *ngIf="indexIsActive === 6" class="underline"></div>
+        </a>
         <div class="d-flex position-absolute" style="right:4%">
-          <a class="navigate contact my-2 mx-4" href="#"><span>Contact</span></a>
+          <a class="navigate contact my-2 mx-4" (click)="contact() ; isActive(7)">
+            <span>Contact</span>
+            <div *ngIf="indexIsActive === 7" class="underline"></div>
+          </a>
           <div class="">
           <button *ngIf="!isConnected" mat-button [matMenuTriggerFor]="beforeMenu" class="btn btn-login" id="loginDropdown" aria-label="bouton se connecter">Se connecter</button>
-          <button *ngIf="isConnected" class="btn btn-login" id="loginDropdown" aria-label="bouton mon compte" (click)="goToProfile()">Mon compte</button>
+          <button *ngIf="isConnected" mat-button class="btn btn-login" [matMenuTriggerFor]="compteMenu"id="monCompteDropdown" aria-label="bouton mon compte">Compte</button>
           <mat-menu #beforeMenu="matMenu" xPosition="before" aria-labelledby="loginDropdown">
             <button mat-menu-item (click)="login('user')">Espace utilisateur</button>
             <button mat-menu-item (click)="login('association')">Espace association</button>
             <button mat-menu-item (click)="login('entreprise')">Espace entreprise</button>
+          </mat-menu>
+          <mat-menu #compteMenu="matMenu" xPosition="before" aria-labelledby="monCompteDropdown">
+            <button mat-menu-item (click)="goToProfile()">Mon compte</button>
+            <button mat-menu-item (click)="logout()">Déconnexion</button>
           </mat-menu>
         </div>
       </div>

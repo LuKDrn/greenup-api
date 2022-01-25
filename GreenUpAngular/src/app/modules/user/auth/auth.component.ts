@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ForgotIdentifiantComponent } from 'src/app/component/dialog/forgot-identifiant/forgot-identifiant.component';
 import { SharedService } from '../../../shared.service';
@@ -25,7 +26,9 @@ export class AuthComponent implements OnInit {
     private service: SharedService,
     private fb: FormBuilder,
     private userService: UserService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar,
+    private sharedService: SharedService
   ) {
 
     this.typeLogin = this.aRoute.snapshot.params['id'];
@@ -45,14 +48,23 @@ export class AuthComponent implements OnInit {
   public onSubmit(): void { }
 
   public login(): void {
-    this.userService.login(this.form.value).subscribe(
+    this.sharedService.isLoading = true;
+    this.userService.login(this.form.value, this.typeLogin).subscribe(
     response => {
+      console.log(response);
       const token = (<any>response).token;
       localStorage.setItem("jwt", token);
       this.invalidLogin = false;
+      this.sharedService.isLoading = false;
       this.router.navigate(["/"]);
+      this.snackBar.open('Vous êtes connecté', 'OK', {
+        duration: 3000
+      });
     }, err => {
       this.invalidLogin = true;
+      this.snackBar.open(err.error, 'OK', {
+        duration: 3000
+      });
     });
   }
 

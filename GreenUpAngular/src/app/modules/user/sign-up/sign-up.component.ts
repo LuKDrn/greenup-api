@@ -4,6 +4,8 @@ import { UserService } from '../user.service';
 import { Subscription } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogTextComponent } from 'src/app/component/dialog/dialog-text/dialog-text.component';
 
 @Component({
   selector: 'app-sign-up',
@@ -18,23 +20,17 @@ export class SignUpComponent implements OnInit {
   public hideConfirmPassword = true;
   public conditionIsCheck: boolean;
   public dateMax: Date;
-  public isUser: boolean;
-  public isAssociation: boolean;
-  public isCompany: boolean;
 
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
     private _snackBar: MatSnackBar,
     private router: Router,
-    private aRoute: ActivatedRoute
+    private aRoute: ActivatedRoute,
+    private dialog: MatDialog
   ) {
     this.typeSignUp = this.aRoute.snapshot.params['id'];
-    this.isUser = false;
-    this.isAssociation = false;
-    this.isCompany = false;
     this.dateMax = new Date(Date.now());
-    this.checkType();
     this.initForm();
     this.conditionIsCheck = false;
    }
@@ -49,11 +45,18 @@ export class SignUpComponent implements OnInit {
     return this.form.hasError('email') ? 'Les champs ne sont pas valides' : '';
   }
 
+  public openTermesAndCondition(): void {
+    const dialogRef = this.dialog.open(DialogTextComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+
   public signUp(): void {
     console.log('form', this.form.value);
     if (this.form.valid) {
       // this.form.get('birthDate')?.setValue(new Date().toISOString());
-      this.userService.signUp(this.form.value).subscribe(
+      this.userService.signUp(this.form.value, this.typeSignUp).subscribe(
         (res: any) => {
           console.log('res', res);
           if (res.error) {
@@ -91,27 +94,8 @@ export class SignUpComponent implements OnInit {
       zipCode: new FormControl(null),
       birthDate: new FormControl(''),
       photo: new FormControl(null),
-      isUser: new FormControl(this.isUser),
-      isAssociation: new FormControl(this.isAssociation),
-      isCompany: new FormControl(this.isCompany),
       rnaNumber: new FormControl(null),
       siretNumber: new FormControl(null)
     });
-  }
-
-  private checkType(): void {
-    if (this.typeSignUp === 'user') {
-      this.isUser = true;
-      this.isAssociation = false;
-      this.isCompany = false;
-    } else if (this.typeSignUp === 'association') {
-      this.isUser = false;
-      this.isAssociation = true;
-      this.isCompany = false;
-    } else {
-      this.isUser = false;
-      this.isAssociation = false;
-      this.isCompany = true;
-    }
   }
 }

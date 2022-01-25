@@ -60,7 +60,7 @@
                 {{ user.points }} points
             </div>
             <hr>
-            <button class="btn-add-mission">
+            <button *ngIf="user.isAssociation" class="btn-add-mission">
                 <!-- <img src="./../../../../assets/icons/feather/black/plus.svg" alt=""> -->
                 Ajouter une mission
             </button>

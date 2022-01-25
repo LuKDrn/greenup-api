@@ -25,7 +25,7 @@
                 <!-- <mat-error *ngIf=".invalid">{{getMailErrorMessage()}}</mat-error> -->
               </mat-form-field>
             </div>
-            <div class="row justify-content-between align-items-center my-1" *ngIf="!isUser">
+            <div class="row justify-content-between align-items-center my-1" *ngIf="typeSignUp !== 'user'">
               <mat-form-field class="col" appearance="standard">
                 <mat-label class="text-secondary fs-5 fw-bold d-flex align-items-center">
                   <mat-icon matSuffix class="icon-label" for="numSiret">badge</mat-icon>Numéro de SIRET *
@@ -115,8 +115,8 @@
             <!-- <input [hidden]="true" class="file-input" id="photoProfile" type="file" formControlName="photo">
         </mat-form-field> -->
             <div class="row">
-              <mat-checkbox class="example-margin" (change)="conditionIsCheck = !conditionIsCheck">J'accepte <span>les
-                  termes </span> et <span>les conditions</span>.</mat-checkbox>
+              <mat-checkbox class="example-margin" (change)="conditionIsCheck = !conditionIsCheck">J'accepte <span (click)="openTermesAndCondition()">les
+                  termes </span> et <span (click)="openTermesAndCondition()" >les conditions</span>.</mat-checkbox>
             </div>
           </div>
           <div class="mt-5">
