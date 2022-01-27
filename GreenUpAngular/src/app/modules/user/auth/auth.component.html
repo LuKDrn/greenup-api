@@ -10,11 +10,25 @@
         <form [formGroup]="form" class="row text-center" #signUpForm="ngForm">
           <div class="form-group">
             <div class="row">
-              <mat-form-field class="col" appearance="standard">
+              <mat-form-field class="col" appearance="standard" *ngIf="typeLogin == 'user'">
                 <mat-label class="text-secondary fs-5 fw-bold d-flex align-items-center" for="mailInput">
                   <mat-icon matSuffix class="icon-label">email</mat-icon>Adresse mail *
                 </mat-label>
                 <input matInput id="mailInput" placeholder="nom.prenom@exemple.com" formControlName="mail" required>
+                <!-- <mat-error *ngIf=".invalid">{{getMailErrorMessage()}}</mat-error> -->
+              </mat-form-field>
+              <mat-form-field class="col" appearance="standard" *ngIf="typeLogin == 'association'">
+                <mat-label class="text-secondary fs-5 fw-bold d-flex align-items-center" for="rnaInput">
+                  <mat-icon matSuffix class="icon-label">fingerprint</mat-icon>Numéro RNA *
+                </mat-label>
+                <input matInput id="rnaInput" formControlName="rnaNumber" required>
+                <!-- <mat-error *ngIf=".invalid">{{getMailErrorMessage()}}</mat-error> -->
+              </mat-form-field>
+              <mat-form-field class="col" appearance="standard" *ngIf="typeLogin == 'entreprise'">
+                <mat-label class="text-secondary fs-5 fw-bold d-flex align-items-center" for="siretInput">
+                  <mat-icon matSuffix class="icon-label">fingerprint</mat-icon>Numéro SIRET *
+                </mat-label>
+                <input matInput id="siretInput" formControlName="siretNumber" required>
                 <!-- <mat-error *ngIf=".invalid">{{getMailErrorMessage()}}</mat-error> -->
               </mat-form-field>
             </div>
