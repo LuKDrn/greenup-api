@@ -1,6 +1,6 @@
 <div class="container-fluid">
   <div class="row justify-content-center mb-5" id="signup-cover">
-    <div class="col-xl-6 col-md-6 col-sm-12 d-flex flex-column align-items-center justify-content-center px-2">
+    <div class="col-xl-8 col-md-8 col-sm-12 d-flex flex-column align-items-center justify-content-center px-2">
       <div class="row text-center">
         <h2 class="signup-title mb-0">Welcome sur GreenUp</h2>
         <p class="mt-0">Tous les champs suivies d'un * sont à remplir obligatoirement</p>
@@ -9,7 +9,7 @@
         <h3 class="login-redirection">Déjà un compte ? <a [routerLink]="['/auth', this.typeSignUp]">Se connecter</a></h3>
         <form [formGroup]="form" class="row text-center" #signUpForm="ngForm">
           <div class="form-group">
-            <div class="row justify-content-between align-items-center mb-1">
+            <div class="row justify-content-between align-items-center mb-2" **ngIf="typeSignUp == 'user'">
               <mat-form-field class="col" appearance="standard">
                 <mat-label class="text-secondary fs-5 fw-bold d-flex align-items-center" for="firstNameInput">
                   <mat-icon matSuffix class="icon-label">badge</mat-icon>Prénom *
@@ -25,21 +25,28 @@
                 <!-- <mat-error *ngIf=".invalid">{{getMailErrorMessage()}}</mat-error> -->
               </mat-form-field>
             </div>
-            <div class="row justify-content-between align-items-center my-1" *ngIf="typeSignUp !== 'user'">
+            <div class="row justify-content-between align-items-center my-2" *ngIf="typeSignUp !== 'user'">
               <mat-form-field class="col" appearance="standard">
+                <mat-label class="text-secondary fs-5 fw-bold d-flex align-items-center" for="nameInput">
+                  <mat-icon matSuffix class="icon-label">title</mat-icon>Nom *
+                </mat-label>
+                <input matInput id="nameInput" formControlName="name" required>
+                <!-- <mat-error *ngIf=".invalid">{{getMailErrorMessage()}}</mat-error> -->
+              </mat-form-field>
+              <mat-form-field class="col" appearance="standard" *ngIf="typeSignUp == 'entreprise'">
                 <mat-label class="text-secondary fs-5 fw-bold d-flex align-items-center">
                   <mat-icon matSuffix class="icon-label" for="numSiret">badge</mat-icon>Numéro de SIRET *
                 </mat-label>
                 <input matInput id="numSiret" formControlName="siretNumber" required>
               </mat-form-field>
-              <mat-form-field class="col" appearance="standard">
+              <mat-form-field class="col" appearance="standard" *ngIf="typeSignUp == 'association'">
                 <mat-label for="numRna" class="text-secondary fs-5 fw-bold d-flex align-items-center">
                   <mat-icon matSuffix class="icon-label" for="numSiret">badge</mat-icon>Numéro RNA *
                 </mat-label>
                 <input matInput id="numRna" formControlName="rnaNumber" required>
               </mat-form-field>
             </div>
-            <div class="row justify-content-between align-items-center my-1">
+            <div class="row justify-content-between align-items-center my-2">
               <mat-form-field class="col-xl-4 col-md-4 col-sm-12" appearance="standard">
                 <mat-label class="text-secondary fs-5 fw-bold d-flex align-items-center" for="mailInput" required>
                   <mat-icon matSuffix class="icon-label">email</mat-icon>Adresse mail *
@@ -54,7 +61,7 @@
                 <input matInput id="phoneInput" formControlName="phoneNumber">
                 <!-- <mat-error *ngIf=".invalid">{{getMailErrorMessage()}}</mat-error> -->
               </mat-form-field>
-              <mat-form-field class="col-xl-4 col-md-4 col-sm-12" appearance="standard">
+              <mat-form-field class="col-xl-4 col-md-4 col-sm-12" appearance="standard" *ngIf="typeSignUp == 'user'">
                 <mat-label class="text-secondary fs-5 fw-bold d-flex align-items-center" for="birthdateInput">
                   <mat-icon matSuffix class="icon-label">event</mat-icon>Date de naissance *
                 </mat-label>
@@ -63,13 +70,20 @@
                 <mat-datepicker #birthDate></mat-datepicker>
                 <!-- <mat-error *ngIf=".invalid">{{getMailErrorMessage()}}</mat-error> -->
               </mat-form-field>
+              <mat-form-field class="col-xl-4 col-md-4 col-sm-12" appearance="standard" *ngIf="typeSignUp != 'user'">
+                <mat-label class="text-secondary fs-5 fw-bold d-flex align-items-center" for="webInput">
+                  <mat-icon matSuffix class="icon-label">link</mat-icon>Site web
+                </mat-label>
+                <input matInput id="webInput" formControlName="website">
+                <!-- <mat-error *ngIf=".invalid">{{getMailErrorMessage()}}</mat-error> -->
+              </mat-form-field>
             </div>
-            <div class="row justify-content-between align-items-center my-1">
+            <div class="row justify-content-between align-items-center my-2">
               <mat-form-field class="col-xl-5 col-md-5 col-sm-12" appearance="standard">
-                <mat-label class="text-secondary fs-5 fw-bold d-flex align-items-center" for="adresInput" required>
+                <mat-label class="text-secondary fs-5 fw-bold d-flex align-items-center" for="adressInput" required>
                   <mat-icon matSuffix class="icon-label">place</mat-icon>Adresse postale *
                 </mat-label>
-                <input matInput id="adresInput" placeholder="1 rue de la Gare" formControlName="adress" required>
+                <input matInput id="adressInput" placeholder="1 rue de la Gare" formControlName="adress" required>
                 <!-- <mat-error *ngIf=".invalid">{{getMailErrorMessage()}}</mat-error> -->
               </mat-form-field>
               <mat-form-field class="col-xl-2 col-md-2 col-sm-4" appearance="standard">
@@ -126,6 +140,6 @@
         </form>
       </div>
     </div>
-    <div class="col-xl-5 col-md-5 col-sm-12" id="signup-illustration"></div>
+    <div class="col-xl-4 col-md-4 col-sm-12" id="signup-illustration"></div>
   </div>
 </div>
