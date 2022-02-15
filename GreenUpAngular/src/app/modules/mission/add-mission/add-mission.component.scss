@@ -1,0 +1,40 @@
+.dialog-mission-content {
+    margin-left: 40px;
+    margin-right: 40px;
+}
+
+.file-box {
+    border: 1px solid #CBCDCD;
+    box-sizing: border-box;
+    border-radius: 10px;
+    height: 150px;
+
+    .mission-img {
+        margin-top: 5px;
+        height: 140px;
+        width: auto;
+    }
+
+    .insert-img {
+        text-align: center;
+        margin-top: 10%;
+    }
+
+    .textarea-desc {
+        border-radius: 10px;
+        border-style: none;
+        border-color: Transparent;
+        overflow: auto;
+        outline: none;
+        resize: none;
+    }
+}
+
+.btn-cancel {
+    color:#4EAAA7;
+}
+
+.btn-success {
+    color:#ffff;
+    background-color: #4EAAA7;
+}

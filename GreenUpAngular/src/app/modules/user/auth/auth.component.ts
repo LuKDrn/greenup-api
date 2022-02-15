@@ -81,7 +81,8 @@ export class AuthComponent implements OnInit {
 
   private initForm(): void {
     this.form = this.fb.group({
-      mail: new FormControl('', [Validators.required, Validators.email]),
+      mail: new FormControl(''),
+      rnaNumber: new FormControl(''),
       password: new FormControl('', [Validators.required])
     });
   }

@@ -6,9 +6,12 @@ import { User } from "./user.model";
 
 export class Mission {
     public id: number = 0;
-    public title: string = '';
+    public titre: string = '';
     public description: string = '';
     public address: Address = new Address();
+    public adress: string = '';
+    public city: string = '';
+    public zipcode: string = '';
     public creation: string = '';
     public edit: string = '';
     public start: string = '';

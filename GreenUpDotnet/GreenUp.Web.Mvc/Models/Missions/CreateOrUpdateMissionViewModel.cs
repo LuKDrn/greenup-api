@@ -22,11 +22,11 @@ namespace GreenUp.Web.Mvc.Models.Missions
         public int? ZipCode { get; set; }
         public DateTime Creation { get; set; }
         public DateTime Edit { get; set; }
-        public DateTime Start { get; set; }
-        public DateTime End { get; set; }
-        public int RewardValue { get; set; }
-        public bool IsInGroup { get; set; }
-        public int NumberPlaces { get; set; }
+        public DateTime DateDebutMission { get; set; }
+        public DateTime DateFinMission { get; set; }
+        public int PointMission { get; set; }
+        public bool IsGroup { get; set; }
+        public int NombrePlace { get; set; }
         public ICollection<CreateOrUpdateTaskViewModel> Tasks { get; set; } = new List<CreateOrUpdateTaskViewModel>();
         public ICollection<Tag> Tags { get; set; } = new List<Tag>();
         public ICollection<string> SelectedTags  { get; set; } = new List<string>();

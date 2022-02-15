@@ -14,14 +14,15 @@ export class FilterComponent implements OnInit {
   public typeChoice: Array<filterElement>;
   public dureeChoice: Array<filterElement>;
   public distanceChoice: number;
+  public lieuChoice: string;
 
   constructor() {
     this.distanceTab = [10, 20, 30, 40, 50];
     this.typeTab = [{name:'Type 1', selected: false}, {name:'Type 2', selected: false}, {name:'Type 3', selected: false}, {name:'Type 4', selected: false}];
     this.dureeTab = [{name: 'Heures', selected: false},{name:'Journée', selected: false}, {name: 'Plusieurs jours', selected:false}];
     this.dureeChoice = [];
-    // this.distanceChoice = this.distanceTab[0];
     this.distanceChoice = 0;
+    this.lieuChoice = '';
     this.typeChoice = [];
   }
 
@@ -60,6 +61,7 @@ export class FilterComponent implements OnInit {
     }
     this.typeChoice = [];
     this.distanceChoice = 0;
+    this.lieuChoice = '';
   }
 }
 

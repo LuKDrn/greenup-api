@@ -49,8 +49,8 @@ namespace GreenUp.Web.Mvc.Controllers.Associations
 
                         var claims = new List<Claim>
                         {
-                            new Claim(ClaimTypes.Name, association.LastName),
-                            new Claim(ClaimTypes.Role, "Association")
+                            new Claim("type", "Association"),
+                            new Claim("associationId", association.Id.ToString())
                         };
                         var accessToken = _tokenService.GenerateAccessToken(claims);
                         var refreshToken = _tokenService.GenerateRefreshToken();
@@ -96,6 +96,7 @@ namespace GreenUp.Web.Mvc.Controllers.Associations
                     WebsiteUrl = model.WebsiteUrl,
                     Mail = model.Mail,
                     Addresses = new List<Address>(),
+                    Photo = "/Images/default-profile-picture-avatar-png-green.png",
                     IsAssociation = true
                 };
                 var headquarter = new Address()
