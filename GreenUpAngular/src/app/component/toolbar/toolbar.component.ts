@@ -70,10 +70,6 @@ export class ToolbarComponent implements OnInit, OnChanges {
     this.router.navigate(['/edit-profile']);
   }
 
-  public contact(): void {
-    this.router.navigate(['/contact']);
-  }
-
   public isActive(index: number) {
     this.indexIsActive = index; 
   }
