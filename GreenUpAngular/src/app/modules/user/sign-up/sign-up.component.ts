@@ -88,6 +88,7 @@ export class SignUpComponent implements OnInit {
       confirmPassword: new FormControl('',  [Validators.required]),
       firstName: new FormControl(''),
       lastName: new FormControl(''),
+      name: new FormControl(''),
       adress: new FormControl(''),
       phoneNumber: new FormControl(''),
       city: new FormControl(''),

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MissionsService } from '../missions.service';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { AddMissionComponent } from '../add-mission/add-mission.component';
 
 @Component({
   selector: 'app-missions',
@@ -15,6 +17,7 @@ export class MissionsComponent implements OnInit {
   constructor(
     private mserv: MissionsService,
     private router: Router,
+    private dialog: MatDialog
   ) {
     this.missions = [];
     this.nbMissions = this.missions.length;
@@ -29,7 +32,14 @@ export class MissionsComponent implements OnInit {
   }
 
   public addMission(): void {
-    this.router.navigate(['/mission/addMission']);
+    const dialogRef = this.dialog.open(AddMissionComponent, {
+      width: '700px',
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+
   }
 
   private getMissionsList(): void {

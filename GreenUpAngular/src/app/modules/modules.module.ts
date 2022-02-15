@@ -16,7 +16,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { MatNativeDateModule } from '@angular/material/core';
+import { MatNativeDateModule, MatOptionModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -40,6 +40,9 @@ import { BlogComponent } from './blog/blog/blog.component';
 import { BlogService } from './blog/blog.service';
 import { ProposComponent } from './propos/propos.component';
 import { DashboardComponent } from './user/dashboard/dashboard.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 @NgModule({
   declarations: [
@@ -74,14 +77,18 @@ import { DashboardComponent } from './user/dashboard/dashboard.component';
     MatIconModule,
     MatCardModule,
     MatFormFieldModule,
+    MatDialogModule,
     ReactiveFormsModule,
     MatInputModule,
+    MatSelectModule,
+    MatOptionModule,
     MatButtonModule,
     MatCheckboxModule,
     MatDatepickerModule,
     MatNativeDateModule,
     CommonModule,
     MatSnackBarModule,
+    MatButtonToggleModule
   ],
   providers: [ProduitsService, MissionsService, ChallengesService, AssociationsService, UserService, BlogService],
 })

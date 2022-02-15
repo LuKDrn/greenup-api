@@ -117,14 +117,15 @@ namespace GreenUp.Web.Mvc.Controllers.Missions
                 {
                     Title = model.Titre,
                     Description = model.Description,
-                    Creation = DateTime.Now,
-                    Start = model.Start,
-                    End = model.End,
-                    RewardValue = model.RewardValue,
-                    NumberPlaces = model.NumberPlaces,
-                    IsInGroup = model.IsInGroup,
+                    Creation = DateTime.UtcNow,
+                    Start = model.DateDebutMission,
+                    End = model.DateFinMission,
+                    RewardValue = model.PointMission,
+                    NumberPlaces = model.NombrePlace,
+                    IsInGroup = model.IsGroup,
                     Location = new Address()
                     {
+                        UserId = model.AssociationId,
                         Place = model.Adress,
                         City = model.City,
                         ZipCode = (int)model.ZipCode,
@@ -173,11 +174,11 @@ namespace GreenUp.Web.Mvc.Controllers.Missions
                 {
                     mission.Title = model.Titre;
                     mission.Description = model.Description;
-                    mission.Start = model.Start;
-                    mission.End = model.End;
-                    mission.RewardValue = model.RewardValue;
-                    mission.NumberPlaces = model.NumberPlaces;
-                    mission.IsInGroup = model.IsInGroup;
+                    mission.Start = model.DateDebutMission;
+                    mission.End = model.DateFinMission;
+                    mission.RewardValue = model.PointMission;
+                    mission.NumberPlaces = model.NombrePlace;
+                    mission.IsInGroup = model.IsGroup;
                     mission.StatusId = model.SelectedStatus;
                     Address missionLocation = mission.Location;
                     missionLocation.Place = model.Adress;

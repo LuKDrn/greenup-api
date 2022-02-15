@@ -9,7 +9,7 @@
         <h3 class="login-redirection">Déjà un compte ? <a [routerLink]="['/auth', this.typeSignUp]">Se connecter</a></h3>
         <form [formGroup]="form" class="row text-center" #signUpForm="ngForm">
           <div class="form-group">
-            <div class="row justify-content-between align-items-center mb-2" **ngIf="typeSignUp == 'user'">
+            <div class="row justify-content-between align-items-center mb-2" *ngIf="typeSignUp === 'user'">
               <mat-form-field class="col" appearance="standard">
                 <mat-label class="text-secondary fs-5 fw-bold d-flex align-items-center" for="firstNameInput">
                   <mat-icon matSuffix class="icon-label">badge</mat-icon>Prénom *
@@ -33,13 +33,13 @@
                 <input matInput id="nameInput" formControlName="name" required>
                 <!-- <mat-error *ngIf=".invalid">{{getMailErrorMessage()}}</mat-error> -->
               </mat-form-field>
-              <mat-form-field class="col" appearance="standard" *ngIf="typeSignUp == 'entreprise'">
+              <mat-form-field class="col" appearance="standard" *ngIf="typeSignUp === 'entreprise'">
                 <mat-label class="text-secondary fs-5 fw-bold d-flex align-items-center">
                   <mat-icon matSuffix class="icon-label" for="numSiret">badge</mat-icon>Numéro de SIRET *
                 </mat-label>
                 <input matInput id="numSiret" formControlName="siretNumber" required>
               </mat-form-field>
-              <mat-form-field class="col" appearance="standard" *ngIf="typeSignUp == 'association'">
+              <mat-form-field class="col" appearance="standard" *ngIf="typeSignUp === 'association'">
                 <mat-label for="numRna" class="text-secondary fs-5 fw-bold d-flex align-items-center">
                   <mat-icon matSuffix class="icon-label" for="numSiret">badge</mat-icon>Numéro RNA *
                 </mat-label>
@@ -61,7 +61,7 @@
                 <input matInput id="phoneInput" formControlName="phoneNumber">
                 <!-- <mat-error *ngIf=".invalid">{{getMailErrorMessage()}}</mat-error> -->
               </mat-form-field>
-              <mat-form-field class="col-xl-4 col-md-4 col-sm-12" appearance="standard" *ngIf="typeSignUp == 'user'">
+              <mat-form-field class="col-xl-4 col-md-4 col-sm-12" appearance="standard" *ngIf="typeSignUp === 'user'">
                 <mat-label class="text-secondary fs-5 fw-bold d-flex align-items-center" for="birthdateInput">
                   <mat-icon matSuffix class="icon-label">event</mat-icon>Date de naissance *
                 </mat-label>
@@ -70,13 +70,13 @@
                 <mat-datepicker #birthDate></mat-datepicker>
                 <!-- <mat-error *ngIf=".invalid">{{getMailErrorMessage()}}</mat-error> -->
               </mat-form-field>
-              <mat-form-field class="col-xl-4 col-md-4 col-sm-12" appearance="standard" *ngIf="typeSignUp != 'user'">
+              <!-- <mat-form-field class="col-xl-4 col-md-4 col-sm-12" appearance="standard" *ngIf="typeSignUp != 'user'">
                 <mat-label class="text-secondary fs-5 fw-bold d-flex align-items-center" for="webInput">
                   <mat-icon matSuffix class="icon-label">link</mat-icon>Site web
                 </mat-label>
                 <input matInput id="webInput" formControlName="website">
-                <!-- <mat-error *ngIf=".invalid">{{getMailErrorMessage()}}</mat-error> -->
-              </mat-form-field>
+                <mat-error *ngIf=".invalid">{{getMailErrorMessage()}}</mat-error>
+              </mat-form-field> -->
             </div>
             <div class="row justify-content-between align-items-center my-2">
               <mat-form-field class="col-xl-5 col-md-5 col-sm-12" appearance="standard">

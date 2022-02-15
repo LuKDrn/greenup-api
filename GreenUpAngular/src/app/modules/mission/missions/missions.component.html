@@ -1,6 +1,6 @@
-<div class="container container-mission">
+<div class="container container-mission row">
     <div class="row bannerMission">
-        <img src="./../../../../assets/missionIllustration.png" alt="image moteur de recherche">
+        <!-- <img src="./../../../../assets/missionIllustration.png" alt="image moteur de recherche"> -->
         <h1>Rechercher une mission</h1>
         <form>
             <input matInput type="text" placeholder="Rechercher ...">
@@ -13,7 +13,7 @@
         <section class="col-9">
             <div class="row">
                 <h1>Les missions</h1>
-                <span class="countMission">{{ nbMissions }} offres disponible<span *ngIf="nbMissions > 1">s</span></span>
+                <span class="countMission">{{ nbMissions }} offre(s) disponible<span *ngIf="nbMissions > 1">s</span></span>
                 <span>Actuellement {{ nbMissions }} offres disponible<span *ngIf="nbMissions > 1">s</span></span>
             </div>
             <div class="row">

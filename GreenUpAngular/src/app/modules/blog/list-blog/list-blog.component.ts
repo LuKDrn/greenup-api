@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Blog } from 'src/app/model/blog.model';
+import { BlogService } from '../blog.service';
 
 @Component({
   selector: 'app-list-blog',
@@ -11,7 +12,9 @@ export class ListBlogComponent implements OnInit {
   public displayAllList: boolean;
   public article: Blog;
 
-  constructor() { 
+  constructor(
+    private blogService: BlogService
+  ) { 
     this.displayAllList = false;
     this.article = new Blog();
     this.article.uid = 1;
@@ -22,6 +25,7 @@ export class ListBlogComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.blogService.getRSSData();
   }
 
   public displayList(): void {

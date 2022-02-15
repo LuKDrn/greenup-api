@@ -1,5 +1,9 @@
 .container-mission {
     .bannerMission {
+        position: relative;
+        height: 250px;
+        width: 100%;
+        background-color: #4EAAA7;
         img {
             position: absolute;
             margin-top: 0;
@@ -39,8 +43,7 @@
 
     .contentMission {
         position: relative;
-        top: 400px;
-        
+        margin-top: 1rem;        
         .countMission {
             // width: 457px;
             // height: 66px;

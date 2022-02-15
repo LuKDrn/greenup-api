@@ -18,10 +18,12 @@ import { CardBlogComponent } from './card-blog/card-blog.component';
 import { ForgotIdentifiantComponent } from './dialog/forgot-identifiant/forgot-identifiant.component';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { DialogTextComponent } from './dialog/dialog-text/dialog-text.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
     imports: [
       CommonModule,
+      FormsModule,
       MatToolbarModule,
       MatIconModule,
       MatCardModule,
