@@ -45,33 +45,3 @@
         <button mat-raised-button color="warn">Supprimer</button>
     </div>
 </div> -->
-
-<div class="container" *ngIf="!loading">
-    <div class="row">
-        <div class="profile-menu col">
-            <h2>{{ 'Mon profil' | uppercase }}</h2>
-            <div>
-                <img src="./../../../../assets/icons/feather/black/user.svg" alt=""> 
-            </div>
-            <div class="name-user">
-                {{ user.lastName }} {{ user.firstName }}
-            </div>
-            <div class="point-user">
-                {{ user.points }} points
-            </div>
-            <hr>
-            <button *ngIf="user.isAssociation" class="btn-add-mission">
-                <!-- <img src="./../../../../assets/icons/feather/black/plus.svg" alt=""> -->
-                Ajouter une mission
-            </button>
-            <br>
-            <a class="btn-logout" (click)="logout()">
-                Déconnexion
-            </a>
-
-        </div>
-        <div class="col">
-
-        </div>
-    </div>
-</div>

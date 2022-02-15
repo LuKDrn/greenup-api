@@ -18,6 +18,7 @@ import { AddMissionComponent } from './modules/mission/add-mission/add-mission.c
 import { BlogComponent } from './modules/blog/blog/blog.component';
 import { ListBlogComponent } from './modules/blog/list-blog/list-blog.component';
 import { ProposComponent } from './modules/propos/propos.component';
+import { DashboardComponent } from './modules/user/dashboard/dashboard.component';
 
 const routes: Routes = [
   //HOME
@@ -46,6 +47,10 @@ const routes: Routes = [
   {
     path: 'edit-profile',
     component: EditProfileComponent
+  },
+  {
+    path: 'dashboard',
+    component: DashboardComponent
   },
   //MISSIONS
   {

@@ -61,6 +61,11 @@ export class HomeComponent implements OnInit {
     console.log(this.comp);
     console.log(this.missions);
   }
+
+  
+  public contact(): void {
+    this.router.navigate(['/a-propos']);
+  }
 }
 
 interface HomeComp {
@@ -77,3 +82,4 @@ export interface MissionComp {
   desc: string;
   date: string;
 }
+

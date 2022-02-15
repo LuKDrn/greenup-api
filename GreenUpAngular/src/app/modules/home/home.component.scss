@@ -114,6 +114,18 @@ $secondary-color: #FFC533;
     }
 }
 
-#home-questions {
-
+#home-contact {
+    #contact-button{
+        color: #fff;      
+        background-color: $secondary-color;
+        border: 1px solid $secondary-color;
+        height: 35px;
+    }
+    #contact-button:hover{
+        border-color: $primary-color;
+        color: #fff;
+        background-color: $primary-color;
+        transform: scale(1.1);
+        transition-duration: 0.5;
+    }
 }

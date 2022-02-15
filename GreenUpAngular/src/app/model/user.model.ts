@@ -15,7 +15,7 @@ export class User {
     public birthDate: string = ''; 
     public photo: string = '';
     public phoneNumber: string = '';
-    public point: number = 0;
+    public points: number = 0;
     public isActive: boolean = false;
     public isEmailConfirmed: boolean = false;
     public isPhoneNumberConfirmed: boolean = false;

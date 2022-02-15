@@ -45,7 +45,6 @@ export class UserService {
       .post<any>(`${this.url}/Login`, JSON.stringify(form), {headers: this.headers})
       .pipe(
           tap((response: any) => {
-              console.log('test');
               return response;
           }),
       );
@@ -56,7 +55,6 @@ export class UserService {
       .get<any>(`${this.url}/${id}`)
       .pipe(
           tap((response: any) => {
-              console.log('test');
               return response;
           }),
       );
