@@ -30,13 +30,9 @@
           <span>Blog</span>
           <div *ngIf="indexIsActive === 5" class="underline"></div>
         </a>
-        <a class="navigate m-2" (click)="aPropos() ; isActive(6)">
-          <span>A propos</span>
-          <div *ngIf="indexIsActive === 6" class="underline"></div>
-        </a>
         <div class="d-flex position-absolute" style="right:4%">
-          <a class="navigate contact my-2 mx-4" (click)="contact() ; isActive(7)">
-            <span>Contact</span>
+          <a class="navigate contact my-2 mx-4" (click)="aPropos() ; isActive(7)">
+            <span>A propos</span>
             <div *ngIf="indexIsActive === 7" class="underline"></div>
           </a>
           <div class="">

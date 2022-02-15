@@ -38,8 +38,6 @@ import { AddMissionComponent } from './mission/add-mission/add-mission.component
 import { ListBlogComponent } from './blog/list-blog/list-blog.component';
 import { BlogComponent } from './blog/blog/blog.component';
 import { BlogService } from './blog/blog.service';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { ContactComponent } from './contact/contact.component';
 import { ProposComponent } from './propos/propos.component';
 
 @NgModule({
@@ -60,7 +58,6 @@ import { ProposComponent } from './propos/propos.component';
     AddMissionComponent,
     ListBlogComponent,
     BlogComponent,
-    ContactComponent,
     ProposComponent,
   ],
   imports: [
