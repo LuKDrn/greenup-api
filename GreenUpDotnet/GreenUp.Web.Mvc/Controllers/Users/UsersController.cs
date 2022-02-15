@@ -37,7 +37,7 @@ namespace GreenUp.Web.Mvc.Controllers.Users
         {
             User user = await GetUser(id, true).FirstOrDefaultAsync();
             if (user != null)
-            {                           
+            {
                 OneUserViewModel model = new()
                 {
                     Id = id,
@@ -49,6 +49,16 @@ namespace GreenUp.Web.Mvc.Controllers.Users
                     Birthdate = user.Birthdate.ToString("dd/MM/yyyy HH:mm"),
                     Photo = user.Photo,
                     Points = user.Points,
+                    IsUser = user.IsUser,
+                    IsAdmin = user.IsAdmin,
+                    IsActive = user.IsActive, 
+                    IsAssociation = user.IsAssociation,
+                    IsCompany = user.IsCompany,
+                    IsEmailConfirmed = user.IsEmailConfirmed,
+                    IsPhoneNumberConfirmed = user.IsPhoneNumberConfirmed,
+                    RnaNumber = user.RnaNumber,
+                    SiretNumber = user.SiretNumber,
+                    WebsiteUrl = user.WebsiteUrl,
                     Adresses = user.Addresses,
                     Participations = user.Participations,
                     Favorites = user.Favorites,

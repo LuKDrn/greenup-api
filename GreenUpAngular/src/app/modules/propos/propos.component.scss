@@ -5,8 +5,9 @@
 }
 
 #propos-illustration {
-    background: url('./../../../assets/img/contact/undraw_team_spirit_re_yl1v.svg') center no-repeat;
-    background-size: contain;
+    height: 50vh;
+    width: 100%;
+    text-align: center;
 }
 
 .propos-title {
@@ -21,7 +22,10 @@
     margin: 0;
     padding: 0;
 }
-
+.team-picture {
+    border-radius: 50%;
+    height: 25vh;
+}
 #contact-illustration {
     background: url('./../../../assets/img/contact/undraw_begin_chat_re_v0lw.svg') center no-repeat;
     background-size: contain;
@@ -34,11 +38,15 @@
     font-size: 44px;
     line-height: 66px;
 }
-
+.linkedin-link:hover{
+    transform: scale(1.1);
+    background-color: darkblue !important;
+    transition-duration: 0.5s;
+}
 .sendBtn {
     background: #4EAAA7;
     color: #FFFF;
     border: 1px solid #4EAAA7;
     box-sizing: border-box;
-    height: 59px;
+    height: 40px;
 }

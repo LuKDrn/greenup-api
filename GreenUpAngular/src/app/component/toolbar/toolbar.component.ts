@@ -67,7 +67,7 @@ export class ToolbarComponent implements OnInit, OnChanges {
   }
 
   public goToProfile(): void {
-    this.router.navigate(['/edit-profile']);
+    this.router.navigate(['/dashboard']);
   }
 
   public isActive(index: number) {

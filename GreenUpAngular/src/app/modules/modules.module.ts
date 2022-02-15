@@ -39,10 +39,10 @@ import { ListBlogComponent } from './blog/list-blog/list-blog.component';
 import { BlogComponent } from './blog/blog/blog.component';
 import { BlogService } from './blog/blog.service';
 import { ProposComponent } from './propos/propos.component';
+import { DashboardComponent } from './user/dashboard/dashboard.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
-
 
 @NgModule({
   declarations: [
@@ -63,6 +63,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
     ListBlogComponent,
     BlogComponent,
     ProposComponent,
+    DashboardComponent,
   ],
   imports: [
     MatCarouselModule,
