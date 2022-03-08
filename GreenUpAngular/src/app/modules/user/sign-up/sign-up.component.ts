@@ -48,17 +48,13 @@ export class SignUpComponent implements OnInit {
   public openTermesAndCondition(): void {
     const dialogRef = this.dialog.open(DialogTextComponent);
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
     });
   }
 
   public signUp(): void {
-    console.log('form', this.form.value);
     if (this.form.valid) {
-      // this.form.get('birthDate')?.setValue(new Date().toISOString());
       this.userService.signUp(this.form.value, this.typeSignUp).subscribe(
         (res: any) => {
-          console.log('res', res);
           if (res.error) {
             this.openSnackBar(res.error);
           } else {
@@ -67,7 +63,7 @@ export class SignUpComponent implements OnInit {
           }
         },
         (error: any) => {
-          console.log('error', error);
+          this.openSnackBar("Error : " + error);
         }
       );
     }
@@ -78,7 +74,7 @@ export class SignUpComponent implements OnInit {
   }
 
   public login(): void {
-    this.router.navigate(['/auth']);
+      this.router.navigate(['/auth', `${this.typeSignUp}`]);
   }
 
   private initForm(): void {
@@ -86,14 +82,14 @@ export class SignUpComponent implements OnInit {
       mail: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required]),
       confirmPassword: new FormControl('',  [Validators.required]),
-      firstName: new FormControl(''),
-      lastName: new FormControl(''),
-      name: new FormControl(''),
-      adress: new FormControl(''),
-      phoneNumber: new FormControl(''),
-      city: new FormControl(''),
+      firstName: new FormControl(null),
+      lastName: new FormControl(null),
+      name: new FormControl(null),
+      adress: new FormControl(null),
+      phoneNumber: new FormControl(null),
+      city: new FormControl(null),
       zipCode: new FormControl(null),
-      birthDate: new FormControl(''),
+      birthDate: new FormControl(null),
       photo: new FormControl(null),
       rnaNumber: new FormControl(null),
       siretNumber: new FormControl(null)

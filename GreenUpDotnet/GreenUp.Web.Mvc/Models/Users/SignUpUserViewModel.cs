@@ -9,7 +9,6 @@ namespace GreenUp.Web.Mvc.Models.Users
         [Required]
         [EmailAddress]
         public string Mail { get; set; }
-        [Required]
         [DataType(DataType.PhoneNumber)]
         public string PhoneNumber { get; set; }
         [Required]
