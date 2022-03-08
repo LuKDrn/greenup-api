@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Mission } from 'src/app/model/mission.model';
 import { MissionComp } from 'src/app/modules/home/home.component';
 @Component({
   selector: 'app-card',
@@ -7,7 +8,7 @@ import { MissionComp } from 'src/app/modules/home/home.component';
   styleUrls: ['./card.component.scss'],
 })
 export class CardComponent implements OnInit {
-  @Input() mission?: MissionComp;
+  @Input() mission?: Mission;
 
   constructor(
     private router: Router

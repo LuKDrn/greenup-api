@@ -11,7 +11,7 @@ export class MissionsService {
     'Content-Type': 'application/json'
   });
 
-  public missionApi = 'https://localhost:5001/api/Missions'; 
+  public missionApi = 'https://localhost:5001/api/Missions/List'; 
   constructor(protected http: HttpClient) {
 
   }

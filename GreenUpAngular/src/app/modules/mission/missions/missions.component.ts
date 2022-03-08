@@ -24,7 +24,7 @@ export class MissionsComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    // this.getMissionsList();
+    this.getMissionsList();
   }
 
   public selectMission(id: number): void {
@@ -45,7 +45,9 @@ export class MissionsComponent implements OnInit {
   private getMissionsList(): void {
     this.mserv.getAllMissions().subscribe(
       (res: any) => {
-        console.log('res');
+        console.log('res', res);
+        this.missions = res;
+        this.nbMissions = res.length;
       },
       (error: any) => {
         console.log('error', error);

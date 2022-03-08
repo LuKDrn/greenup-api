@@ -31,9 +31,16 @@ namespace GreenUp.Web.Mvc.Controllers.Missions
 
         [AllowAnonymous]
         [HttpGet, Route("List")]
-        public async Task<ActionResult<ICollection<OneMissionViewModel>>> ListMission(int numberOfItems)
+        public async Task<ActionResult<ICollection<OneMissionViewModel>>> ListMission(string numberOfItems)
         {
-            ICollection<Mission> missions = await _context.Missions.Include(m => m.Status).Include(m => m.Location).Include(m => m.Association).AsNoTracking().Take(numberOfItems).OrderBy(m => m.Creation).ToListAsync();
+            ICollection<Mission> missions = new List<Mission>();
+            if (numberOfItems != null)
+            {
+                missions = await _context.Missions.Include(m => m.Status).Include(m => m.Location).Include(m => m.Association).AsNoTracking().Take(int.Parse(numberOfItems)).OrderBy(m => m.Creation).ToListAsync();
+            } else
+            {
+                missions = await _context.Missions.Include(m => m.Status).Include(m => m.Location).Include(m => m.Association).AsNoTracking().OrderBy(m => m.Creation).ToListAsync();
+            }
             var model = new List<OneMissionViewModel>();
             foreach (var mission in missions)
             {
