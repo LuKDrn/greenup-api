@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-forgot-identifiant',
@@ -14,13 +14,18 @@ export class ForgotIdentifiantComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.initForm();
+  }
+
+  public resetPassword(): void {
+    console.log('reset password');
   }
 
   private initForm(): void {
     this.form = this.fb.group({
-      lastName: new FormControl(''),
-      firstName: new FormControl(''),
-      email: new FormControl('')
+      // lastName: new FormControl(''),
+      // firstName: new FormControl(''),
+      email: new FormControl('', [Validators.required])
     })
   }
 

@@ -73,7 +73,14 @@ export class AuthComponent implements OnInit {
   }
 
   public forgotIdent(): void {
-    const dialogRef = this.dialog.open(ForgotIdentifiantComponent);
+    const dialogRef = this.dialog.open(ForgotIdentifiantComponent, {
+      hasBackdrop: true,
+      disableClose: true,
+      position: { top: '80px' },
+      width: '500px',
+      panelClass: 'app-dialog',
+      data: {}
+    });
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
     });

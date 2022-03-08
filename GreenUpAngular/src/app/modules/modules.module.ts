@@ -43,6 +43,7 @@ import { DashboardComponent } from './user/dashboard/dashboard.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { ChangePasswordComponent } from './user/change-password/change-password.component';
 
 @NgModule({
   declarations: [
@@ -64,6 +65,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
     BlogComponent,
     ProposComponent,
     DashboardComponent,
+    ChangePasswordComponent,
   ],
   imports: [
     MatCarouselModule,

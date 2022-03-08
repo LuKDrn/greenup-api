@@ -19,6 +19,7 @@ import { BlogComponent } from './modules/blog/blog/blog.component';
 import { ListBlogComponent } from './modules/blog/list-blog/list-blog.component';
 import { ProposComponent } from './modules/propos/propos.component';
 import { DashboardComponent } from './modules/user/dashboard/dashboard.component';
+import { ChangePasswordComponent } from './modules/user/change-password/change-password.component';
 
 const routes: Routes = [
   //HOME
@@ -51,6 +52,10 @@ const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent
+  },
+  {
+    path: 'change-password/:id',
+    component: ChangePasswordComponent
   },
   //MISSIONS
   {

@@ -18,12 +18,14 @@ import { CardBlogComponent } from './card-blog/card-blog.component';
 import { ForgotIdentifiantComponent } from './dialog/forgot-identifiant/forgot-identifiant.component';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { DialogTextComponent } from './dialog/dialog-text/dialog-text.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
     imports: [
       CommonModule,
       FormsModule,
+      ReactiveFormsModule,
       MatToolbarModule,
       MatIconModule,
       MatCardModule,
@@ -32,6 +34,7 @@ import { FormsModule } from '@angular/forms';
       MatSelectModule,
       MatCheckboxModule,
       MatFormFieldModule,
+      MatInputModule,
       MatDividerModule,
       MatChipsModule,
       MatDialogModule
