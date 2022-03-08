@@ -32,7 +32,6 @@ export class AuthComponent implements OnInit {
   ) {
 
     this.typeLogin = this.aRoute.snapshot.params['id'];
-    console.log(this.typeLogin);
     this.initForm();
   }
 
@@ -75,7 +74,6 @@ export class AuthComponent implements OnInit {
   public forgotIdent(): void {
     const dialogRef = this.dialog.open(ForgotIdentifiantComponent);
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
     });
   }
 

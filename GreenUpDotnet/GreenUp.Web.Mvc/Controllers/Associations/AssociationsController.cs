@@ -13,8 +13,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Net;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -34,7 +37,7 @@ namespace GreenUp.Web.Mvc.Controllers.Associations
 
         [AllowAnonymous]
         [HttpPost, Route("Login")]
-        public async Task<IActionResult> Login([FromBody] LoginAssociationViewModel model)
+        public async Task<IActionResult> Login([FromBody]LoginAssociationViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -82,33 +85,21 @@ namespace GreenUp.Web.Mvc.Controllers.Associations
 
         [AllowAnonymous]
         [HttpPost, Route("SignUp")]
-        public async Task<ActionResult<User>> SignUp([FromBody] SignUpAssociationViewModel model)
+        public async Task<ActionResult<User>> SignUp([FromBody]SignUpAssociationViewModel model)
         {
             if (ModelState.IsValid)
             {
-                User association = new()
+                User association = GetAssociationWithRna(model);
+                if(association == null)
                 {
-                    CreationTime = DateTime.Now,
-                    LastName = model.Name,
-                    Password = BCrypt.Net.BCrypt.HashPassword(model.Password),
-                    RnaNumber = model.RnaNumber,
-                    PhoneNumber = model.PhoneNumber,
-                    WebsiteUrl = model.WebsiteUrl,
-                    Mail = model.Mail,
-                    Addresses = new List<Address>(),
-                    Photo = "/Images/default-profile-picture-avatar-png-green.png",
-                    IsAssociation = true
-                };
-                var headquarter = new Address()
+                    return Ok(new { Error = "Aucune association trouvé avec ce numéro RNA" });
+                }
+                else
                 {
-                    Place = model.Adress,
-                    City = model.City,
-                    ZipCode = model.ZipCode
-                };
-                association.Addresses.Add(headquarter);
-                _context.Users.Add(association);
-                await _context.SaveChangesAsync();
-                return association;
+                    _context.Users.Add(association);
+                    await _context.SaveChangesAsync();
+                    return association;
+                }
             }
             return Ok(new { Error = "Model not valid" });
         }
@@ -139,8 +130,10 @@ namespace GreenUp.Web.Mvc.Controllers.Associations
                     {
                         participants.Add(ConvertUserToParticipantViewModel(user));
                     }
-                    var missions = new List<OneMissionViewModel>();
-                    missions.Add(ConvertMissionToViewModel(mission, participants));
+                    var missions = new List<OneMissionViewModel>
+                    {
+                        ConvertMissionToViewModel(mission, participants)
+                    };
 
                 }
 
@@ -149,7 +142,7 @@ namespace GreenUp.Web.Mvc.Controllers.Associations
             return null;
         }
 
-        private OneParticipantViewModel ConvertUserToParticipantViewModel(Participation user)
+        private static OneParticipantViewModel ConvertUserToParticipantViewModel(Participation user)
         {
             return new OneParticipantViewModel
             {
@@ -162,7 +155,7 @@ namespace GreenUp.Web.Mvc.Controllers.Associations
             };
         }
 
-        private OneMissionViewModel ConvertMissionToViewModel(Mission mission, ICollection<OneParticipantViewModel> participants)
+        private static OneMissionViewModel ConvertMissionToViewModel(Mission mission, ICollection<OneParticipantViewModel> participants)
         {
             return new OneMissionViewModel
             {
@@ -191,6 +184,52 @@ namespace GreenUp.Web.Mvc.Controllers.Associations
                 Tasks = mission.Tasks,
                 Participants = participants,
             };
+        }
+
+        [AllowAnonymous]
+        private static User GetAssociationWithRna(SignUpAssociationViewModel model)
+        {
+            var url = $"https://entreprise.data.gouv.fr/api/rna/v1/id/{model.RnaNumber}";
+            string json;
+            try
+            {
+                dynamic data = new JObject();
+                WebClient client = new();
+                Stream s = client.OpenRead(url);
+                using (var ms = new MemoryStream())
+                {
+                    s.CopyTo(ms);
+                    byte[] arr = ms.ToArray();
+                    json = Encoding.UTF8.GetString(arr, 0, arr.Length);
+                }
+                data = JObject.Parse(json);
+                client.Dispose();
+                User association = new()
+                {
+                    CreationTime = DateTime.Now,
+                    LastName = data.association.titre,
+                    Password = BCrypt.Net.BCrypt.HashPassword(model.Password),
+                    RnaNumber = model.RnaNumber,
+                    PhoneNumber = model.PhoneNumber,
+                    WebsiteUrl = data.association.site_web,
+                    Mail = model.Mail,
+                    Addresses = new List<Address>(),
+                    Photo = "/Images/default-profile-picture-avatar-png-green.png",
+                    IsAssociation = true
+                };
+                Address headquarter = new()
+                {
+                    Place = model.Adress ?? $"{data.association.adresse_numero_voie} {data.association.adresse_type_voie} {data.association.adresse_libelle_voie}",
+                    City = model.City ?? $"{data.association.adresse_libelle_commune}",
+                    ZipCode = model.ZipCode != 0 ? model.ZipCode : int.Parse($"{data.association.adresse_code_postal}")
+                };
+                association.Addresses.Add(headquarter);
+                return association;
+            }
+            catch(Exception e)
+            {
+                return null;
+            }
         }
     }
 }

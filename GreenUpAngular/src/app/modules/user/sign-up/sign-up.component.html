@@ -80,23 +80,29 @@
             </div>
             <div class="row justify-content-between align-items-center my-2">
               <mat-form-field class="col-xl-5 col-md-5 col-sm-12" appearance="standard">
-                <mat-label class="text-secondary fs-5 fw-bold d-flex align-items-center" for="adressInput" required>
-                  <mat-icon matSuffix class="icon-label">place</mat-icon>Adresse postale *
+                <mat-label class="text-secondary fs-5 fw-bold d-flex align-items-center" for="adressInput">
+                  <div *ngIf="typeSignUp === 'user'"><mat-icon *ngIf="typeSignUp == 'user'" matSuffix class="icon-label">place</mat-icon>Adresse postale *</div>
+                  <div *ngIf="typeSignUp !== 'user'"><mat-icon *ngIf="typeSignUp != 'user'" matSuffix class="icon-label">place</mat-icon>Adresse postale</div>
                 </mat-label>
-                <input matInput id="adressInput" placeholder="1 rue de la Gare" formControlName="adress" required>
+                <input *ngIf="typeSignUp === 'user'" matInput id="adressInput" placeholder="1 rue de la Gare" formControlName="adress" required>
+                <input *ngIf="typeSignUp !== 'user'" matInput id="adressInput" placeholder="1 rue de la Gare" formControlName="adress">
                 <!-- <mat-error *ngIf=".invalid">{{getMailErrorMessage()}}</mat-error> -->
               </mat-form-field>
               <mat-form-field class="col-xl-2 col-md-2 col-sm-4" appearance="standard">
                 <mat-label class="text-secondary fs-5 fw-bold d-flex align-items-center" for="zipCodeInput">
-                  <mat-icon matSuffix class="icon-label">pin</mat-icon>Code postal *
+                  <div *ngIf="typeSignUp === 'user'"><mat-icon matSuffix class="icon-label">pin</mat-icon>Code postal*</div>
+                  <div *ngIf="typeSignUp !== 'user'"><mat-icon matSuffix class="icon-label">pin</mat-icon>Code postal</div>
                 </mat-label>
-                <input matInput type="number" id="zipCodeInput" pattern="[0-9]{5}" formControlName="zipCode" required>
+                <input matInput *ngIf="typeSignUp === 'user'" type="number" id="zipCodeInput" pattern="[0-9]{5}" formControlName="zipCode" required>
+                <input matInput *ngIf="typeSignUp !== 'user'" type="number" id="zipCodeInput" pattern="[0-9]{5}" formControlName="zipCode">
               </mat-form-field>
               <mat-form-field class="col-xl-4 col-md-4 col-sm-8" appearance="standard">
                 <mat-label class="text-secondary fs-5 fw-bold d-flex align-items-center" for="cityInput">
-                  <mat-icon matSuffix class="icon-label">location_city</mat-icon>Ville *
+                  <div *ngIf="typeSignUp === 'user'"><mat-icon  matSuffix class="icon-label">location_city</mat-icon>Ville *</div>
+                  <div *ngIf="typeSignUp !== 'user'"><mat-icon matSuffix class="icon-label">location_city</mat-icon>Ville</div>
                 </mat-label>
-                <input matInput id="cityinput" formControlName="city" required>
+                <input *ngIf="typeSignUp === 'user'" matInput id="cityinput" formControlName="city" required>
+                <input *ngIf="typeSignUp !== 'user'" matInput id="cityinput" formControlName="city" >
               </mat-form-field>
             </div>
             <div class="row justify-content-between align-items-center mb-1">
