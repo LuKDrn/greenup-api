@@ -228,7 +228,7 @@ namespace GreenUp.Web.Mvc.Controllers.Missions
         }
 
 
-        private OneParticipantViewModel ConvertParticipantToViewModel(Participation user)
+        private static OneParticipantViewModel ConvertParticipantToViewModel(Participation user)
         {
             return new OneParticipantViewModel
             {
@@ -240,7 +240,7 @@ namespace GreenUp.Web.Mvc.Controllers.Missions
                 Photo = user.User.Photo,
             };
         }
-        private OneMissionViewModel ConvertMissionToViewModel(Mission mission, ICollection<OneParticipantViewModel> participants)
+        private static OneMissionViewModel ConvertMissionToViewModel(Mission mission, ICollection<OneParticipantViewModel> participants)
         {
             return new OneMissionViewModel()
             {

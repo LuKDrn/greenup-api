@@ -65,7 +65,6 @@ export class UserService {
       .put<any>(`${this.url}/EditProfile`, JSON.stringify(form), {headers: this.headers})
       .pipe(
         tap((response: any) => {
-            console.log('test');
             return response;
         }),
     );
