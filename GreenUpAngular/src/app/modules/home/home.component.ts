@@ -19,47 +19,9 @@ export class HomeComponent implements OnInit {
 
   constructor(
     public router: Router
-  ) {
-    const $missions = [
-      {
-        image:'./../../../assets/cardExemple1.png',
-        title: 'Mission1',
-        location: 'Angers (49000)',
-        point: '50 points',
-        titleDesc: 'Nettoyage des plages',
-        desc: `Venir aider les associations à trier les déchets sur les plages d'Angers...`,
-        date: '25/09/2022'
-      },
-      {
-        image:'./../../../assets/cardExemple2.png',
-        title: 'Mission2',
-        location: 'Angers (49000)',
-        point: '50 points',
-        titleDesc: 'Nettoyage des plages',
-        desc: `Venir aider les associations à trier les déchets sur les plages d'Angers...`,
-        date: '25/09/2022'
-      },
-      {
-        image:'./../../../assets/cardExemple3.png',
-        title: 'Mission3',
-        location: 'Angers (49000)',
-        point: '50 points',
-        titleDesc: 'Nettoyage des plages',
-        desc: `Venir aider les associations à trier les déchets sur les plages d'Angers...`,
-        date: '25/09/2022'
-      }
-    ];
-    for (let $item of $missions) {
-      this.missions.push($item);
-    }
-    // this.comp = {
-    //   loading: false,
-    // };
-  }
+  ) {}
 
   ngOnInit() {
-    console.log(this.comp);
-    console.log(this.missions);
   }
 
   

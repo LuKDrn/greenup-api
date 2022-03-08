@@ -23,7 +23,6 @@ export class UserService {
     } else {
       $url = this.url;
     }
-    console.log('form', JSON.stringify(form));
     return this.http
         .post<any>(`${$url}/SignUp`, JSON.stringify(form), {headers: this.headers})
         .pipe(
@@ -73,12 +72,10 @@ export class UserService {
   }
 
   public deleteProfile(id: number): Observable<any> {
-    console.log(id);
     return this.http
       .delete<any>(`${this.url}/${id}`)
       .pipe(
         tap((response: any) => {
-            console.log('test');
             return response;
         }),
     );
