@@ -1,9 +1,18 @@
-<div class="container container-mission row">
-    <div class="row bannerMission">
-        <h1>Rechercher une mission</h1>
-        <form>
-            <input matInput type="text" placeholder="Rechercher ...">
+<div class="container-fluid">
+    <div
+        class="d-flex flex-column banner-mission w-100 mx-auto my-4 p-2 justify-content-center align-items-center text-center">
+        <div class="d-flex flex-column align-items-center text-white fw-bold">
+            <h1>Les missions ({{nbMissions}} missions)</h1>
+        </div>
+        <form action="#" class="d-flex text-white fw-bold my-1">
+            <mat-icon matSuffix class="icon-label mx-1 ">search</mat-icon> <input matInput
+                class="form-control border rounded border-dark bg-white" type="text"
+                placeholder="Rechercher une mission" />
         </form>
+        <button matButton class="mission-button btn btn-sm my-1 fw-bold col-auto d-flex align-items-center text-center"
+            (click)="addMission()">
+            <mat-icon matSuffix class="icon-label mx-1">add</mat-icon> Ajouter une mission
+        </button>
     </div>
     <div class="row contentMission">
         <section class="col-3">
@@ -11,19 +20,26 @@
         </section>
         <section class="col-9">
             <div class="row">
-                <h1>Les missions</h1>
-                <span class="countMission">{{ nbMissions }} offre(s) disponible<span *ngIf="nbMissions > 1">s</span></span>
-                <span>Actuellement {{ nbMissions }} offres disponible<span *ngIf="nbMissions > 1">s</span></span>
-            </div>
-            <div class="row">
-                <div class="row mb-5">
-                    <button matButton type="button" (click)="addMission()">Créer une mission</button>
-                </div>
                 <ng-container *ngIf="missions">
                     <div class="row col-12 m-auto justify-content-between">
-                        <ng-container *ngFor="let mission of missions ; let index = index">
-                            <div class="col-xl-6 col-md-6 col-sm-12">
-                                <app-card [mission]="mission"></app-card>
+                        <ng-container *ngFor="let mission of missions">
+                            <div class="col-xl-6 col-md-6 col-sm-12 my-2">
+                                <div class="card shadow">
+                                    <img src="./../../../../assets/img/mission/undraw_task_re_wi3v.svg" class="card-img-top"
+                                        alt="{{mission.titre}} image">
+                                    <div class="card-body d-flex flex-column justify-content-between px-3">
+                                        <div>
+                                            <h1 class="fw-bold m-0 text-sm">{{mission.association.lastName}}</h1>
+                                            <h2 class="fw-bold text-uppercase m-0 text-sm">{{mission.titre}}</h2>
+                                            <h2 class="fw-bold m-0 text-sm">{{mission.rewardValue}} points</h2>
+                                            <p class="text-sm">{{mission.description}}</p>
+                                        </div>
+                                        <div class="d-flex justify-content-between">
+                                            <p class="text-xs">{{mission.start}}</p>
+                                            <a class="text-xs d-flex align-items-center" href="#"><mat-icon matSuffix>info</mat-icon> Voir en détails</a>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </ng-container>
                     </div>
