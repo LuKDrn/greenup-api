@@ -2,7 +2,11 @@
     <div class="d-flex align-items-center justify-content-around py-4">
         <div class="d-flex flex-column text-center footer-logo col-xl-3 col-md-0 col-sm-0">
             <img src="./../../../assets/img/footer/feuilles.svg" style="height: 56px;" class="footer-logo"/>
-            <h2 class="fw-bolder footer-logo">GREEN UP</h2>
+            <h2 class="fw-bolder footer-logo">
+                <a class="link-cursor" (click)="goToAccueil()">
+                    GREEN UP
+                </a>
+            </h2>
         </div>
         <div class="d-flex flex-column col-xl-8 col-md-11 col-sm-11 text-center">
             <div class="d-flex flex-wrap justify-content-start">
@@ -17,16 +21,16 @@
             <div id="separation" class="w-100 my-2"></div>
             <div class="d-flex justify-content-around w-100 fw-light">
                 <div class="d-flex flex-column mx-1 col-xl-4">
-                    <a alt="" title="Qui sommes-nous ?" href="#">Qui sommes-nous ?</a>
-                    <a alt="" title="Notre fédération" href="#">Notre fédération</a>
-                    <a alt="" title="Nous rejoindre" href="#">Nous rejoindre</a>
+                    <a alt="" title="Qui sommes-nous ?" class="link-cursor" (click)="goToAPropos()">Qui sommes-nous ?</a>
+                    <a alt="" title="Notre fédération" class="link-cursor" href="#">Notre fédération</a>
+                    <a alt="" title="Nous rejoindre" class="link-cursor" href="#">Nous rejoindre</a>
                 </div>
                 <div class="d-flex flex-column mx-1 col-xl-4">
-                    <a alt="" title="Conditions générales d'utilisation" href="#">Conditions générales d'utilisation</a>
-                    <a alt="" title="Politique de protection des données personnelles" href="#">Politique de protection des données personnelles</a>
+                    <a alt="" title="Conditions générales d'utilisation" class="link-cursor" href="#">Conditions générales d'utilisation</a>
+                    <a alt="" title="Politique de protection des données personnelles" class="link-cursor" href="#">Politique de protection des données personnelles</a>
                 </div>
                 <div class="d-flex flex-column col-xl-4">
-                    <a alt="" title="Mentions légales" href="#">Mentions légales</a>
+                    <a alt="" title="Mentions légales" class="link-cursor" href="#">Mentions légales</a>
                 </div>
             </div>
         </div>
