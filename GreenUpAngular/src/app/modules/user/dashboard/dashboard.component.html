@@ -11,23 +11,23 @@
                     <div class="my-3 bg-dark w-75" style="height: 1px;"></div>
                 </div>
                 <div class="text-center">
-                    <button *ngIf="user.isAssociation" class="btn btn-sm border-0 btn-warning d-flex align-items-center my-2">
+                    <button *ngIf="user.isAssociation" class="btn btn-sm border-0 btn-warning d-flex align-items-center my-2" (click)="addMission()">
                         <mat-icon matSuffix class="icon-label" style="margin-right: 10px;">add</mat-icon> {{
                             'Ajouter une mission' | uppercase }}
                     </button>
-                    <button class="btn btn-sm btn-outline-dark border-0 d-flex align-items-center my-2">
+                    <button class="btn btn-sm btn-outline-dark border-0 d-flex align-items-center my-2" (click)="changeIndex(0)">
                         <mat-icon matSuffix class="icon-label" style="margin-right: 10px;">task</mat-icon> {{
                         'Mes missions' | uppercase }}
                     </button>
-                    <button class="btn btn-sm btn-outline-dark border-0 d-flex align-items-center my-2">
+                    <button class="btn btn-sm btn-outline-dark border-0 d-flex align-items-center my-2" (click)="changeIndex(1)">
                         <mat-icon matSuffix class="icon-label" style="margin-right: 10px;">shopping_cart</mat-icon> {{
                         'Mon panier' | uppercase }}
                     </button>
-                    <button class="btn btn-sm btn-outline-dark border-0 d-flex align-items-center my-2">
+                    <button class="btn btn-sm btn-outline-dark border-0 d-flex align-items-center my-2" (click)="changeIndex(2)">
                         <mat-icon matSuffix class="icon-label" style="margin-right: 10px;">favorite</mat-icon> {{
                         'Mes favoris' | uppercase }}
                     </button>
-                    <button class="btn btn-sm btn-outline-dark border-0 d-flex align-items-center my-2">
+                    <button class="btn btn-sm btn-outline-dark border-0 d-flex align-items-center my-2" (click)="changeIndex(3)">
                         <mat-icon matSuffix class="icon-label" style="margin-right: 10px;">settings</mat-icon> {{
                         'Paramètres' | uppercase }}
                     </button>
@@ -37,6 +37,8 @@
                     'Se déconnecter' | uppercase }}
                 </button>
         </div>
-        <div class="col-xl-8 col-md-8 col-sm-12 bg-dark p-4"></div>
+        <div class="col-xl-8 col-md-8 col-sm-12 bg-white p-4">
+            <app-sub-dashboard [typeDashboard]="selectedIndex"></app-sub-dashboard>
+        </div>
     </div>
 </div>

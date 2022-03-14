@@ -1,10 +1,45 @@
-<div class="container container-association">
-    <div class="row bannerAssociation col-12">
-        <h1>Rechercher une association</h1>
-        <form>
-            <input matInput type="text" placeholder="Rechercher ...">
+<div class="container-fluid">
+    <div class="d-flex flex-column banner-association w-100 mx-auto my-4 p-2 justify-content-center align-items-center text-center">
+        <div class="d-flex flex-column align-items-center text-white fw-bold">
+            <h1>Les associations</h1>
+        </div>
+        <form action="#" class="d-flex text-white fw-bold my-1">
+            <mat-icon matSuffix class="icon-label mx-1 ">search</mat-icon> <input matInput
+                class="form-control border rounded border-dark bg-white" type="text"
+                placeholder="Rechercher une association" />
         </form>
     </div>
-    <div class="row contentAssociation">
+    <div class="row content">
+        <!-- <section class="col-3">
+            <app-filter></app-filter>
+        </section> -->
+        <section class="col-9">
+            <div class="row">
+                <ng-container>
+                    <div class="row col-12 m-auto justify-content-between">
+                        <ng-container>
+                            <div class="col-xl-6 col-md-6 col-sm-12 my-2">
+                                <div class="card shadow">
+                                    <img src="./../../../../assets/img/mission/undraw_task_re_wi3v.svg" class="card-img-top"
+                                        alt="image">
+                                    <div class="card-body d-flex flex-column justify-content-between px-3">
+                                        <div>
+                                            <h1 class="fw-bold m-0 text-sm">association name</h1>
+                                            <h2 class="fw-bold text-uppercase m-0 text-sm">association titre</h2>
+                                            <h2 class="fw-bold m-0 text-sm">Test</h2>
+                                            <p class="text-sm">Test</p>
+                                        </div>
+                                        <div class="d-flex justify-content-between">
+                                            <p class="text-xs">Test</p>
+                                            <a class="text-xs d-flex align-items-center" href="#"><mat-icon matSuffix>info</mat-icon> Voir en détails</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </div>
+                </ng-container>
+            </div>
+        </section>
     </div>
 </div>

@@ -24,6 +24,10 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
   }
 
+  public goToMission(): void {
+    this.router.navigate(['/missions']);
+  }
+
   
   public contact(): void {
     this.router.navigate(['/a-propos']);
