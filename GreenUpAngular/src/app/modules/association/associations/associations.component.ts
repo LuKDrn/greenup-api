@@ -8,8 +8,10 @@ import { Router } from '@angular/router';
 })
 export class AssociationsComponent implements OnInit {
 
+  //preparer la liste des associations côté back et faire un appel côté front depuis le service
+
   constructor(
-    private router: Router
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -17,9 +19,5 @@ export class AssociationsComponent implements OnInit {
 
   public selectAssociation(id: number): void {
     this.router.navigate(['/association/', id]);
-  }
-
-  public auth() : void {
-    this.router.navigate(['/associations/auth/']);
   }
 }

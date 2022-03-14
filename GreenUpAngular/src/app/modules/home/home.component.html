@@ -6,7 +6,7 @@
                 <h1 style="font-size:3.5rem" class="fw-bold">GREEN UP</h1>
             </div>
             <h2 class="fs-3">La bonne action qui vous récompense</h2>
-            <button class="btn rounded" id="missions-button"><i data-feather="list" class="mr-2"></i> Voir les
+            <button class="btn rounded" id="missions-button" (click)="goToMission()"><i data-feather="list" class="mr-2"></i> Voir les
                 missions</button>
         </div>
         <div class="col-xl-6 col-md-6 col-sm-12" id="home-illustration"></div>
@@ -48,7 +48,7 @@
                                 <h5 class="card-title text-uppercase fw-bold fs-5">Les missions</h5>
                                 <img width="18" class="my-2" src="./../../../assets/icons/feather/black/map-pin.svg" />
                                 <p class="card-text">Choississez une missions proche de chez vous</p>
-                                <a href="#" class="btn btn-sm" id="concept-button-box">Voir les missions</a>
+                                <button class="btn btn-sm" id="concept-button-box" (click)="goToMission()">Voir les missions</button>
                             </div>
                         </div>
                     </div>
@@ -108,7 +108,7 @@
                             développement
                             durable</p>
                     </div>
-                    <button class="btn btn-sm p-2" id="home-missions-button">TOUTES LES MISSIONS</button>
+                    <button class="btn btn-sm p-2" id="home-missions-button" (click)="goToMission()">TOUTES LES MISSIONS</button>
                 </div>
             </div>
         </div>
@@ -131,7 +131,7 @@
         <h2 style="font-size: 2rem;" class="fw-bold">Des questions</h2>
         <p class="text-sm">Vous avez besoin d'un renseignement, le concept vous a séduit et vous souhaitez rejoindre la communauté ?</p>
         <div class="my-3 row justify-content-center">
-            <span class="text-xs"><a href="mailto:greenup@gmail.com">greenup@gmail.com</a></span>
+            <!-- <span class="text-xs"><a href="mailto:greenup@gmail.com">greenup@gmail.com</a></span> -->
             <button class="mt-3 w-50 align-self-start" (click)="contact()" id="contact-button">NOUS CONTACTER</button>
         </div>
     </div>

@@ -6,6 +6,8 @@ import { SharedService } from 'src/app/shared.service';
 import { UserService } from '../user.service';
 import jwt_decode from 'jwt-decode';
 import { User } from 'src/app/model/user.model';
+import { AddMissionComponent } from '../../mission/add-mission/add-mission.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-dashboard',
@@ -18,15 +20,18 @@ export class DashboardComponent implements OnInit {
   public jwt: string | any;
   public user: User;
   public loading: boolean;
+  public selectedIndex: number;
 
   constructor(
     private router: Router,
+    private dialog: MatDialog,
     private http: HttpClient,
     private fb: FormBuilder,
     private userService: UserService,
     private sharedService: SharedService
   ) {
     this.loading = false;
+    this.selectedIndex = 0;
     this.user = new User();
     this.getProfile();
     this.form = this.initForm();
@@ -43,6 +48,21 @@ export class DashboardComponent implements OnInit {
         console.log('error', error);
       }
     );
+  }
+
+  public changeIndex(index: number): void {
+    this.selectedIndex = index;
+  }
+
+  public addMission(): void {
+    const dialogRef = this.dialog.open(AddMissionComponent, {
+      width: '700px',
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+
   }
 
   public deleteProfile(): void {

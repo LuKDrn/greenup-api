@@ -8,7 +8,7 @@ import { MissionComp } from 'src/app/modules/home/home.component';
   styleUrls: ['./card.component.scss'],
 })
 export class CardComponent implements OnInit {
-  @Input() mission?: Mission;
+  @Input() mission?: any;
 
   constructor(
     private router: Router

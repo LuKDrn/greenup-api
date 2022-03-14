@@ -1,13 +1,14 @@
-.banner-mission{
+.banner-mission {
     min-height: 30vh;
     background-color: #408C89;
 }
-.mission-button{
+.mission-button {
     color: #fff;
     background-color: #FFC533;
-}
-.mission-button:hover{
-    background-color: #fbb400;
+
+    &:hover {
+        background-color: #fbb400;
+    }
 }
 .text-sm {
     font-size : 0.75rem !important;

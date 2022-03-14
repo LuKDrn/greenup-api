@@ -1,54 +1,19 @@
-.container-association {
-    .bannerAssociation {
-        position: relative;
-        height: 250px;
-        // width: 100%;
-        background-color: #4EAAA7;
+.banner-association {
+    min-height: 30vh;
+    background-color: #408C89;
+}
+.association-button {
+    color: #fff;
+    background-color: #FFC533;
 
-        h1 {
-            position: absolute;
-            text-transform: uppercase;
-            z-index: 2;
-            margin-top: 5%;
-            margin-left: 25%;
-            font-family: Poppins;
-            font-style: normal;
-            font-weight: 500;
-            font-size: 25px;
-            line-height: 37px;
-            color: #FFFFFF;
-        }
-
-        form {
-            input {
-                position: absolute;
-                z-index: 2;
-                margin-top: 8%;
-                margin-left: 15%;
-                padding-left: 5%;
-                width: 667px;
-                height: 60px;
-                background: #FCFCFC;
-                border-radius: 50px;
-                border: transparent
-            }
-        }
+    &:hover {
+        background-color: #fbb400;
     }
+}
 
-    .contentAssociation {
-        position: relative;
-        margin-top: 1rem;        
-        .countAssociation {
-            // width: 457px;
-            // height: 66px;
-            // left: 372px;
-            // top: 436px;
-            font-family: Poppins;
-            font-style: normal;
-            font-weight: 500;
-            font-size: 44px;
-            line-height: 66px;
-            color: #323434;
-        }
-    }
+.text-sm {
+    font-size : 0.75rem !important;
+}
+.text-xs {
+    font-size: 0.500rem !important;
 }

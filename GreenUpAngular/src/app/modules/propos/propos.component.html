@@ -94,9 +94,9 @@
                     <div class="form-group">
                         <div class="row">
                             <mat-form-field class="col" appearance="standard">
-                                <mat-label class="text-secondary fs-5 fw-bold d-flex align-items-center"
+                                <mat-label class="text-secondary fs-5 fw-bold d-flex align-items-top"
                                     for="nameInput">
-                                    <mat-icon matSuffix class="icon-label m-2">badge</mat-icon>Nom *
+                                    <mat-icon matSuffix class="icon-label mx-2">badge</mat-icon>Nom *
                                 </mat-label>
                                 <input matInput id="nameInput" placeholder="Dupont ..." formControlName="nom" required>
                                 <!-- <mat-error *ngIf=".invalid">{{getMailErrorMessage()}}</mat-error> -->
@@ -104,9 +104,9 @@
                         </div>
                         <div class="row">
                             <mat-form-field class="col" appearance="standard">
-                                <mat-label class="text-secondary fs-5 fw-bold d-flex align-items-center"
+                                <mat-label class="text-secondary fs-5 fw-bold d-flex align-items-top"
                                     for="mailInput">
-                                    <mat-icon matSuffix class="icon-label m-2">email</mat-icon>E-mail *
+                                    <mat-icon matSuffix class="icon-label mx-2">email</mat-icon>E-mail *
                                 </mat-label>
                                 <input matInput id="mailInput" placeholder="example1@example2.fr" formControlName="mail"
                                     required>
@@ -115,8 +115,8 @@
                         </div>
                         <div class="row">
                             <mat-form-field class="col" appearance="standard">
-                                <mat-label class="text-secondary fs-5 fw-bold d-flex align-items-center" for="telInput">
-                                    <mat-icon matSuffix class="icon-label m-2">contact_phone</mat-icon>Téléphone *
+                                <mat-label class="text-secondary fs-5 fw-bold d-flex align-items-top" for="telInput">
+                                    <mat-icon matSuffix class="icon-label mx-2">contact_phone</mat-icon>Téléphone *
                                 </mat-label>
                                 <input matInput id="telInput" formControlName="tel" required>
                                 <!-- <mat-error *ngIf=".invalid">{{getMailErrorMessage()}}</mat-error> -->
@@ -128,7 +128,7 @@
                                     for="messageInput">
                                     <mat-icon matSuffix class="icon-label m-2">chat</mat-icon>Message *
                                 </mat-label>
-                                <textarea matInput id="messageInput" formControlName="message" required></textarea>
+                                <textarea matInput id="messageInput" formControlName="message" row="3" required></textarea>
                                 <!-- <mat-error *ngIf=".invalid">{{getMailErrorMessage()}}</mat-error> -->
                             </mat-form-field>
                         </div>
