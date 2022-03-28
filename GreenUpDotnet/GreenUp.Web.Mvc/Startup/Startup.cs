@@ -1,6 +1,11 @@
 using GreenUp.Application.Authentications.Tokens;
+using GreenUp.Application.Users;
+using GreenUp.Core;
 using GreenUp.EntityFrameworkCore.Data;
 using GreenUp.EntityFrameworkCore.Data.Seed;
+using Hangfire;
+using Hangfire.MemoryStorage;
+using Hangfire.PostgreSql;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -10,6 +15,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System;
 using System.Text;
 
 namespace GreenUp.Web.Mvc
@@ -53,7 +59,23 @@ namespace GreenUp.Web.Mvc
                 config.AddPolicy("Company", policy => policy.RequireClaim("type", "Company"));
             });
 
+            if (GreenUpConsts.HangfireEnabled)
+            {
+                // Add Hangfire services.
+                services.AddHangfire(configuration => configuration
+                    .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
+                    .UseSimpleAssemblyNameTypeSerializer()
+                    .UseRecommendedSerializerSettings()
+                    .UsePostgreSqlStorage(Configuration.GetConnectionString("Default"))
+                    .UseMemoryStorage());
+
+
+                // Add the processing server as IHostedService
+                services.AddHangfireServer();
+            }
+
             services.AddTransient<ITokenService, TokenService>();
+            services.AddScoped<IUserAppService, UserAppService>();
 
             services.AddCors(options =>
             {
@@ -68,7 +90,7 @@ namespace GreenUp.Web.Mvc
             services.AddControllers();
 
             //Ajout du contexte default de BDD au Projet
-            services.AddDbContext<GreenUpContext>(options =>
+            services.AddEntityFrameworkNpgsql().AddDbContext<GreenUpContext>(options =>
                 options.UseNpgsql(Configuration.GetConnectionString("Default"), o => o.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery)));
 
             services.AddControllers().AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
@@ -112,12 +134,16 @@ namespace GreenUp.Web.Mvc
             app.UseCors("EnableCORS");
             app.UseStatusCodePages();
 
+            app.UseHangfireDashboard(); //Will be available under https://localhost:5001/hangfire"
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
             DbInitializer.Initialize(context);
 
+            BackgroundJob.Enqueue(() => Console.WriteLine("Hello, world!"));
+            BackgroundJob.Enqueue(() => Console.WriteLine("Bye bye, world!"));
         }
     }
 }
