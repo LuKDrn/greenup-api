@@ -4,6 +4,7 @@ using GreenUp.Core;
 using GreenUp.EntityFrameworkCore.Data;
 using GreenUp.EntityFrameworkCore.Data.Seed;
 using Hangfire;
+using Hangfire.Dashboard;
 using Hangfire.MemoryStorage;
 using Hangfire.PostgreSql;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -16,6 +17,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System;
+using System.Linq;
 using System.Text;
 
 namespace GreenUp.Web.Mvc
@@ -118,12 +120,9 @@ namespace GreenUp.Web.Mvc
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, GreenUpContext context)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "GreenUp.Web.Mvc v1"));
-            }
+            app.UseDeveloperExceptionPage();
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "GreenUp.Web.Mvc v1"));
 
             app.UseHttpsRedirection();
 
@@ -134,7 +133,7 @@ namespace GreenUp.Web.Mvc
             app.UseCors("EnableCORS");
             app.UseStatusCodePages();
 
-            app.UseHangfireDashboard(); //Will be available under https://localhost:5001/hangfire"
+            app.UseHangfireDashboard("/hangfire");
 
             app.UseEndpoints(endpoints =>
             {

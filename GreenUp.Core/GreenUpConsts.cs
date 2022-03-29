@@ -12,6 +12,6 @@
 
         public const bool HangfireEnabled = true;
 
-        public static string ApplicationProductionUrl = "https://localhost:5001";
+        public static string ApplicationProductionUrl = "https://greenup-api.herokuapp.com";
     }
 }
