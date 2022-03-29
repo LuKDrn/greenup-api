@@ -90,7 +90,7 @@ namespace GreenUp.Web.Mvc
             services.AddControllers();
 
             //Ajout du contexte default de BDD au Projet
-            services.AddEntityFrameworkNpgsql().AddDbContext<GreenUpContext>(options =>
+            services.AddDbContext<GreenUpContext>(options =>
                 options.UseNpgsql(Configuration.GetConnectionString("Default"), o => o.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery)));
 
             services.AddControllers().AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
@@ -125,6 +125,19 @@ namespace GreenUp.Web.Mvc
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "GreenUp.Web.Mvc v1"));
             }
 
+            app.Use(async (context, next) =>
+            {
+                await next();
+                if (context.Response.StatusCode == 404)
+                {
+                    context.Request.Path = $"/Home/PageNotFound";
+                    await next();
+                }
+                if (context.Response.StatusCode == 500 || context.Response.StatusCode == 501)
+                {
+                    context.Response.Redirect($"/Home/ErrorWithMessage?type=Server+error&status={context.Response.StatusCode}&debug={context.Response.ContentType}");
+                }
+            });
             app.UseHttpsRedirection();
 
             app.UseRouting();
@@ -141,9 +154,6 @@ namespace GreenUp.Web.Mvc
                 endpoints.MapControllers();
             });
             DbInitializer.Initialize(context);
-
-            BackgroundJob.Enqueue(() => Console.WriteLine("Hello, world!"));
-            BackgroundJob.Enqueue(() => Console.WriteLine("Bye bye, world!"));
         }
     }
 }
