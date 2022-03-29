@@ -2,6 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
+
+const baseUrl = `${environment.apiURL}`;
+
 @Injectable({
   providedIn: 'root',
 })
@@ -10,14 +14,14 @@ export class UserService {
     'Content-Type': 'application/json',
     'Authorization': "Bearer "+ localStorage.getItem('jwt')
   });
-  public url = 'https://localhost:5001/api/Users';
+  public url = `${baseUrl}/api/Users`;
   public isConnected: boolean;
   constructor(protected http: HttpClient) {
     this.isConnected = this.checkJwt();
   }
 
   public signUp(form: any, typeAppel: string): Observable<any> {
-    let $url = 'https://localhost:5001/api/';
+    let $url = `${baseUrl}/api/`;
     if (typeAppel === 'association' || typeAppel === 'entreprise') {
       $url += 'Associations';
     } else {
@@ -33,7 +37,7 @@ export class UserService {
   }
 
   public login(form: any, typeAppel: string): Observable<any> {
-    let $url = 'https://localhost:5001/api/';
+    let $url = `${baseUrl}/api/`;
     if (typeAppel === 'association' || typeAppel === 'entreprise') {
       $url += 'Associations';
     } else {

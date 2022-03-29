@@ -1,11 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
+
+const baseUrl = `${environment.apiURL}`;
+
 @Injectable({
   providedIn: 'root',
 })
 export class ChallengesService {
-    public url = 'https://greenup-api.herokuapp.com​/api​/Challenges'; 
+  public url = `${baseUrl}/api/Challenges`; 
   constructor(protected http: HttpClient) {
 
   }

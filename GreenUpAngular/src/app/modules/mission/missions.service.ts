@@ -2,6 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
+
+const baseUrl = `${environment.apiURL}`;
+
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +15,7 @@ export class MissionsService {
     'Content-Type': 'application/json'
   });
 
-  public missionApi = 'https://localhost:5001/api/Missions/List'; 
+  public missionApi = `${baseUrl}/api/Missions/List`; 
   constructor(protected http: HttpClient) {
 
   }
