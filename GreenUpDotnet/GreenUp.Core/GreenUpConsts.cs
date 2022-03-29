@@ -9,5 +9,9 @@
         public const string ApplicationName = "GreenUp";
 
         public const string ConnectionStringName = "Default";
+
+        public const bool HangfireEnabled = true;
+
+        public static string ApplicationProductionUrl = "https://localhost:5001";
     }
 }
