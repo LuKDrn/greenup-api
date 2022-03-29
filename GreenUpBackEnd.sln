@@ -1,17 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31005.135
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32319.34
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GreenUp.Web.Mvc", "GreenUp.Web.Mvc\GreenUp.Web.Mvc.csproj", "{FB7BF345-7A60-4C53-96D3-671C97F899C6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GreenUp.Web.Mvc", "GreenUp.Web.Mvc\GreenUp.Web.Mvc.csproj", "{FB7BF345-7A60-4C53-96D3-671C97F899C6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GreenUp.Application", "GreenUp.Application\GreenUp.Application.csproj", "{816A7AD4-7353-430E-B99C-F154DE56EDCC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GreenUp.Application", "GreenUp.Application\GreenUp.Application.csproj", "{816A7AD4-7353-430E-B99C-F154DE56EDCC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GreenUp.Core", "GreenUp.Core\GreenUp.Core.csproj", "{43483175-7234-4C4A-ABF8-8AED81B42CFE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GreenUp.Core", "GreenUp.Core\GreenUp.Core.csproj", "{43483175-7234-4C4A-ABF8-8AED81B42CFE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GreenUp.EntityFrameworkCore", "GreenUp.EntityFrameworkCore\GreenUp.EntityFrameworkCore.csproj", "{0E0CA4D2-4E08-442F-89E1-B32E290D1B2A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GreenUp.EntityFrameworkCore", "GreenUp.EntityFrameworkCore\GreenUp.EntityFrameworkCore.csproj", "{0E0CA4D2-4E08-442F-89E1-B32E290D1B2A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GreenUp.Web.Core", "GreenUp.Web.Core\GreenUp.Web.Core.csproj", "{F800CB8F-F777-4B83-B855-4F4DFE6D78EB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GreenUp.Web.Core", "GreenUp.Web.Core\GreenUp.Web.Core.csproj", "{F800CB8F-F777-4B83-B855-4F4DFE6D78EB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
