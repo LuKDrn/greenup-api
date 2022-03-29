@@ -2,7 +2,6 @@
 using GreenUp.Core.Business.Orders.Models;
 using GreenUp.Core.Business.Participations.Models;
 using GreenUp.Core.Business.Products.Models;
-using GreenUp.Web.Mvc.Models.Missions;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
