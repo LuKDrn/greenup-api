@@ -45,6 +45,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { ChangePasswordComponent } from './user/change-password/change-password.component';
 import { SubDashboardComponent } from './user/sub-dashboard/sub-dashboard.component';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 @NgModule({
   declarations: [
@@ -92,7 +93,8 @@ import { SubDashboardComponent } from './user/sub-dashboard/sub-dashboard.compon
     MatNativeDateModule,
     CommonModule,
     MatSnackBarModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    MatSlideToggleModule
   ],
   providers: [ProduitsService, MissionsService, ChallengesService, AssociationsService, UserService, BlogService],
 })

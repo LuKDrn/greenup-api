@@ -1,5 +1,9 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { environment } from 'src/environments/environment';
+
+const baseUrl = `${environment.apiURL}`;
+
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +16,7 @@ export class BlogService {
       'Access-Control-Allow-Methods' : 'POST, GET, OPTION',
       'Content-Type':  'application/rss+xml'
     });
-    public url = 'https://localhost:5001/api/blog';
+    public url = `${baseUrl}/api/blog`;
     public urlRSS = 'https://www.actu-environnement.com/flux/rss/environnement/';
     constructor(protected http: HttpClient) {}
 

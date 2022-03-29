@@ -1,1 +1,68 @@
-<p>{{titleTest}} sub-dashboard works!</p>
+<div class="container-fluid">
+    <div class="shadow">
+        <h1>{{ title }}</h1>
+        <div *ngIf="selectedIndex === 3">
+            <div class="row">
+                <h2 class="col-4">Modifier mon profil</h2>
+                <mat-slide-toggle class="col-2" [checked]="isModify" (change)="toggleModify($event)"></mat-slide-toggle>
+            </div>
+            <div class="separation" class="w-100 my-2"></div>
+            <form class="form common-form" [formGroup]="form" #editProfileForm="ngForm">
+                <mat-form-field class="form-field" appearance="outline">
+                    <mat-label for="firstName">Prénom</mat-label>
+                    <input matInput id="firstName" formControlName="firstName" [readonly]="!isModify">
+                </mat-form-field>
+                <br />
+                <mat-form-field class="form-field" appearance="outline">
+                    <mat-label for="lastName">Nom</mat-label>
+                    <input matInput id="lastName" formControlName="lastName" [readonly]="!isModify">
+                </mat-form-field>
+                <br />
+                <mat-form-field appearance="outline">
+                    <mat-label for="birthDate">Date de naissance</mat-label>
+                    <input id="birthDate" matInput [matDatepicker]="birthDate" formControlName="birthdate" [readonly]="!isModify">
+                    <mat-datepicker-toggle matSuffix [for]="birthDate"></mat-datepicker-toggle>
+                    <mat-datepicker #birthDate></mat-datepicker>
+                </mat-form-field>
+                <br />
+                <mat-form-field class="form-field" appearance="outline">
+                    <mat-label for="adress">Adresse</mat-label>
+                    <input matInput id="adress" formControlName="place" [readonly]="!isModify">
+                </mat-form-field>
+                <br />
+                <mat-form-field class="form-field" appearance="outline">
+                    <mat-label for="city">Ville</mat-label>
+                    <input matInput id="city" formControlName="city" [readonly]="!isModify">
+                </mat-form-field>
+                <br />
+                <mat-form-field class="form-field" appearance="outline">
+                    <mat-label for="zipCode">Code Postal</mat-label>
+                    <input matInput type="number" id="zipCode" formControlName="zipCode" [readonly]="!isModify">
+                </mat-form-field>
+                <br />
+                <!-- <button mat-raised-button class="editProfileBtn" type="button" (click)="editProfile() ; $event.preventDefault()">Modifier</button> -->
+            </form>
+            <div class="row">
+                <h2 class="col-6">Modifier mon mot de passe</h2>
+                <mat-slide-toggle class="col-2" [checked]="isModify" (change)="toggleModify($event)"></mat-slide-toggle>
+                <div class="separation" class="w-100 my-2"></div>
+                <form class="form common-form" [formGroup]="form" #editProfileForm="ngForm">
+                    <mat-form-field class="form-field" appearance="outline">
+                        <mat-label for="firstName">Ancien mot de passe</mat-label>
+                        <input matInput id="firstName" formControlName="firstName" [readonly]="!isModify">
+                    </mat-form-field>
+                    <br />
+                    <mat-form-field class="form-field" appearance="outline">
+                        <mat-label for="lastName">Nouveau mot de passe</mat-label>
+                        <input matInput id="lastName" formControlName="lastName" [readonly]="!isModify">
+                    </mat-form-field>
+                    <br />
+                    <mat-form-field class="form-field" appearance="outline">
+                        <mat-label for="lastName">Confirmer nouveau mot de passe</mat-label>
+                        <input matInput id="lastName" formControlName="lastName" [readonly]="!isModify">
+                    </mat-form-field>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

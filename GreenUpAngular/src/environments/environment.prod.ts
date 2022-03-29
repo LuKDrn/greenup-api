@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  apiURL: 'https://greenup-api.herokuapp.com​/' || 'https://localhost:5001/'
 };
