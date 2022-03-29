@@ -36,5 +36,24 @@ namespace GreenUp.Application.Users
                 Thread.Sleep(500);
             }
         }
+
+        public void ContactGreenUp(GetAllUsersInput input)
+        {
+            foreach (var user in input.Users)
+            {
+                SendMailContactBackgroundJobArgs args = new()
+                {
+                    Email = user.Email,
+                    UserName = user.FirstName,
+                    UserPhone = user.PhoneNumber,
+                    Message = input.Message
+                };
+
+                _backgroundJob.Enqueue<SendMailContactJob>((job) => job.Execute(args));
+
+                //On fais une pause dans l'algorithme car le serveur de mail n'autorise pas plus de 3 connexions simultanées.
+                Thread.Sleep(500);
+            }
+        }
     }
 }

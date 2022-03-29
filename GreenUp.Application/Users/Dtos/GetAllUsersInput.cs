@@ -7,5 +7,6 @@ namespace GreenUp.Application.Users.Dtos
     {
         public int MissionId { get; set; }
         public ICollection<UserDataForMail> Users { get; set; } = new List<UserDataForMail>();
+        public string Message { get; set; }
     }
 }

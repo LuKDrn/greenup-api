@@ -4,9 +4,11 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Net\Emailing\EmailTemplates\contact.html" />
     <None Remove="Net\Emailing\EmailTemplates\default.html" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Net\Emailing\EmailTemplates\contact.html" />
     <EmbeddedResource Include="Net\Emailing\EmailTemplates\default.html" />
   </ItemGroup>
   <ItemGroup>

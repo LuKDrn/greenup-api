@@ -50,12 +50,12 @@ namespace GreenUp.Application.Users.Mailing
                 Subject = subject,
                 Body = body.ToMessageBody(),
             };
-            mail.From.Add(new MailboxAddress("GreenUp", "lucas72.derouin@gmail.com"));
+            mail.From.Add(new MailboxAddress("GreenUp", "greenUp.asso@gmail"));
             mail.To.Add(new MailboxAddress(emailAddress, emailAddress));
 
             var client = new SmtpClient();
             await client.ConnectAsync("smtp.gmail.com", 587, SecureSocketOptions.StartTls);
-            await client.AuthenticateAsync("lucas72.derouin@gmail.com", "2Edc-9890Dff");
+            await client.AuthenticateAsync("greenup.asso@gmail.com", "GreenUp_MDS");
             await client.SendAsync(mail);
             await client.DisconnectAsync(true);
         }
