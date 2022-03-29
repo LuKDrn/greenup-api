@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace GreenUp.Application.Users.Dtos.Mailing
+﻿namespace GreenUp.Application.Users.Dtos.Mailing
 {
     public class UserDataForMail
     {
@@ -12,5 +6,6 @@ namespace GreenUp.Application.Users.Dtos.Mailing
         public string Email { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public string PhoneNumber { get; set; }
     }
 }

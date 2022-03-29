@@ -1,4 +1,7 @@
 ﻿using GreenUp.Application.Authentications.Tokens;
+using GreenUp.Application.Users;
+using GreenUp.Application.Users.Dtos;
+using GreenUp.Application.Users.Dtos.Mailing;
 using GreenUp.Core.Business.Missions.Models;
 using GreenUp.Core.Business.Participations.Models;
 using GreenUp.Core.Business.Users.Models;
@@ -19,8 +22,29 @@ namespace GreenUp.Web.Mvc.Controllers.Users
     [Route("api/[controller]")]
     public class UsersController : GreenUpControllerBase
     {
-        public UsersController(GreenUpContext context, IConfiguration config) : base(context, config)
+        protected readonly IUserAppService _userAppService;
+        public UsersController(GreenUpContext context, IConfiguration config, IUserAppService userAppService) : base(context, config)
         {
+            _userAppService = userAppService;
+        }
+
+        [AllowAnonymous]
+        [HttpPost, Route("[action]")]
+        public IActionResult Contact(ContactModel model)
+        {
+            GetAllUsersInput input = new()
+            {
+                Message = model.Message
+            };
+            input.Users.Add(new UserDataForMail
+            {
+                Email = model.Mail,
+                FirstName = model.Name,
+                PhoneNumber = model.Phone,
+            });
+            
+            _userAppService.ContactGreenUp(input);
+            return Ok(new { Message = "Votre message à bien été envoyé." });
         }
 
         [HttpGet, Route("{id}")]
