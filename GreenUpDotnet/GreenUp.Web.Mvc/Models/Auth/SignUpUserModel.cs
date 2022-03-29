@@ -2,9 +2,9 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace GreenUp.Web.Mvc.Models.Users
+namespace GreenUp.Web.Mvc.Models.Auth
 {
-    public class SignUpUserViewModel
+    public class SignUpUserModel
     {
         [Required]
         [EmailAddress]
