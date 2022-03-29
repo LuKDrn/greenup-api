@@ -125,19 +125,6 @@ namespace GreenUp.Web.Mvc
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "GreenUp.Web.Mvc v1"));
             }
 
-            app.Use(async (context, next) =>
-            {
-                await next();
-                if (context.Response.StatusCode == 404)
-                {
-                    context.Request.Path = $"/Home/PageNotFound";
-                    await next();
-                }
-                if (context.Response.StatusCode == 500 || context.Response.StatusCode == 501)
-                {
-                    context.Response.Redirect($"/Home/ErrorWithMessage?type=Server+error&status={context.Response.StatusCode}&debug={context.Response.ContentType}");
-                }
-            });
             app.UseHttpsRedirection();
 
             app.UseRouting();
