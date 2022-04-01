@@ -64,7 +64,7 @@ namespace GreenUp.Web.Mvc.Controllers.Missions
                         ZipCode = mission.Location.ZipCode
                     },
                     AssociationId = mission.AssociationId.ToString(),
-                    AssociationName = mission.Association.FirstName,
+                    AssociationName = mission.Association.LastName,
                     AssociationLogo = mission.Association.Photo,  
                     AssociationAdress = mission.Association.Addresses.Select(a => new OneAdressViewModel
                     {
@@ -299,7 +299,7 @@ namespace GreenUp.Web.Mvc.Controllers.Missions
                 NumberPlaces = mission.NumberPlaces,
                 RewardValue = mission.RewardValue,
                 AssociationId = mission.AssociationId.ToString(),
-                AssociationName = mission.Association.FirstName,
+                AssociationName = mission.Association.LastName,
                 AssociationLogo = mission.Association.Photo,
                 AssociationAdress = mission.Association.Addresses.Select(a => new OneAdressViewModel
                 {
