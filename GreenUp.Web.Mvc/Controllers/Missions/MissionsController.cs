@@ -5,7 +5,7 @@ using GreenUp.Core.Business.Tags.Models;
 using GreenUp.Core.Business.Users.Models;
 using GreenUp.EntityFrameworkCore.Data;
 using GreenUp.Web.Core.Controllers;
-using GreenUp.Web.Mvc.Models.Associations;
+using GreenUp.Web.Mvc.Models.Adresses;
 using GreenUp.Web.Mvc.Models.Missions;
 using GreenUp.Web.Mvc.Models.Participations;
 using Microsoft.AspNetCore.Authorization;
@@ -56,14 +56,24 @@ namespace GreenUp.Web.Mvc.Controllers.Missions
                     IsInGroup = mission.IsInGroup,
                     RewardValue = mission.RewardValue,
                     NumberPlaces = mission.NumberPlaces,
-                    Address = new Address
+                    Address = new OneAdressViewModel
                     {
                         Id = mission.LocationId,
                         City = mission.Location.City,
                         Place = mission.Location.Place,
                         ZipCode = mission.Location.ZipCode
                     },
-                    Association = mission.Association
+                    AssociationId = mission.AssociationId.ToString(),
+                    AssociationName = mission.Association.FirstName,
+                    AssociationLogo = mission.Association.Photo,  
+                    AssociationAdress = mission.Association.Addresses.Select(a => new OneAdressViewModel
+                    {
+                        Id = a.Id,
+                        UserId = a.UserId.ToString(),
+                        City = a.City,
+                        Place = a.Place,
+                        ZipCode = a.ZipCode
+                    }).FirstOrDefault(),
                 });
             }
             return model;
@@ -103,12 +113,39 @@ namespace GreenUp.Web.Mvc.Controllers.Missions
             Mission mission = await GetOneMission(id, true).FirstOrDefaultAsync();
             if (mission != null)
             {
-                var participants = new List<OneParticipantViewModel>();
-                foreach (var user in mission.Participants)
+                OneMissionViewModel model = new()
                 {
-                    participants.Add(ConvertParticipantToViewModel(user));
-                }
-                OneMissionViewModel model = ConvertMissionToViewModel(mission, participants);
+                    Id = mission.Id,
+                    Titre = mission.Title,
+                    Description = mission.Description,
+                    Creation = mission.Creation.ToString("dd/MM/yyyy HH:mm"),
+                    Edit = mission.Edit.ToString("dd/MM/yyyy HH:mm"),
+                    Start = mission.Start.ToString("dd/MM/yyyy HH:mm"),
+                    End = mission.End.ToString("dd/MM/yyyy HH:mm"),
+                    Address = new OneAdressViewModel
+                    {
+                        Id = mission.LocationId,
+                        City = mission.Location.City,
+                        Place = mission.Location.Place,
+                        ZipCode = mission.Location.ZipCode
+                    },
+                    AssociationId = mission.AssociationId.ToString(),
+                    RewardValue = mission.RewardValue,
+                    IsInGroup = mission.IsInGroup,
+                    NumberPlaces = mission.NumberPlaces,
+                    TotalParticipants = mission.Participants.Count,
+                    Tasks = mission.Tasks,
+                    Status = mission.Status,
+                    AssociationName = mission.Association.FirstName,
+                    AssociationAdress = mission.Association.Addresses.Select(a => new OneAdressViewModel
+                    {
+                        Id = a.Id,
+                        UserId = a.UserId.ToString(),
+                        City = a.City,
+                        Place = a.Place,
+                        ZipCode = a.ZipCode
+                    }).FirstOrDefault(),
+                };
                 return model;
             }
             return null;
@@ -261,13 +298,23 @@ namespace GreenUp.Web.Mvc.Controllers.Missions
                 IsInGroup = mission.IsInGroup,
                 NumberPlaces = mission.NumberPlaces,
                 RewardValue = mission.RewardValue,
-                Association = mission.Association,
+                AssociationId = mission.AssociationId.ToString(),
+                AssociationName = mission.Association.FirstName,
+                AssociationLogo = mission.Association.Photo,
+                AssociationAdress = mission.Association.Addresses.Select(a => new OneAdressViewModel
+                {
+                    Id = a.Id,
+                    UserId = a.UserId.ToString(),
+                    City = a.City,
+                    Place = a.Place,
+                    ZipCode = a.ZipCode
+                }).FirstOrDefault(),
                 Status = new Status()
                 {
                     Id = mission.StatusId,
                     Value = mission.Status.Value
                 },
-                Address = new Address()
+                Address = new OneAdressViewModel()
                 {
                     Id = mission.LocationId,
                     Place = mission.Location.Place,
