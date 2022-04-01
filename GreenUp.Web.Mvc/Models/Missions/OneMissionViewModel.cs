@@ -2,6 +2,7 @@
 using GreenUp.Core.Business.Missions.Models;
 using GreenUp.Core.Business.Tags.Models;
 using GreenUp.Core.Business.Users.Models;
+using GreenUp.Web.Mvc.Models.Adresses;
 using GreenUp.Web.Mvc.Models.Participations;
 using System.Collections.Generic;
 
@@ -16,13 +17,16 @@ namespace GreenUp.Web.Mvc.Models.Missions
         public string Edit { get; set; }
         public string Start { get; set; }
         public string End { get; set; }
-        public Address Address { get; set; }
+        public OneAdressViewModel Address { get; set; }
         public string AssociationId { get; set; }
-        public User Association { get; set; }
+        public string AssociationLogo { get; set; }
+        public string AssociationName { get; set; }
+        public OneAdressViewModel AssociationAdress { get; set; }
         public int RewardValue { get; set; }
         public bool IsInGroup { get; set; }
         public int? NumberPlaces { get; set; }
         public Status Status { get; set; }
+        public int TotalParticipants { get; set; }
         public ICollection<MissionTask> Tasks { get; set; } = new List<MissionTask>();
         public ICollection<OneParticipantViewModel> Participants { get; set; } = new List<OneParticipantViewModel>();
         public ICollection<Tag> Tags { get; set; } = new List<Tag>();

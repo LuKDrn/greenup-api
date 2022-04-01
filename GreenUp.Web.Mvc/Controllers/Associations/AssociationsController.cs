@@ -5,6 +5,7 @@ using GreenUp.Core.Business.Participations.Models;
 using GreenUp.Core.Business.Users.Models;
 using GreenUp.EntityFrameworkCore.Data;
 using GreenUp.Web.Core.Controllers;
+using GreenUp.Web.Mvc.Models.Adresses;
 using GreenUp.Web.Mvc.Models.Associations;
 using GreenUp.Web.Mvc.Models.Missions;
 using GreenUp.Web.Mvc.Models.Participations;
@@ -174,9 +175,10 @@ namespace GreenUp.Web.Mvc.Controllers.Associations
                     Id = mission.StatusId,
                     Value = mission.Status.Value
                 },
-                Address = new Address
+                Address = new OneAdressViewModel
                 {
                     Id = mission.LocationId,
+                    UserId = mission.AssociationId.ToString(),
                     Place = mission.Location.Place,
                     City = mission.Location.City,
                     ZipCode = mission.Location.ZipCode
