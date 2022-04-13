@@ -147,12 +147,13 @@ namespace GreenUp.Web.Mvc.Controllers.Associations
         {
             return new OneParticipantViewModel
             {
-                UserId = user.UserId,
+                UserId = user.UserId.ToString(),
                 FirstName = user.User.FirstName,
                 LastName = user.User.LastName,
                 Mail = user.User.Mail,
                 DateInscription = user.DateInscription.ToString("dd/MM/yyyy HH:mm"),
                 Photo = user.User.Photo,
+                PhoneNumber = user.User.PhoneNumber,
             };
         }
 
@@ -170,11 +171,7 @@ namespace GreenUp.Web.Mvc.Controllers.Associations
                 IsInGroup = mission.IsInGroup,
                 NumberPlaces = mission.NumberPlaces,
                 RewardValue = mission.RewardValue,
-                Status = new Status
-                {
-                    Id = mission.StatusId,
-                    Value = mission.Status.Value
-                },
+                Status = mission.Status.Value,
                 Address = new OneAdressViewModel
                 {
                     Id = mission.LocationId,

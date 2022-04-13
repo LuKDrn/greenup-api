@@ -25,7 +25,7 @@ namespace GreenUp.Web.Mvc.Models.Missions
         public int RewardValue { get; set; }
         public bool IsInGroup { get; set; }
         public int? NumberPlaces { get; set; }
-        public Status Status { get; set; }
+        public string Status { get; set; }
         public int TotalParticipants { get; set; }
         public ICollection<MissionTask> Tasks { get; set; } = new List<MissionTask>();
         public ICollection<OneParticipantViewModel> Participants { get; set; } = new List<OneParticipantViewModel>();
