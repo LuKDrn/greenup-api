@@ -25,13 +25,11 @@ namespace GreenUp.Web.Mvc.Controllers.Missions
     public class MissionsController : GreenUpControllerBase
     {
         public MissionsController(GreenUpContext _context, IConfiguration _config) : base(_context, _config)
-        {
-
-        }
+        {}
 
         [AllowAnonymous]
         [HttpGet, Route("List")]
-        public async Task<ActionResult<ICollection<OneMissionViewModel>>> ListMission(string numberOfItems)
+        public async Task<JsonResult> ListMission(string numberOfItems)
         {
             ICollection<Mission> missions = new List<Mission>();
             if (numberOfItems != null)
@@ -65,7 +63,7 @@ namespace GreenUp.Web.Mvc.Controllers.Missions
                     },
                     AssociationId = mission.AssociationId.ToString(),
                     AssociationName = mission.Association.LastName,
-                    AssociationLogo = mission.Association.Photo,  
+                    AssociationLogo = mission.Association.Photo,
                     AssociationAdress = mission.Association.Addresses.Select(a => new OneAdressViewModel
                     {
                         Id = a.Id,
@@ -74,14 +72,27 @@ namespace GreenUp.Web.Mvc.Controllers.Missions
                         Place = a.Place,
                         ZipCode = a.ZipCode
                     }).FirstOrDefault(),
+                    TotalParticipants = mission.Participants.Count,
+                    Tasks = mission.Tasks,
+                    Status = mission.Status.Value,
+                    Participants = mission.Participants.Select(p => new OneParticipantViewModel
+                    {
+                        UserId = p.UserId.ToString(),
+                        DateInscription = p.DateInscription.ToString("dd/MM/yyy HH:mm"),
+                        FirstName = p.User.FirstName,
+                        LastName = p.User.LastName,
+                        Mail = p.User.Mail,
+                        PhoneNumber = p.User.PhoneNumber,
+                        Photo = p.User.Photo,
+                    }).ToList(),
                 });
             }
-            return model;
+            return new JsonResult(model);
         }
 
 
         [HttpGet, Route("GetOneAssociationMissions")]
-        public async Task<ActionResult<ICollection<OneMissionViewModel>>> GetAssociationMissions(Guid associationId)
+        public async Task<JsonResult> GetAssociationMissions(Guid associationId)
         {
             User association = await GetOneAssociation(associationId, false)
                 .Include(a => a.Missions).ThenInclude(m => m.Status)
@@ -101,14 +112,14 @@ namespace GreenUp.Web.Mvc.Controllers.Missions
                     }
                     model.Add(ConvertMissionToViewModel(mission, participants));
                     };
-                return model;
+                return new JsonResult(model);
             }
-            return NotFound($"Aucun association n'a été trouvé");
+            throw new Exception($"Aucun association n'a été trouvé");
         }
 
         [AllowAnonymous]
         [HttpGet, Route("{id}")]
-        public async Task<OneMissionViewModel> Details(int id)
+        public async Task<JsonResult> Details(int id)
         {
             Mission mission = await GetOneMission(id, true).FirstOrDefaultAsync();
             if (mission != null)
@@ -135,8 +146,8 @@ namespace GreenUp.Web.Mvc.Controllers.Missions
                     NumberPlaces = mission.NumberPlaces,
                     TotalParticipants = mission.Participants.Count,
                     Tasks = mission.Tasks,
-                    Status = mission.Status,
-                    AssociationName = mission.Association.FirstName,
+                    Status = mission.Status.Value,
+                    AssociationName = mission.Association.LastName,
                     AssociationAdress = mission.Association.Addresses.Select(a => new OneAdressViewModel
                     {
                         Id = a.Id,
@@ -145,14 +156,25 @@ namespace GreenUp.Web.Mvc.Controllers.Missions
                         Place = a.Place,
                         ZipCode = a.ZipCode
                     }).FirstOrDefault(),
+                    Participants = mission.Participants.Select(p => new OneParticipantViewModel
+                    {
+                        UserId = p.UserId.ToString(),
+                        DateInscription = p.DateInscription.ToString("dd/MM/yyy HH:mm"),
+                        FirstName = p.User.FirstName,
+                        LastName = p.User.LastName,
+                        Mail = p.User.Mail,
+                        PhoneNumber = p.User.PhoneNumber,
+                        Photo = p.User.Photo,
+
+                    }).ToList()
                 };
-                return model;
+                return new JsonResult(model);
             }
-            return null;
+            return new JsonResult(new { Error = "Aucune mission n'a été trouvée." });
         }
 
         [HttpPost, Route("Add")]
-        public async Task<string> Add(CreateOrUpdateMissionViewModel model)
+        public async Task<JsonResult> Add(CreateOrUpdateMissionViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -202,13 +224,13 @@ namespace GreenUp.Web.Mvc.Controllers.Missions
                 }
                 association.Missions.Add(mission);
                 await _context.SaveChangesAsync();
-                return "La mission a bien été créée";
+                return new JsonResult("La mission a bien été créée");
             }
-            return "Informations saisies incorrectes";
+            return new JsonResult(new { Error = "Informations saisies incorrectes" });
         }
 
         [HttpPut, Route("Update")]
-        public async Task<ActionResult<Mission>> Update(CreateOrUpdateMissionViewModel model)
+        public async Task<JsonResult> Update(CreateOrUpdateMissionViewModel model)
         {
             User association = await GetOneAssociation(model.AssociationId, false).Include(a => a.Missions).FirstOrDefaultAsync();
             Mission mission = await GetOneMission((int)model.Id, true).FirstOrDefaultAsync();
@@ -230,22 +252,22 @@ namespace GreenUp.Web.Mvc.Controllers.Missions
                     missionLocation.ZipCode = (int)model.ZipCode;
                     mission.Edit = DateTime.Now;
                     await _context.SaveChangesAsync();
-                    return Ok(new
+                    return new JsonResult(new
                     {
                         mission,
-                        success = $"Les informatinos de la mission de l'association {association.LastName} ont été mises à jours"
+                        Success = $"Les informatinos de la mission de l'association {association.LastName} ont été mises à jours"
                     });
                 }
-                return NotFound(new { error = $"Error : Les informations de cette mission ne sont plus modifiables." });
+                return new JsonResult(new { Error = $"Les informations de cette mission ne sont plus modifiables." });
             }
             else
             {
-                return NotFound(new { error = $"Error : Aucune mission de l'association {association.LastName} n'a été trouvé." });
+                return new JsonResult(new { Error = $"Aucune mission de l'association {association.LastName} n'a été trouvé." });
             }
         }
 
         [HttpDelete, Route("Remove")]
-        public async Task<string> Remove([FromQuery] int missionId, Guid associationId)
+        public async Task<JsonResult> Remove([FromQuery] int missionId, Guid associationId)
         {
             if (ModelState.IsValid)
             {
@@ -265,10 +287,10 @@ namespace GreenUp.Web.Mvc.Controllers.Missions
                 }
                 else
                 {
-                    return $"Error : Aucune mission de l'association {association.LastName} n'a été trouvé à supprimer.";
+                    return new JsonResult(new { Error = $"Aucune mission de l'association {association.LastName} n'a été trouvé à supprimer." });
                 }
             }
-            return "Error : Les informations saisies ne permettent pas une suppression de mission.";
+            return new JsonResult(new { Error = $"Les informations saisies ne permettent pas une suppression de mission." });
         }
 
 
@@ -276,12 +298,13 @@ namespace GreenUp.Web.Mvc.Controllers.Missions
         {
             return new OneParticipantViewModel
             {
-                UserId = user.UserId,
+                UserId = user.UserId.ToString(),
                 FirstName = user.User.FirstName,
                 LastName = user.User.LastName,
                 Mail = user.User.Mail,
                 DateInscription = user.DateInscription.ToString("dd/MM/yyyy HH:mm"),
                 Photo = user.User.Photo,
+                PhoneNumber = user.User.PhoneNumber,
             };
         }
         private static OneMissionViewModel ConvertMissionToViewModel(Mission mission, ICollection<OneParticipantViewModel> participants)
@@ -309,11 +332,7 @@ namespace GreenUp.Web.Mvc.Controllers.Missions
                     Place = a.Place,
                     ZipCode = a.ZipCode
                 }).FirstOrDefault(),
-                Status = new Status()
-                {
-                    Id = mission.StatusId,
-                    Value = mission.Status.Value
-                },
+                Status = mission.Status.Value,
                 Address = new OneAdressViewModel()
                 {
                     Id = mission.LocationId,
@@ -321,6 +340,7 @@ namespace GreenUp.Web.Mvc.Controllers.Missions
                     City = mission.Location.City,
                     ZipCode = mission.Location.ZipCode
                 },
+                TotalParticipants = participants.Count,
                 Tasks = mission.Tasks,
                 Participants = participants
             };
