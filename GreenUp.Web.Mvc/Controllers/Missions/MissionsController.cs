@@ -34,10 +34,10 @@ namespace GreenUp.Web.Mvc.Controllers.Missions
             ICollection<Mission> missions = new List<Mission>();
             if (numberOfItems != null)
             {
-                missions = await _context.Missions.Include(m => m.Status).Include(m => m.Location).Include(m => m.Association.Addresses).AsNoTracking().Take(int.Parse(numberOfItems)).OrderBy(m => m.Creation).ToListAsync();
+                missions = await _context.Missions.Include(m => m.Status).Include(m => m.Location).Include(m => m.Participants).Include(m => m.Association.Addresses).AsNoTracking().Take(int.Parse(numberOfItems)).OrderBy(m => m.Creation).ToListAsync();
             } else
             {
-                missions = await _context.Missions.Include(m => m.Status).Include(m => m.Location).Include(m => m.Association.Addresses).AsNoTracking().OrderBy(m => m.Creation).ToListAsync();
+                missions = await _context.Missions.Include(m => m.Status).Include(m => m.Location).Include(m => m.Participants).Include(m => m.Association.Addresses).AsNoTracking().OrderBy(m => m.Creation).ToListAsync();
             }
             var model = new List<OneMissionViewModel>();
             foreach (var mission in missions)
