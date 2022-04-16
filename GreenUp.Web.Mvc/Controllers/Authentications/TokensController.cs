@@ -27,6 +27,8 @@ namespace GreenUp.Web.Mvc.Controllers.Authentications
 
         [HttpPost]
         [Route("[action]")]
+        [AllowAnonymous]
+        [ApiExplorerSettings(IgnoreApi = true)]
         public async Task<IActionResult> GenerateAdminToken()
         {
             var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey@345"));

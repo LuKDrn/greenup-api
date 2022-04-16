@@ -27,10 +27,6 @@ namespace GreenUp.Web.Mvc.Models.Missions
         public int PointMission { get; set; }
         public bool IsGroup { get; set; }
         public int NombrePlace { get; set; }
-        public ICollection<CreateOrUpdateTaskViewModel> Tasks { get; set; } = new List<CreateOrUpdateTaskViewModel>();
-        public ICollection<Tag> Tags { get; set; } = new List<Tag>();
-        public ICollection<string> SelectedTags  { get; set; } = new List<string>();
-        public ICollection<string> NewTags { get; set; } = new List<string>();
         public ICollection<Status> Statuses { get; set; } = new List<Status>();
         public int SelectedStatus { get; set; } 
     }
