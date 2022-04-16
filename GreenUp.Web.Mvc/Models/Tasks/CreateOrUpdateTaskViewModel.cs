@@ -8,6 +8,5 @@ namespace GreenUp.Web.Mvc.Models.Tasks
         public string Title { get; set; }
         public string Description { get; set; }
         public int MissionId { get; set; }
-        public Mission Mission { get; set; }
     }
 }

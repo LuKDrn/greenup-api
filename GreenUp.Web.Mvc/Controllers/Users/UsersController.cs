@@ -118,30 +118,5 @@ namespace GreenUp.Web.Mvc.Controllers.Users
             return Ok(new { Error = "Aucun utilisateur trouvé" });
         }
 
-        [HttpPost, Route("Inscription")]
-        public async Task<ActionResult> Inscription([FromQuery]int missionId, Guid userId)
-        {
-            Mission mission = await GetOneMission(missionId, false).Include(m => m.Participants).FirstOrDefaultAsync();
-            User user = await GetUser(userId, false).Include(u => u.Missions).FirstOrDefaultAsync();
-            if (mission == null)
-            {
-                return NotFound($"Aucune mission n'a été trouvé.");
-            }          
-            else if(mission.Participants.Count == mission.NumberPlaces)
-            {
-                return Ok(new { error = $"Cette n'enregistre plus de nouvelles inscriptions" });
-            }
-            else
-            {
-                mission.Participants.Add(new Participation
-                {
-                    MissionId = missionId,
-                    UserId = userId,
-                    DateInscription = DateTime.UtcNow
-                });
-                await _context.SaveChangesAsync();
-                return Ok(new { success = $"Participation enregistrée" });
-            }
-        }
     }
 }
