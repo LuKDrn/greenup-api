@@ -1,8 +1,4 @@
-﻿using GreenUp.Core.Business.Addresses.Models;
-using GreenUp.Core.Business.Missions.Models;
-using GreenUp.Core.Business.Tags.Models;
-using GreenUp.Core.Business.Users.Models;
-using GreenUp.Web.Mvc.Models.Adresses;
+﻿using GreenUp.Web.Mvc.Models.Adresses;
 using GreenUp.Web.Mvc.Models.Participations;
 using System.Collections.Generic;
 
@@ -27,9 +23,7 @@ namespace GreenUp.Web.Mvc.Models.Missions
         public int? NumberPlaces { get; set; }
         public string Status { get; set; }
         public int TotalParticipants { get; set; }
-        public ICollection<MissionTask> Tasks { get; set; } = new List<MissionTask>();
         public ICollection<OneParticipantViewModel> Participants { get; set; } = new List<OneParticipantViewModel>();
-        public ICollection<Tag> Tags { get; set; } = new List<Tag>();
 
     }
 }
