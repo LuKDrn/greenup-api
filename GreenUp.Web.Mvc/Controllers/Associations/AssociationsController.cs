@@ -151,7 +151,7 @@ namespace GreenUp.Web.Mvc.Controllers.Associations
             return null;
         }
 
-        [HttpGet, Route("[action]")]
+        [HttpPost, Route("[action]")]
         public async Task<JsonResult> Update([FromBody]UpdateAssociationViewModel model)
         {
             if (ModelState.IsValid)
@@ -166,6 +166,7 @@ namespace GreenUp.Web.Mvc.Controllers.Associations
                 association.WebsiteUrl = model.WebsiteUrl;
                 association.PhoneNumber = model.PhoneNumber;
                 association.Photo = UploadImage(model.NewLogo);
+                await _context.SaveChangesAsync();
                 return new JsonResult(new { Success = $"Les informations de l'association {association.LastName} ont été mises à jour" });
             }
             return new JsonResult(new { Error = $"Les données saisies sont incorrectes et ne permettent pas de mettre à jour l'association." });
