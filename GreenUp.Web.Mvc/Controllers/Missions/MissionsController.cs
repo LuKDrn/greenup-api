@@ -74,7 +74,6 @@ namespace GreenUp.Web.Mvc.Controllers.Missions
                         ZipCode = a.ZipCode
                     }).FirstOrDefault(),
                     TotalParticipants = mission.Participants.Count,
-                    Tasks = mission.Tasks,
                     Status = mission.Status.Value,
                     Participants = mission.Participants.Select(p => new OneParticipantViewModel
                     {
@@ -146,7 +145,6 @@ namespace GreenUp.Web.Mvc.Controllers.Missions
                     IsInGroup = mission.IsInGroup,
                     NumberPlaces = mission.NumberPlaces,
                     TotalParticipants = mission.Participants.Count,
-                    Tasks = mission.Tasks,
                     Status = mission.Status.Value,
                     AssociationName = mission.Association.LastName,
                     AssociationAdress = mission.Association.Addresses.Select(a => new OneAdressViewModel
@@ -383,7 +381,6 @@ namespace GreenUp.Web.Mvc.Controllers.Missions
                     ZipCode = mission.Location.ZipCode
                 },
                 TotalParticipants = participants.Count,
-                Tasks = mission.Tasks,
                 Participants = participants
             };
         }

@@ -105,7 +105,6 @@ namespace GreenUp.Web.Mvc.Controllers.Associations
             return Ok(new { Error = "Model not valid" });
         }
 
-        [Authorize]
         [HttpGet, Route("Dashboard/{id}")]
         public async Task<ActionResult<OneAssociationViewModel>> Dashboard(Guid id)
         {
@@ -122,8 +121,17 @@ namespace GreenUp.Web.Mvc.Controllers.Associations
                     PhoneNumber = association.PhoneNumber,
                     Mail = association.Mail,
                     IsActive = association.IsActive,
-                    Addresses = association.Addresses,
                 };
+                foreach (var address in association.Addresses)
+                {
+                    model.Addresses.Add(new OneAdressViewModel
+                    {
+                        City = address.City,
+                        Id = address.Id,
+                        Place = address.Place, 
+                        ZipCode = address.ZipCode
+                    });
+                }
                 foreach (var mission in association.Missions)
                 {
                     var participants = new List<OneParticipantViewModel>();
@@ -141,6 +149,26 @@ namespace GreenUp.Web.Mvc.Controllers.Associations
                 return model;
             }
             return null;
+        }
+
+        [HttpGet, Route("[action]")]
+        public async Task<JsonResult> Update([FromBody]UpdateAssociationViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var association = await GetOneAssociation(new Guid(model.Id), false).Include(a => a.Addresses).FirstOrDefaultAsync();
+                if(association == null)
+                {
+                    return new JsonResult(new { Error = $"Cette association n'existe pas dans l'application." });
+                }
+                association.Mail = model.Mail;
+                association.LastName = model.Name;
+                association.WebsiteUrl = model.WebsiteUrl;
+                association.PhoneNumber = model.PhoneNumber;
+                association.Photo = UploadImage(model.NewLogo);
+                return new JsonResult(new { Success = $"Les informations de l'association {association.LastName} ont été mises à jour" });
+            }
+            return new JsonResult(new { Error = $"Les données saisies sont incorrectes et ne permettent pas de mettre à jour l'association." });
         }
 
         private static OneParticipantViewModel ConvertUserToParticipantViewModel(Participation user)
@@ -180,7 +208,6 @@ namespace GreenUp.Web.Mvc.Controllers.Associations
                     City = mission.Location.City,
                     ZipCode = mission.Location.ZipCode
                 },
-                Tasks = mission.Tasks,
                 Participants = participants,
             };
         }

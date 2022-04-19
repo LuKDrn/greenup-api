@@ -1,5 +1,6 @@
-﻿using GreenUp.Core.Business.Addresses.Models;
+﻿using GreenUp.Web.Mvc.Models.Adresses;
 using GreenUp.Web.Mvc.Models.Missions;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 
@@ -14,11 +15,12 @@ namespace GreenUp.Web.Mvc.Models.Associations
         public string PhoneNumber { get; set; }
         public string RnaNumber { get; set; }
         public string Logo { get; set; }
+        public IFormFile NewLogo { get; set; }
         public bool IsActive { get; set; }
         public bool IsEmailConfirmed { get; set; }
         public bool IsPhoneNumberConfirmed { get; set; }
         public string WebsiteUrl { get; set; }
-        public ICollection<Address> Addresses { get; set; } = new List<Address>();
+        public ICollection<OneAdressViewModel> Addresses { get; set; } = new List<OneAdressViewModel>();
         public ICollection<OneMissionViewModel> Missions { get; set; } = new List<OneMissionViewModel>();
     }
 }

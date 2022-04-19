@@ -59,16 +59,16 @@ namespace GreenUp.Web.Mvc.Controllers.Authentications
         }
 
         [HttpPost, Route("UpdateConfirmMail")]
-        public async Task<IActionResult> UpdateConfirmMail(string id)
+        public async Task<JsonResult> UpdateConfirmMail(string id)
         {
             var user = await _context.Users.FirstOrDefaultAsync(u => id == u.Id.ToString());
+            if (user.IsEmailConfirmed)
+            {
+                return new JsonResult(new { Error = $"L'adresse {user.Mail} est déjà confirmée." });
+            }
             user.IsEmailConfirmed = true;
             await _context.SaveChangesAsync();
-            return Ok(new
-            {
-                Success = "L'adresse mail a été confirmé",
-                User = user
-            });
+            return new JsonResult(new { Sucess = $"L'adresse {user.Mail} a été confirmée." });
         }
 
         [HttpPost, Route("Login")]
