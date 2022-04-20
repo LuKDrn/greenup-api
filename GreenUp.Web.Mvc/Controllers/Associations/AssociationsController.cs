@@ -93,7 +93,7 @@ namespace GreenUp.Web.Mvc.Controllers.Associations
                 User association = GetAssociationWithRna(model);
                 if(association == null)
                 {
-                    return Unauthorized("Aucune association trouvé avec ce numéro RNA");
+                    return NotFound("Aucune association trouvé avec ce numéro RNA");
                 }
                 else
                 {

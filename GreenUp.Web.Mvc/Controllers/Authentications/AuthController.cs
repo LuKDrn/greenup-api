@@ -59,7 +59,7 @@ namespace GreenUp.Web.Mvc.Controllers.Authentications
         }
 
         [HttpPost, Route("UpdateConfirmMail")]
-        public async Task<IActionResult> UpdateConfirmMail([FromBody]string id)
+        public async Task<IActionResult> UpdateConfirmMail(string id)
         {
             var user = await _context.Users.FirstOrDefaultAsync(u => id == u.Id.ToString());
             if (user != null)
@@ -141,7 +141,7 @@ namespace GreenUp.Web.Mvc.Controllers.Authentications
                         Password = BCrypt.Net.BCrypt.HashPassword(model.Password),
                         FirstName = model.FirstName,
                         LastName = model.LastName,
-                        Birthdate = model.Birthdate,
+                        Birthdate = (DateTime)model.Birthdate,
                         CreationTime = DateTime.Now,
                         Addresses = new List<Address>()
                     };

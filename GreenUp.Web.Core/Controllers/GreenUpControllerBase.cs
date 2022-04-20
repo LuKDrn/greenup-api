@@ -71,6 +71,7 @@ namespace GreenUp.Web.Core.Controllers
                         .ThenInclude(m => m.Status)
                     .Include(u => u.Missions)
                         .ThenInclude(u => u.Participants)
+                            .ThenInclude(p => p.User)
                     .Include(u => u.Missions)
                         .ThenInclude(u => u.Location)
                     .Where(u => u.IsAssociation && u.Id == id);
