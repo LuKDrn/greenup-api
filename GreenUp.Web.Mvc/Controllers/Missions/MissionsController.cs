@@ -276,15 +276,18 @@ namespace GreenUp.Web.Mvc.Controllers.Missions
                 {
                     if (mission.Participants.Count < mission.NumberPlaces)
                     {
-
-                    mission.Participants.Add(new Participation
-                    {
-                        DateInscription = DateTime.UtcNow,
-                        MissionId = model.MissionId,
-                        UserId = new Guid(model.UserId)
-                    });
-                    await _context.SaveChangesAsync();
-                    return Ok($"Inscription réussie et enregistrée.");
+                        if(mission.Participants.Select(p => p.UserId).Contains(new Guid(model.UserId)))
+                        {
+                            return BadRequest($"Cet utilisateur participe déjà à cette mission.");
+                        }
+                        mission.Participants.Add(new Participation
+                        {
+                            DateInscription = DateTime.UtcNow,
+                            MissionId = model.MissionId,
+                            UserId = new Guid(model.UserId)
+                        });
+                        await _context.SaveChangesAsync();
+                        return Ok($"Inscription réussie et enregistrée.");
                     }
                     else
                     {
