@@ -58,7 +58,7 @@ namespace GreenUp.Web.Mvc.Controllers.Authentications
             }
         }
 
-        [HttpPost, Route("UpdateConfirmMail")]
+        [HttpGet, Route("UpdateConfirmMail")]
         public async Task<IActionResult> UpdateConfirmMail(string id)
         {
             var user = await _context.Users.FirstOrDefaultAsync(u => id == u.Id.ToString());
