@@ -32,6 +32,9 @@ namespace GreenUp.Web.Mvc.Controllers.Users
         [HttpPost, Route("[action]")]
         public IActionResult Contact(ContactModel model)
         {
+            if (ModelState.IsValid)
+            {
+
             GetAllUsersInput input = new()
             {
                 Message = model.Message
@@ -41,10 +44,11 @@ namespace GreenUp.Web.Mvc.Controllers.Users
                 Email = model.Mail,
                 FirstName = model.Name,
                 PhoneNumber = model.Phone,
-            });
-            
+            });            
             _userAppService.ContactGreenUp(input);
-            return Ok(new { Message = "Votre message à bien été envoyé." });
+            return Ok("Votre message à bien été envoyé.");
+            }
+            return BadRequest("Les informations saisies ne permettent pas l'envoi du message");
         }
 
         [HttpGet, Route("{id}")]
@@ -81,7 +85,7 @@ namespace GreenUp.Web.Mvc.Controllers.Users
                 };
                 return model;
             }
-                return Ok(new { Error = "Aucun utilisateur trouvé" });
+            return NotFound("Aucun utilisateur trouvé" );
         }
 
         [HttpPut, Route("EditAccount")]
@@ -98,7 +102,7 @@ namespace GreenUp.Web.Mvc.Controllers.Users
                 user.Birthdate = Convert.ToDateTime("model.BirthDate");
                 return user;
             }
-            return Ok("Aucun utilisateur trouvé");
+            return NotFound("Aucun utilisateur trouvé");
         }
 
         [HttpDelete("{id}")]
@@ -113,9 +117,9 @@ namespace GreenUp.Web.Mvc.Controllers.Users
                 };
                 _context.Users.Remove(user);
                 await _context.SaveChangesAsync();
-                return Ok(new { Success = $"Votre compte a été supprimé" });
+                return Ok($"Votre compte a été supprimé");
             }
-            return Ok(new { Error = "Aucun utilisateur trouvé" });
+            return NotFound("Aucun utilisateur trouvé");
         }
 
     }

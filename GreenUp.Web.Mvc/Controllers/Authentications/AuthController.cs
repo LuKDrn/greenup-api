@@ -59,16 +59,21 @@ namespace GreenUp.Web.Mvc.Controllers.Authentications
         }
 
         [HttpPost, Route("UpdateConfirmMail")]
-        public async Task<JsonResult> UpdateConfirmMail(string id)
+        public async Task<IActionResult> UpdateConfirmMail([FromBody]string id)
         {
             var user = await _context.Users.FirstOrDefaultAsync(u => id == u.Id.ToString());
-            if (user.IsEmailConfirmed)
+            if (user != null)
             {
-                return new JsonResult(new { Error = $"L'adresse {user.Mail} est déjà confirmée." });
+
+                if (user.IsEmailConfirmed)
+                {
+                    return BadRequest($"L'adresse {user.Mail} est déjà confirmée.");
+                }
+                user.IsEmailConfirmed = true;
+                await _context.SaveChangesAsync();
+                return Ok($"L'adresse {user.Mail} a été confirmée.");
             }
-            user.IsEmailConfirmed = true;
-            await _context.SaveChangesAsync();
-            return new JsonResult(new { Sucess = $"L'adresse {user.Mail} a été confirmée." });
+            return NotFound("Aucune validation confirmée, aucun utilisateur n'a pu être trouvé");
         }
 
         [HttpPost, Route("Login")]
@@ -152,9 +157,9 @@ namespace GreenUp.Web.Mvc.Controllers.Authentications
                     await SendConfirmMail(user.Id.ToString());
                     return $"Le compte utilisateur {user.Mail} a été crée. Veuillez confirmer votre adresse mail.";
                 }
-                return Ok(new { Error = "Cette adresse mail est déjà utilisé." });
+                return BadRequest("Cette adresse mail est déjà utilisé.");
             }
-            return Ok(new { Error = "Les informations renseignées ne permettent de finaliser l'inscription." });
+            return Unauthorized("Les informations renseignées ne permettent de finaliser l'inscription.");
         }
     }
 }
