@@ -93,7 +93,7 @@ namespace GreenUp.Web.Mvc.Controllers.Associations
                 User association = GetAssociationWithRna(model);
                 if(association == null)
                 {
-                    return NotFound("Aucune association trouvé avec ce numéro RNA");
+                    return Unauthorized("Aucune association trouvé avec ce numéro RNA");
                 }
                 else
                 {
@@ -104,7 +104,7 @@ namespace GreenUp.Web.Mvc.Controllers.Associations
             }
             return Unauthorized("Model not valid");
         }
-
+        [AllowAnonymous]
         [HttpGet, Route("Dashboard/{id}")]
         public async Task<ActionResult<OneAssociationViewModel>> Dashboard(Guid id)
         {
@@ -139,11 +139,10 @@ namespace GreenUp.Web.Mvc.Controllers.Associations
                     {
                         participants.Add(ConvertUserToParticipantViewModel(user));
                     }
-                    var missions = new List<OneMissionViewModel>
+                    model.Missions = new List<OneMissionViewModel>
                     {
                         ConvertMissionToViewModel(mission, participants)
                     };
-
                 }
 
                 return model;
