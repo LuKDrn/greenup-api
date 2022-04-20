@@ -104,7 +104,7 @@ namespace GreenUp.Web.Mvc.Controllers.Associations
             }
             return Unauthorized("Model not valid");
         }
-        [AllowAnonymous]
+
         [HttpGet, Route("Dashboard/{id}")]
         public async Task<ActionResult<OneAssociationViewModel>> Dashboard(Guid id)
         {
@@ -139,12 +139,9 @@ namespace GreenUp.Web.Mvc.Controllers.Associations
                     {
                         participants.Add(ConvertUserToParticipantViewModel(user));
                     }
-                    model.Missions = new List<OneMissionViewModel>
-                    {
-                        ConvertMissionToViewModel(mission, participants)
-                    };
+                    var conversion = ConvertMissionToViewModel(mission, participants);
+                    model.Missions.Add(conversion);
                 }
-
                 return model;
             }
             return null;
@@ -208,6 +205,7 @@ namespace GreenUp.Web.Mvc.Controllers.Associations
                     City = mission.Location.City,
                     ZipCode = mission.Location.ZipCode
                 },
+                TotalParticipants = participants.Count,
                 Participants = participants,
             };
         }
