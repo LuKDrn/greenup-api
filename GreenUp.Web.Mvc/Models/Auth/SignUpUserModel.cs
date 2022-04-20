@@ -22,7 +22,7 @@ namespace GreenUp.Web.Mvc.Models.Auth
         public string ConfirmPassword { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public DateTime Birthdate { get; set; }
+        public DateTime? Birthdate { get; set; }
         public IFormFile Photo { get; set; }
         //[Required]
         public string Adress { get; set; }
