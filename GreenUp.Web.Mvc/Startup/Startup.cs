@@ -3,6 +3,7 @@ using GreenUp.Application.Users;
 using GreenUp.Core;
 using GreenUp.EntityFrameworkCore.Data;
 using GreenUp.EntityFrameworkCore.Data.Seed;
+using GreenUp.Web.Mvc.Hangfire;
 using Hangfire;
 using Hangfire.Dashboard;
 using Hangfire.MemoryStorage;
@@ -133,7 +134,11 @@ namespace GreenUp.Web.Mvc
             app.UseCors("EnableCORS");
             app.UseStatusCodePages();
 
-            app.UseHangfireDashboard("/hangfire");
+            app.UseHangfireDashboard("/hangfire", new DashboardOptions
+            {
+                Authorization = new[] { new MyAuthorizationFilter() },
+                IsReadOnlyFunc = (DashboardContext context) => true
+            });;
 
             app.UseEndpoints(endpoints =>
             {
