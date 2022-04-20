@@ -29,7 +29,7 @@ namespace GreenUp.Web.Mvc.Controllers.Missions
 
         [AllowAnonymous]
         [HttpGet, Route("List")]
-        public async Task<JsonResult> ListMission(string numberOfItems)
+        public async Task<IActionResult> ListMission(string numberOfItems)
         {
             ICollection<Mission> missions = new List<Mission>();
             if (numberOfItems != null)
@@ -87,12 +87,12 @@ namespace GreenUp.Web.Mvc.Controllers.Missions
                     }).ToList(),
                 });
             }
-            return new JsonResult(model);
+            return Ok(model);
         }
 
 
         [HttpGet, Route("GetOneAssociationMissions")]
-        public async Task<JsonResult> GetAssociationMissions(Guid associationId)
+        public async Task<IActionResult> GetAssociationMissions(Guid associationId)
         {
             User association = await GetOneAssociation(associationId, false)
                 .Include(a => a.Missions).ThenInclude(m => m.Status)
@@ -112,14 +112,14 @@ namespace GreenUp.Web.Mvc.Controllers.Missions
                     }
                     model.Add(ConvertMissionToViewModel(mission, participants));
                 };
-                return new JsonResult(model);
+                return Ok(model);
             }
-            throw new Exception($"Aucun association n'a été trouvé");
+            return NotFound($"Aucun association n'a été trouvé");
         }
 
         [AllowAnonymous]
         [HttpGet, Route("{id}")]
-        public async Task<JsonResult> Details(int id)
+        public async Task<IActionResult> Details(int id)
         {
             Mission mission = await GetOneMission(id, true).FirstOrDefaultAsync();
             if (mission != null)
@@ -167,13 +167,13 @@ namespace GreenUp.Web.Mvc.Controllers.Missions
 
                     }).ToList()
                 };
-                return new JsonResult(model);
+                return Ok(model);
             }
-            return new JsonResult(new { Error = "Aucune mission n'a été trouvée." });
+            return NotFound("Aucune mission n'a été trouvée.");
         }
 
         [HttpPost, Route("Add")]
-        public async Task<JsonResult> Add(CreateOrUpdateMissionViewModel model)
+        public async Task<IActionResult> Add(CreateOrUpdateMissionViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -199,13 +199,13 @@ namespace GreenUp.Web.Mvc.Controllers.Missions
                 };
                 association.Missions.Add(mission);
                 await _context.SaveChangesAsync();
-                return new JsonResult("La mission a bien été créée");
+                return Ok("La mission a bien été créée");
             }
-            return new JsonResult(new { Error = "Informations saisies incorrectes" });
+            return BadRequest("Informations saisies incorrectes" );
         }
 
         [HttpPut, Route("Update")]
-        public async Task<JsonResult> Update(CreateOrUpdateMissionViewModel model)
+        public async Task<IActionResult> Update(CreateOrUpdateMissionViewModel model)
         {
             User association = await GetOneAssociation(model.AssociationId, false).Include(a => a.Missions).FirstOrDefaultAsync();
             Mission mission = await GetOneMission((int)model.Id, true).FirstOrDefaultAsync();
@@ -227,22 +227,18 @@ namespace GreenUp.Web.Mvc.Controllers.Missions
                     missionLocation.ZipCode = (int)model.ZipCode;
                     mission.Edit = DateTime.Now;
                     await _context.SaveChangesAsync();
-                    return new JsonResult(new
-                    {
-                        mission,
-                        Success = $"Les informatinos de la mission de l'association {association.LastName} ont été mises à jours"
-                    });
+                    return Ok($"Les informations de la mission de l'association {association.LastName} ont été mises à jours");
                 }
-                return new JsonResult(new { Error = $"Les informations de cette mission ne sont plus modifiables." });
+                return BadRequest($"Les informations de cette mission ne sont plus modifiables.");
             }
             else
             {
-                return new JsonResult(new { Error = $"Aucune mission de l'association {association.LastName} n'a été trouvé." });
+                return NotFound($"Aucune mission de l'association {association.LastName} n'a été trouvé.");
             }
         }
 
         [HttpDelete, Route("Remove")]
-        public async Task<JsonResult> Remove([FromQuery] int missionId, Guid associationId)
+        public async Task<IActionResult> Remove([FromQuery] int missionId, Guid associationId)
         {
             if (ModelState.IsValid)
             {
@@ -260,22 +256,22 @@ namespace GreenUp.Web.Mvc.Controllers.Missions
                         mission.StatusId = 5;
                     }
                     await _context.SaveChangesAsync();
-                    return new JsonResult(new { Success = $"Mission supprimée." });
+                    return Ok($"Mission supprimée.");
                 }
                 else
                 {
-                    return new JsonResult(new { Error = $"Aucune mission de l'association {association.LastName} n'a été trouvé à supprimer." });
+                    return NotFound($"Aucune mission de l'association {association.LastName} n'a été trouvé à supprimer.");
                 }
             }
-            return new JsonResult(new { Error = $"Les informations saisies ne permettent pas une suppression de mission." });
+            return BadRequest($"Les informations saisies ne permettent pas une suppression de mission.");
         }
 
         [HttpPost, Route("[action]")]
-        public async Task<JsonResult> Inscription([FromQuery]string UserId, int missionId)
+        public async Task<IActionResult> Inscription([FromBody]InscriptionModel model)
         {
             if (ModelState.IsValid)
             {
-                var mission = await GetOneMission(missionId, false).Include(m => m.Participants).FirstOrDefaultAsync();
+                var mission = await GetOneMission(model.MissionId, false).Include(m => m.Participants).FirstOrDefaultAsync();
                 if (mission != null)
                 {
                     if (mission.Participants.Count < mission.NumberPlaces)
@@ -284,54 +280,54 @@ namespace GreenUp.Web.Mvc.Controllers.Missions
                     mission.Participants.Add(new Participation
                     {
                         DateInscription = DateTime.UtcNow,
-                        MissionId = missionId,
-                        UserId = new Guid(UserId)
+                        MissionId = model.MissionId,
+                        UserId = new Guid(model.UserId)
                     });
                     await _context.SaveChangesAsync();
-                    return new JsonResult(new { Success = $"Inscription réussie et enregistrée." });
+                    return Ok($"Inscription réussie et enregistrée.");
                     }
                     else
                     {
-                        return new JsonResult(new { Error = $"Inscription impossible, cette mission n'a plus de places disponibles." });
+                        return BadRequest($"Inscription impossible, cette mission n'a plus de places disponibles.");
                     }
                 }
                 else
                 {
-                    return new JsonResult(new { Error = $"Inscription impossible, cette mission n'existe pas." });
+                    return NotFound($"Inscription impossible, cette mission n'existe pas.");
                 }
             }
-            return new JsonResult(new { Error = $"Inscription impossible, les données renseignées sont incorrectes." });
+            return BadRequest($"Inscription impossible, les données renseignées sont incorrectes.");
 
         }
 
         [HttpPost, Route("[action]")]
-        public async Task<JsonResult> Desinscription([FromQuery]string UserId, int missionId)
+        public async Task<IActionResult> Desinscription([FromBody]InscriptionModel model)
         {
             if (ModelState.IsValid)
             {
-                var mission = await GetOneMission(missionId, false).Include(m => m.Participants).FirstOrDefaultAsync();
+                var mission = await GetOneMission(model.MissionId, false).Include(m => m.Participants).FirstOrDefaultAsync();
                 if (mission != null)
                 {
-                    var inscription = mission.Participants.FirstOrDefault(p => p.UserId == new Guid(UserId));
+                    var inscription = mission.Participants.FirstOrDefault(p => p.UserId == new Guid(model.UserId));
                     if (inscription != null)
                     {
                         mission.Participants.Remove(inscription);
                         _context.Participations.Remove(inscription);
                         await _context.SaveChangesAsync();
-                        return new JsonResult(new { Success = $"Desinscription enregistrée, l'utilisateur ne participe plus à cette mission." });
+                        return Ok($"Desinscription enregistrée, l'utilisateur ne participe plus à cette mission.");
                     }
                     else
                     {
-                        return new JsonResult(new { Error = $"Desinscription impossible, cette utilisateur n'est pas inscrit à cette mission." });
+                        return BadRequest($"Desinscription impossible, cette utilisateur n'est pas inscrit à cette mission.");
 
                     }
                 }
                 else
                 {
-                    return new JsonResult(new { Error = $"Desinscription impossible, cette mission n'existe pas." });
+                    return NotFound($"Desinscription impossible, cette mission n'existe pas.");
                 }
             }
-            return new JsonResult(new { Error = $"Desinscription impossible, les données renseignées sont incorrectes." });
+            return BadRequest($"Desinscription impossible, les données renseignées sont incorrectes.");
         }
 
         private static OneParticipantViewModel ConvertParticipantToViewModel(Participation user)

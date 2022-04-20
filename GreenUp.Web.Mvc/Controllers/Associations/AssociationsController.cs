@@ -93,7 +93,7 @@ namespace GreenUp.Web.Mvc.Controllers.Associations
                 User association = GetAssociationWithRna(model);
                 if(association == null)
                 {
-                    return Ok(new { Error = "Aucune association trouvé avec ce numéro RNA" });
+                    return Unauthorized("Aucune association trouvé avec ce numéro RNA");
                 }
                 else
                 {
@@ -102,7 +102,7 @@ namespace GreenUp.Web.Mvc.Controllers.Associations
                     return association;
                 }
             }
-            return Ok(new { Error = "Model not valid" });
+            return Unauthorized("Model not valid");
         }
 
         [HttpGet, Route("Dashboard/{id}")]
@@ -152,14 +152,14 @@ namespace GreenUp.Web.Mvc.Controllers.Associations
         }
 
         [HttpPost, Route("[action]")]
-        public async Task<JsonResult> Update([FromBody]UpdateAssociationViewModel model)
+        public async Task<IActionResult> Update([FromBody]UpdateAssociationViewModel model)
         {
             if (ModelState.IsValid)
             {
                 var association = await GetOneAssociation(new Guid(model.Id), false).Include(a => a.Addresses).FirstOrDefaultAsync();
                 if(association == null)
                 {
-                    return new JsonResult(new { Error = $"Cette association n'existe pas dans l'application." });
+                    return NotFound($"Cette association n'existe pas dans l'application.");
                 }
                 association.Mail = model.Mail;
                 association.LastName = model.Name;
@@ -167,9 +167,9 @@ namespace GreenUp.Web.Mvc.Controllers.Associations
                 association.PhoneNumber = model.PhoneNumber;
                 association.Photo = UploadImage(model.NewLogo);
                 await _context.SaveChangesAsync();
-                return new JsonResult(new { Success = $"Les informations de l'association {association.LastName} ont été mises à jour" });
+                return Ok($"Les informations de l'association {association.LastName} ont été mises à jour");
             }
-            return new JsonResult(new { Error = $"Les données saisies sont incorrectes et ne permettent pas de mettre à jour l'association." });
+            return Unauthorized($"Les données saisies sont incorrectes et ne permettent pas de mettre à jour l'association.");
         }
 
         private static OneParticipantViewModel ConvertUserToParticipantViewModel(Participation user)

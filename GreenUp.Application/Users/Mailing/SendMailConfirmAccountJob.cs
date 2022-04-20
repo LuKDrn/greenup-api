@@ -95,7 +95,7 @@ namespace GreenUp.Application.Users.Mailing
 
             mailMessage.AppendLine("<br />");
             mailMessage.AppendLine("<a style=\"" + _emailButtonStyle + "\" bg-color=\"" + _emailButtonColor +
-                                   "\" href=\"" + GreenUpConsts.ApplicationProductionUrl + "/api/Auth/UpdateConfirmMail?id=" + userId + "\">" + "Confirmer" + "</a>");
+                                   "\" href=\"" + GreenUpConsts.ApplicationProductionUrl + "/api/Auth/UpdateConfirmMail/" + userId + "\">" + "Confirmer" + "</a>");
             mailMessage.AppendLine("<p>Cordialement L'équipe GreenUp</p>");
             return mailMessage;
         }
@@ -105,7 +105,7 @@ namespace GreenUp.Application.Users.Mailing
 
             mailMessage.AppendLine("<br />");
             mailMessage.AppendLine("<a style=\"" + _emailEnglishButtonStyle + "\" bg-color=\"" + _emailEnglishButtonColor +
-                                   "\" href=\"" + GreenUpConsts.ApplicationProductionUrl + "/api/Auth/UpdateConfirmMail?id=" + userId + "\">" + "Confirm" + "</a>");
+                                   "\" href=\"" + GreenUpConsts.ApplicationProductionUrl + "/api/Auth/UpdateConfirmMail/" + userId + "\">" + "Confirm" + "</a>");
             mailMessage.AppendLine("<p>Sincerely GreenUp</p>");
             return mailMessage;
         }

@@ -137,7 +137,7 @@ namespace GreenUp.Web.Mvc
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                 endpoints.MapControllers();
             });
             DbInitializer.Initialize(context);
         }
