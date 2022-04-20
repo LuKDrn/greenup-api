@@ -106,7 +106,7 @@ namespace GreenUp.Web.Mvc.Controllers.Associations
         }
 
         [HttpGet, Route("Dashboard/{id}")]
-        public async Task<ActionResult<OneAssociationViewModel>> Dashboard(Guid id)
+        public async Task<ActionResult<OneAssociationViewModel>> Dashboard(string id)
         {
             User association = await GetOneAssociation(id, true).FirstOrDefaultAsync();
             if (association != null)
@@ -152,7 +152,7 @@ namespace GreenUp.Web.Mvc.Controllers.Associations
         {
             if (ModelState.IsValid)
             {
-                var association = await GetOneAssociation(new Guid(model.Id), false).Include(a => a.Addresses).FirstOrDefaultAsync();
+                var association = await GetOneAssociation(model.Id, false).Include(a => a.Addresses).FirstOrDefaultAsync();
                 if(association == null)
                 {
                     return NotFound($"Cette association n'existe pas dans l'application.");

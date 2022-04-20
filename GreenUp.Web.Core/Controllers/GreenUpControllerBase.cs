@@ -61,7 +61,7 @@ namespace GreenUp.Web.Core.Controllers
         }
 
         [ApiExplorerSettings(IgnoreApi = true)]
-        public IQueryable<User> GetOneAssociation(Guid id, bool allIncluded)
+        public IQueryable<User> GetOneAssociation(string id, bool allIncluded)
         {
             if (allIncluded)
             {
@@ -74,10 +74,10 @@ namespace GreenUp.Web.Core.Controllers
                             .ThenInclude(p => p.User)
                     .Include(u => u.Missions)
                         .ThenInclude(u => u.Location)
-                    .Where(u => u.IsAssociation && u.Id == id);
+                    .Where(u => u.IsAssociation && u.Id == new Guid(id));
             }
             return _context.Users
-                .Where(u => u.IsAssociation && u.Id == id);
+                .Where(u => u.IsAssociation && u.Id == new Guid(id));
         }
 
         [HttpPost]

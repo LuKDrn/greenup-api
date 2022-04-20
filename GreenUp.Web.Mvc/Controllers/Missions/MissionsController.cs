@@ -92,7 +92,7 @@ namespace GreenUp.Web.Mvc.Controllers.Missions
 
 
         [HttpGet, Route("GetOneAssociationMissions")]
-        public async Task<IActionResult> GetAssociationMissions(Guid associationId)
+        public async Task<IActionResult> GetAssociationMissions(string associationId)
         {
             User association = await GetOneAssociation(associationId, false)
                 .Include(a => a.Missions).ThenInclude(m => m.Status)
@@ -190,7 +190,7 @@ namespace GreenUp.Web.Mvc.Controllers.Missions
                     IsInGroup = model.IsGroup,
                     Location = new Address()
                     {
-                        UserId = model.AssociationId,
+                        UserId = new Guid(model.AssociationId),
                         Place = model.Adress,
                         City = model.City,
                         ZipCode = (int)model.ZipCode,
@@ -207,38 +207,43 @@ namespace GreenUp.Web.Mvc.Controllers.Missions
         [HttpPut, Route("Update")]
         public async Task<IActionResult> Update(CreateOrUpdateMissionViewModel model)
         {
-            User association = await GetOneAssociation(model.AssociationId, false).Include(a => a.Missions).FirstOrDefaultAsync();
-            Mission mission = await GetOneMission((int)model.Id, true).FirstOrDefaultAsync();
-            if (mission != null && association.Missions.Select(m => m.Id).Contains((int)model.Id))
+            if (ModelState.IsValid)
             {
-                if (mission.Participants.Count == 0)
+                User association = await GetOneAssociation(model.AssociationId, false).Include(a => a.Missions).FirstOrDefaultAsync();
+                Mission mission = await GetOneMission((int)model.Id, true).FirstOrDefaultAsync();
+                if (mission != null && association.Missions.Select(m => m.Id).Contains((int)model.Id))
                 {
-                    mission.Title = model.Titre;
-                    mission.Description = model.Description;
-                    mission.Start = model.DateDebutMission;
-                    mission.End = model.DateFinMission;
-                    mission.RewardValue = model.PointMission;
-                    mission.NumberPlaces = model.NombrePlace;
-                    mission.IsInGroup = model.IsGroup;
-                    mission.StatusId = model.SelectedStatus;
-                    Address missionLocation = mission.Location;
-                    missionLocation.Place = model.Adress;
-                    missionLocation.City = model.City;
-                    missionLocation.ZipCode = (int)model.ZipCode;
-                    mission.Edit = DateTime.Now;
-                    await _context.SaveChangesAsync();
-                    return Ok($"Les informations de la mission de l'association {association.LastName} ont été mises à jours");
+                    if (mission.Participants.Count == 0)
+                    {
+                        mission.Title = model.Titre;
+                        mission.Description = model.Description;
+                        mission.Start = model.DateDebutMission;
+                        mission.End = model.DateFinMission;
+                        mission.RewardValue = model.PointMission;
+                        mission.NumberPlaces = model.NombrePlace;
+                        mission.IsInGroup = model.IsGroup;
+                        mission.StatusId = model.SelectedStatus;
+                        Address missionLocation = mission.Location;
+                        missionLocation.Place = model.Adress;
+                        missionLocation.City = model.City;
+                        missionLocation.ZipCode = (int)model.ZipCode;
+                        mission.Edit = DateTime.Now;
+                        mission.StatusId = model.SelectedStatus;
+                        await _context.SaveChangesAsync();
+                        return Ok($"Les informations de la mission de l'association {association.LastName} ont été mises à jours");
+                    }
+                    return BadRequest($"Les informations de cette mission ne sont plus modifiables.");
                 }
-                return BadRequest($"Les informations de cette mission ne sont plus modifiables.");
+                else
+                {
+                    return NotFound($"Aucune mission de l'association {association.LastName} n'a été trouvé.");
+                }
             }
-            else
-            {
-                return NotFound($"Aucune mission de l'association {association.LastName} n'a été trouvé.");
-            }
+            return BadRequest($"Les informations saises ne permettent pas de mettre à jour cette mission, veuillez réessayer");
         }
 
         [HttpDelete, Route("Remove")]
-        public async Task<IActionResult> Remove([FromQuery] int missionId, Guid associationId)
+        public async Task<IActionResult> Remove([FromQuery] int missionId, string associationId)
         {
             if (ModelState.IsValid)
             {

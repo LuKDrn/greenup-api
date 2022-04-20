@@ -1,6 +1,4 @@
 ﻿using GreenUp.Core.Business.Missions.Models;
-using GreenUp.Core.Business.Tags.Models;
-using GreenUp.Web.Mvc.Models.Tasks;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -11,7 +9,7 @@ namespace GreenUp.Web.Mvc.Models.Missions
     {
         public int? Id { get; set; }
         [Required]
-        public Guid AssociationId { get; set; }
+        public string AssociationId { get; set; }
         [Required]
         public string Titre { get; set; }
         [Required]
