@@ -89,8 +89,9 @@ namespace GreenUp.Web.Mvc.Controllers.Users
             return NotFound("Aucun utilisateur trouvé" );
         }
 
+        [AllowAnonymous]
         [HttpPut, Route("EditAccount")]
-        public async Task<ActionResult<User>> EditProfile([FromBody] OneUserViewModel model)
+        public async Task<IActionResult> EditProfile([FromBody] UpdateUserModel model)
         {
             var user = await GetUser(model.Id, false).Include(u => u.Addresses).FirstOrDefaultAsync();
             if (user != null)
@@ -101,17 +102,12 @@ namespace GreenUp.Web.Mvc.Controllers.Users
                 user.LastName = model.LastName;
                 user.Photo = UploadImage(model.NewPhoto);
                 user.Birthdate = Convert.ToDateTime(model.Birthdate);
-                user.Addresses.Clear();
-                _context.Adresses.RemoveRange(user.Addresses);
-                user.Addresses.Add(new Address
-                {
-                    City = model.City,
-                    ZipCode = model.ZipCode,
-                    Place = model.Place,
-                    UserId = new Guid(model.Id)
-                });
+                var adress = await _context.Adresses.FirstOrDefaultAsync(a => a.UserId.ToString() == model.Id);
+                adress.City = model.City;
+                adress.ZipCode = model.ZipCode;
+                adress.Place = model.Place;
                 await _context.SaveChangesAsync();
-                return user;
+                return Ok($"Information de l'utilisateur {user.FirstName} {user.LastName} modifié.");
             }
             return NotFound("Aucun utilisateur trouvé");
         }

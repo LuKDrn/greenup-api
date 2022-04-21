@@ -30,7 +30,6 @@ namespace GreenUp.Web.Mvc.Models.Users
         public string RnaNumber { get; set; }
         public string SiretNumber { get; set; }
         public string WebsiteUrl { get; set; }
-        public Basket Basket { get; set; }
         public string City { get; set; }
         public int ZipCode { get; set; }
         public string Place { get; set; }

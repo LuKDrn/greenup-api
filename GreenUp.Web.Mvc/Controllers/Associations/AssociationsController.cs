@@ -152,7 +152,7 @@ namespace GreenUp.Web.Mvc.Controllers.Associations
         {
             if (ModelState.IsValid)
             {
-                var association = await GetOneAssociation(model.Id, false).Include(a => a.Addresses).FirstOrDefaultAsync();
+                var association = await GetOneAssociation(model.Id, false).FirstOrDefaultAsync();
                 if(association == null)
                 {
                     return NotFound($"Cette association n'existe pas dans l'application.");
@@ -162,15 +162,10 @@ namespace GreenUp.Web.Mvc.Controllers.Associations
                 association.WebsiteUrl = model.WebsiteUrl;
                 association.PhoneNumber = model.PhoneNumber;
                 association.Photo = UploadImage(model.NewLogo);
-                association.Addresses.Clear();
-                _context.Adresses.RemoveRange(association.Addresses);
-                association.Addresses.Add(new Address
-                {
-                    City = model.City,
-                    Place = model.Place,
-                    ZipCode = model.ZipCode,
-                    UserId = association.Id,
-                });
+                var adress = await _context.Adresses.FirstOrDefaultAsync(a => a.UserId.ToString() == model.Id);
+                adress.City = model.City;
+                adress.Place = model.Place;
+                adress.ZipCode = model.ZipCode;
                 await _context.SaveChangesAsync();
                 return Ok($"Les informations de l'association {association.LastName} ont été mises à jour");
             }
