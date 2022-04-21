@@ -100,6 +100,7 @@ namespace GreenUp.Web.Mvc.Controllers.Users
                 user.LastName = model.LastName;
                 user.Photo = UploadImage(model.NewPhoto);
                 user.Birthdate = Convert.ToDateTime(model.Birthdate);
+                await _context.SaveChangesAsync();
                 return user;
             }
             return NotFound("Aucun utilisateur trouvé");
