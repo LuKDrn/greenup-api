@@ -89,7 +89,6 @@ namespace GreenUp.Web.Mvc.Controllers.Users
             return NotFound("Aucun utilisateur trouvé" );
         }
 
-        [AllowAnonymous]
         [HttpPut, Route("EditAccount")]
         public async Task<IActionResult> EditProfile([FromBody] UpdateUserModel model)
         {

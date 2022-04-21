@@ -201,6 +201,7 @@ namespace GreenUp.Web.Mvc.Controllers.Associations
                 NumberPlaces = mission.NumberPlaces,
                 RewardValue = mission.RewardValue,
                 Status = mission.Status.Value,
+                StatusId = mission.StatusId,
                 Address = new OneAdressViewModel
                 {
                     Id = mission.LocationId,
