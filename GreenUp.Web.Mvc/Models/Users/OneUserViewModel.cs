@@ -34,6 +34,7 @@ namespace GreenUp.Web.Mvc.Models.Users
         public string City { get; set; }
         public int ZipCode { get; set; }
         public string Place { get; set; }
+        public ICollection<Address> Adresses { get; set; } = new List<Address>();
         public ICollection<Participation> Participations { get; set; } = new List<Participation>();
         public ICollection<Favorite> Favorites { get; set; } = new List<Favorite>();
         public ICollection<Order> Orders { get; set; } = new List<Order>();
