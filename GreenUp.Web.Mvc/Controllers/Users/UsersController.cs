@@ -2,6 +2,7 @@
 using GreenUp.Application.Users;
 using GreenUp.Application.Users.Dtos;
 using GreenUp.Application.Users.Dtos.Mailing;
+using GreenUp.Core.Business.Addresses.Models;
 using GreenUp.Core.Business.Missions.Models;
 using GreenUp.Core.Business.Participations.Models;
 using GreenUp.Core.Business.Users.Models;
@@ -91,7 +92,7 @@ namespace GreenUp.Web.Mvc.Controllers.Users
         [HttpPut, Route("EditAccount")]
         public async Task<ActionResult<User>> EditProfile([FromBody] OneUserViewModel model)
         {
-            var user = await GetUser(model.Id, false).FirstOrDefaultAsync();
+            var user = await GetUser(model.Id, false).Include(u => u.Addresses).FirstOrDefaultAsync();
             if (user != null)
             {
                 user.Mail = model.Mail;
@@ -100,6 +101,15 @@ namespace GreenUp.Web.Mvc.Controllers.Users
                 user.LastName = model.LastName;
                 user.Photo = UploadImage(model.NewPhoto);
                 user.Birthdate = Convert.ToDateTime(model.Birthdate);
+                user.Addresses.Clear();
+                _context.Adresses.RemoveRange(user.Addresses);
+                user.Addresses.Add(new Address
+                {
+                    City = model.City,
+                    ZipCode = model.ZipCode,
+                    Place = model.Place,
+                    UserId = new Guid(model.Id)
+                });
                 await _context.SaveChangesAsync();
                 return user;
             }

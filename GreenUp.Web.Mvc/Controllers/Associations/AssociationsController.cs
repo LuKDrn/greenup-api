@@ -162,6 +162,15 @@ namespace GreenUp.Web.Mvc.Controllers.Associations
                 association.WebsiteUrl = model.WebsiteUrl;
                 association.PhoneNumber = model.PhoneNumber;
                 association.Photo = UploadImage(model.NewLogo);
+                association.Addresses.Clear();
+                _context.Adresses.RemoveRange(association.Addresses);
+                association.Addresses.Add(new Address
+                {
+                    City = model.City,
+                    Place = model.Place,
+                    ZipCode = model.ZipCode,
+                    UserId = association.Id,
+                });
                 await _context.SaveChangesAsync();
                 return Ok($"Les informations de l'association {association.LastName} ont été mises à jour");
             }

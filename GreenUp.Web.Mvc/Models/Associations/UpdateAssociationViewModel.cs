@@ -10,5 +10,8 @@ namespace GreenUp.Web.Mvc.Models.Associations
         public string PhoneNumber { get; set; }
         public string WebsiteUrl { get; set; }
         public IFormFile NewLogo { get; set; }
+        public string City { get; set; }
+        public int ZipCode { get; set; }
+        public string Place { get; set; }
     }
 }
