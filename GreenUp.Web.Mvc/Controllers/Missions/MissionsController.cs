@@ -48,10 +48,10 @@ namespace GreenUp.Web.Mvc.Controllers.Missions
                     Id = mission.Id,
                     Titre = mission.Title,
                     Description = mission.Description,
-                    Creation = mission.Creation.ToString("dd/MM/yyyy HH:mm"),
-                    Edit = mission.Edit.ToString("dd/MM/yyyy HH:mm"),
-                    Start = mission.Start.ToString("dd/MM/yyyy HH:mm"),
-                    End = mission.End.ToString("dd/MM/yyyy HH:mm"),
+                    Creation = mission.Creation,
+                    Edit = mission.Edit,
+                    Start = mission.Start,
+                    End = mission.End,
                     IsInGroup = mission.IsInGroup,
                     RewardValue = mission.RewardValue,
                     NumberPlaces = mission.NumberPlaces,
@@ -79,7 +79,7 @@ namespace GreenUp.Web.Mvc.Controllers.Missions
                     Participants = mission.Participants.Select(p => new OneParticipantViewModel
                     {
                         UserId = p.UserId.ToString(),
-                        DateInscription = p.DateInscription.ToString("dd/MM/yyy HH:mm"),
+                        DateInscription = p.DateInscription,
                         FirstName = p.User.FirstName,
                         LastName = p.User.LastName,
                         Mail = p.User.Mail,
@@ -130,10 +130,10 @@ namespace GreenUp.Web.Mvc.Controllers.Missions
                     Id = mission.Id,
                     Titre = mission.Title,
                     Description = mission.Description,
-                    Creation = mission.Creation.ToString("dd/MM/yyyy HH:mm"),
-                    Edit = mission.Edit.ToString("dd/MM/yyyy HH:mm"),
-                    Start = mission.Start.ToString("dd/MM/yyyy HH:mm"),
-                    End = mission.End.ToString("dd/MM/yyyy HH:mm"),
+                    Creation = mission.Creation,
+                    Edit = mission.Edit,
+                    Start = mission.Start,
+                    End = mission.End,
                     Address = new OneAdressViewModel
                     {
                         Id = mission.LocationId,
@@ -160,7 +160,7 @@ namespace GreenUp.Web.Mvc.Controllers.Missions
                     Participants = mission.Participants.Select(p => new OneParticipantViewModel
                     {
                         UserId = p.UserId.ToString(),
-                        DateInscription = p.DateInscription.ToString("dd/MM/yyy HH:mm"),
+                        DateInscription = p.DateInscription,
                         FirstName = p.User.FirstName,
                         LastName = p.User.LastName,
                         Mail = p.User.Mail,
@@ -206,14 +206,14 @@ namespace GreenUp.Web.Mvc.Controllers.Missions
             return BadRequest("Informations saisies incorrectes" );
         }
 
+        [AllowAnonymous]
         [HttpPut, Route("Update")]
         public async Task<IActionResult> Update(CreateOrUpdateMissionViewModel model)
         {
             if (ModelState.IsValid)
-            {
-                User association = await GetOneAssociation(model.AssociationId, false).Include(a => a.Missions).FirstOrDefaultAsync();
+            {   
                 Mission mission = await GetOneMission((int)model.Id, true).FirstOrDefaultAsync();
-                if (mission != null && association.Missions.Select(m => m.Id).Contains((int)model.Id))
+                if (mission != null)
                 {
                     if (mission.StatusId == 1 || mission.StatusId == 3)
                     {
@@ -230,15 +230,14 @@ namespace GreenUp.Web.Mvc.Controllers.Missions
                         missionLocation.City = model.City;
                         missionLocation.ZipCode = (int)model.ZipCode;
                         mission.Edit = DateTime.Now;
-                        mission.StatusId = model.SelectedStatus;
                         await _context.SaveChangesAsync();
-                        return Ok($"Les informations de la mission de l'association {association.LastName} ont été mises à jours");
+                        return Ok(new { Success = $"Les informations de la mission de l'association {mission.Association.LastName} ont été mises à jours" });
                     }
                     return BadRequest($"Les informations de cette mission ne sont plus modifiables, son état actuel l'en empêche");
                 }
                 else
                 {
-                    return NotFound($"Aucune mission de l'association {association.LastName} n'a été trouvé.");
+                    return NotFound($"Aucune mission de l'association {mission.Association.LastName} n'a été trouvé.");
                 }
             }
             return BadRequest($"Les informations saises ne permettent pas de mettre à jour cette mission, veuillez réessayer");
@@ -348,7 +347,7 @@ namespace GreenUp.Web.Mvc.Controllers.Missions
                 FirstName = user.User.FirstName,
                 LastName = user.User.LastName,
                 Mail = user.User.Mail,
-                DateInscription = user.DateInscription.ToString("dd/MM/yyyy HH:mm"),
+                DateInscription = user.DateInscription,
                 Photo = user.User.Photo,
                 PhoneNumber = user.User.PhoneNumber,
             };
@@ -360,10 +359,10 @@ namespace GreenUp.Web.Mvc.Controllers.Missions
                 Id = mission.Id,
                 Titre = mission.Title,
                 Description = mission.Description,
-                Creation = mission.Creation.ToString("dd/MM/yyyy HH:mm"),
-                Edit = mission.Edit.ToString("dd/MM/yyyy HH:mm"),
-                Start = mission.Start.ToString("dd/MM/yyyy HH:mm"),
-                End = mission.End.ToString("dd/MM/yyyy HH:mm"),
+                Creation = mission.Creation,
+                Edit = mission.Edit,
+                Start = mission.Start,
+                End = mission.End,
                 IsInGroup = mission.IsInGroup,
                 NumberPlaces = mission.NumberPlaces,
                 RewardValue = mission.RewardValue,

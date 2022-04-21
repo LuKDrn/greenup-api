@@ -9,7 +9,7 @@ namespace GreenUp.Web.Mvc.Models.Participations
     public class OneParticipantViewModel
     {
         public string UserId { get; set; }
-        public string DateInscription { get; set; }
+        public DateTime DateInscription { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Photo { get; set; }

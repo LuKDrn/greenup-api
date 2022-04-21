@@ -1,5 +1,6 @@
 ﻿using GreenUp.Web.Mvc.Models.Adresses;
 using GreenUp.Web.Mvc.Models.Participations;
+using System;
 using System.Collections.Generic;
 
 namespace GreenUp.Web.Mvc.Models.Missions
@@ -9,10 +10,10 @@ namespace GreenUp.Web.Mvc.Models.Missions
         public int Id { get; set; }
         public string Titre { get; set; }
         public string Description { get; set; }
-        public string Creation { get; set; }
-        public string Edit { get; set; }
-        public string Start { get; set; }
-        public string End { get; set; }
+        public DateTime Creation { get; set; }
+        public DateTime Edit { get; set; }
+        public DateTime Start { get; set; }
+        public DateTime End { get; set; }
         public OneAdressViewModel Address { get; set; }
         public string AssociationId { get; set; }
         public string AssociationLogo { get; set; }
