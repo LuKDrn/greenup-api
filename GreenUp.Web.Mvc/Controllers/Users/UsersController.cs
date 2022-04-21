@@ -52,7 +52,7 @@ namespace GreenUp.Web.Mvc.Controllers.Users
         }
 
         [HttpGet, Route("{id}")]
-        public async Task<ActionResult<OneUserViewModel>> Account(Guid id)
+        public async Task<ActionResult<OneUserViewModel>> Account(string id)
         {
             User user = await GetUser(id, true).FirstOrDefaultAsync();
             if (user != null)
@@ -99,14 +99,14 @@ namespace GreenUp.Web.Mvc.Controllers.Users
                 user.FirstName = model.FirstName;
                 user.LastName = model.LastName;
                 user.Photo = UploadImage(model.NewPhoto);
-                user.Birthdate = Convert.ToDateTime("model.BirthDate");
+                user.Birthdate = Convert.ToDateTime(model.Birthdate);
                 return user;
             }
             return NotFound("Aucun utilisateur trouvé");
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(Guid id)
+        public async Task<IActionResult> Delete([FromQuery]string id)
         {
             var user = await GetUser(id, true).FirstOrDefaultAsync();
             if (user != null)

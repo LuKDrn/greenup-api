@@ -42,7 +42,7 @@ namespace GreenUp.Web.Core.Controllers
         }
 
         [ApiExplorerSettings(IgnoreApi = true)]
-        public IQueryable<User> GetUser(Guid id, bool allInclude)
+        public IQueryable<User> GetUser(string id, bool allInclude)
         {
             if (allInclude)
             {
@@ -54,10 +54,10 @@ namespace GreenUp.Web.Core.Controllers
                         .ThenInclude(p => p.Mission.Association)
                     .Include(u => u.Favorites)
                     .Include(u => u.Orders)
-                    .Where(u => u.IsUser && u.Id == id);
+                    .Where(u => u.IsUser && u.Id.ToString() == id);
             }
             return _context.Users
-                .Where(u => u.IsUser && u.Id == id);
+                .Where(u => u.IsUser && u.Id.ToString() == id);
         }
 
         [ApiExplorerSettings(IgnoreApi = true)]
@@ -74,10 +74,10 @@ namespace GreenUp.Web.Core.Controllers
                             .ThenInclude(p => p.User)
                     .Include(u => u.Missions)
                         .ThenInclude(u => u.Location)
-                    .Where(u => u.IsAssociation && u.Id == new Guid(id));
+                    .Where(u => u.IsAssociation && u.Id.ToString() == id);
             }
             return _context.Users
-                .Where(u => u.IsAssociation && u.Id == new Guid(id));
+                .Where(u => u.IsAssociation && u.Id.ToString() == id);
         }
 
         [HttpPost]

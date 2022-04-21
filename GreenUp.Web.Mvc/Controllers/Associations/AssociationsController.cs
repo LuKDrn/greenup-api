@@ -147,7 +147,7 @@ namespace GreenUp.Web.Mvc.Controllers.Associations
             return null;
         }
 
-        [HttpPost, Route("[action]")]
+        [HttpPut, Route("[action]")]
         public async Task<IActionResult> Update([FromBody]UpdateAssociationViewModel model)
         {
             if (ModelState.IsValid)

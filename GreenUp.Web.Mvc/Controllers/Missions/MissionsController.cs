@@ -91,7 +91,6 @@ namespace GreenUp.Web.Mvc.Controllers.Missions
             return Ok(model);
         }
 
-
         [HttpGet, Route("GetOneAssociationMissions")]
         public async Task<IActionResult> GetAssociationMissions(string associationId)
         {
@@ -206,7 +205,6 @@ namespace GreenUp.Web.Mvc.Controllers.Missions
             return BadRequest("Informations saisies incorrectes" );
         }
 
-        [AllowAnonymous]
         [HttpPut, Route("Update")]
         public async Task<IActionResult> Update(CreateOrUpdateMissionViewModel model)
         {
@@ -231,7 +229,7 @@ namespace GreenUp.Web.Mvc.Controllers.Missions
                         missionLocation.ZipCode = (int)model.ZipCode;
                         mission.Edit = DateTime.Now;
                         await _context.SaveChangesAsync();
-                        return Ok(new { Success = $"Les informations de la mission de l'association {mission.Association.LastName} ont été mises à jours" });
+                        return Ok($"Les informations de la mission de l'association {mission.Association.LastName} ont été mises à jours.");
                     }
                     return BadRequest($"Les informations de cette mission ne sont plus modifiables, son état actuel l'en empêche");
                 }
@@ -272,6 +270,7 @@ namespace GreenUp.Web.Mvc.Controllers.Missions
             return BadRequest($"Les informations saisies ne permettent pas une suppression de mission.");
         }
 
+        [AllowAnonymous]
         [HttpPost, Route("[action]")]
         public async Task<IActionResult> Inscription([FromBody]InscriptionModel model)
         {
@@ -282,7 +281,7 @@ namespace GreenUp.Web.Mvc.Controllers.Missions
                 {
                     if (mission.Participants.Count < mission.NumberPlaces)
                     {
-                        if(mission.Participants.Select(p => p.UserId).Contains(new Guid(model.UserId)))
+                        if(mission.Participants.Select(p => p.UserId.ToString()).Contains(model.UserId))
                         {
                             return BadRequest($"Cet utilisateur participe déjà à cette mission.");
                         }

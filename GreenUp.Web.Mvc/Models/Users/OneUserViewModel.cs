@@ -10,7 +10,7 @@ namespace GreenUp.Web.Mvc.Models.Users
 {
     public class OneUserViewModel
     {
-        public Guid Id { get; set; }
+        public string Id { get; set; }
         public string Mail { get; set; }
         public string Password { get; set; }
         public string FirstName { get; set; }
