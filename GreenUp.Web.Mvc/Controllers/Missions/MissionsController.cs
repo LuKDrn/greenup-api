@@ -75,6 +75,7 @@ namespace GreenUp.Web.Mvc.Controllers.Missions
                     }).FirstOrDefault(),
                     TotalParticipants = mission.Participants.Count,
                     Status = mission.Status.Value,
+                    StatusId = mission.StatusId,
                     Participants = mission.Participants.Select(p => new OneParticipantViewModel
                     {
                         UserId = p.UserId.ToString(),
@@ -146,6 +147,7 @@ namespace GreenUp.Web.Mvc.Controllers.Missions
                     NumberPlaces = mission.NumberPlaces,
                     TotalParticipants = mission.Participants.Count,
                     Status = mission.Status.Value,
+                    StatusId = mission.StatusId,
                     AssociationName = mission.Association.LastName,
                     AssociationAdress = mission.Association.Addresses.Select(a => new OneAdressViewModel
                     {
@@ -213,7 +215,7 @@ namespace GreenUp.Web.Mvc.Controllers.Missions
                 Mission mission = await GetOneMission((int)model.Id, true).FirstOrDefaultAsync();
                 if (mission != null && association.Missions.Select(m => m.Id).Contains((int)model.Id))
                 {
-                    if (mission.Participants.Count == 0)
+                    if (mission.StatusId == 1 || mission.StatusId == 3)
                     {
                         mission.Title = model.Titre;
                         mission.Description = model.Description;
@@ -232,7 +234,7 @@ namespace GreenUp.Web.Mvc.Controllers.Missions
                         await _context.SaveChangesAsync();
                         return Ok($"Les informations de la mission de l'association {association.LastName} ont été mises à jours");
                     }
-                    return BadRequest($"Les informations de cette mission ne sont plus modifiables.");
+                    return BadRequest($"Les informations de cette mission ne sont plus modifiables, son état actuel l'en empêche");
                 }
                 else
                 {
@@ -377,6 +379,7 @@ namespace GreenUp.Web.Mvc.Controllers.Missions
                     ZipCode = a.ZipCode
                 }).FirstOrDefault(),
                 Status = mission.Status.Value,
+                StatusId = mission.StatusId,
                 Address = new OneAdressViewModel()
                 {
                     Id = mission.LocationId,
